@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://d0bbhsi4q7e8q" path="res://scripts/time_system.gd" id="4_time"]
 [ext_resource type="Script" uid="uid://5bpy5fw14k40" path="res://scripts/corruption_system.gd" id="5_corruption"]
 [ext_resource type="Shader" uid="uid://bwo4cjjvjfc1e" path="res://shaders/reality_corruption.gdshader" id="6_shader"]
+[ext_resource type="TileSet" uid="uid://b1pcq3v8x7x7j" path="res://tilesets/placeholder_tileset.tres" id="7_wgw8x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1"]
 shader = ExtResource("6_shader")
@@ -32,6 +33,7 @@ color = Color(1, 1, 1, 0)
 [node name="World" type="Node2D" parent="."]
 
 [node name="TileMap" type="TileMap" parent="World"]
+tile_set = ExtResource("7_wgw8x")
 format = 2
 
 [node name="Player" type="CharacterBody2D" parent="World/TileMap"]
