@@ -1,2 +1,2 @@
-# CHRONO-PILFER
-a game built in two months for hackclub shiba :)
+# chronos
+  > the terminal waits.
