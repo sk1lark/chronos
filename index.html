@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHRONOS Terminal - [LOCKED]</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="terminal-window" class="terminal-window">
+        <div class="title-bar">
+            <span>CHRONOS Terminal - [LOCKED] - C:\SYSTEM\CHRONOS\</span>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div id="terminal">
+            <div id="output"></div>
+            <div class="input-line">
+                <span class="prompt">C:\CHRONOS>&nbsp;</span>
+                <input type="text" id="input" autofocus>
+            </div>
+        </div>
+        <div class="status-bar">
+            <span id="status-left">SYSTEM STATUS: BREACH DETECTED</span>
+            <span id="status-right">CONNECTION: UNSTABLE</span>
+        </div>
+    </div>
+    <div id="warning-overlay" class="warning-overlay"></div>
+    
+    <div id="dialogue-box" class="dialogue-box hidden">
+        <div class="dialogue-title-bar">
+            <span class="dialogue-title">Jordan</span>
+            <div class="dialogue-controls">
+                <div class="dialogue-control-btn">_</div>
+                <div class="dialogue-control-btn">×</div>
+            </div>
+        </div>
+        <div class="vn-dialogue-content">
+            <div class="vn-character-info">
+                <img src="player.jpg" alt="Jordan" class="vn-avatar">
+                <div class="vn-character-name">Jordan</div>
+            </div>
+            <div class="vn-text-area">
+                <div id="dialogue-text" class="vn-dialogue-text"></div>
+                <div id="dialogue-continue-prompt" class="vn-continue-prompt hidden">▼</div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="aim-window" class="window hidden">
+        <div class="title-bar">
+            <span class="title">AIM - Instant Message</span>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div class="window-content" id="aim-content"></div>
+    </div>
+
+    <div id="browser-window" class="window hidden">
+        <div class="title-bar browser-titlebar">
+            <img src="All [Without duplicates]/Globe.ico" class="icon" alt="IE">
+            <span class="title">Internet Explorer</span>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div class="menu-bar">
+            <span>File</span>
+            <span>Edit</span>
+            <span>View</span>
+            <span>Favorites</span>
+            <span>Tools</span>
+            <span>Help</span>
+        </div>
+        <div class="browser-toolbar ie-toolbar">
+            <div class="ie-toolbar-left">
+                <button id="browser-back-btn" class="toolbar-btn ie-btn"><img src="All [Without duplicates]/Arrow (up).ico" alt="Back" class="ie-icon-img"><small>Back</small></button>
+                <button id="browser-forward-btn" class="toolbar-btn ie-btn"><img src="All [Without duplicates]/Arrow (down).ico" alt="Forward" class="ie-icon-img"><small>Forward</small></button>
+                <button id="browser-stop-btn" class="toolbar-btn ie-btn"><img src="All [Without duplicates]/Cross.ico" alt="Stop" class="ie-icon-img"><small>Stop</small></button>
+                <button id="browser-refresh-btn" class="toolbar-btn ie-btn"><img src="All [Without duplicates]/Discover.ico" alt="Refresh" class="ie-icon-img"><small>Refresh</small></button>
+                <button id="browser-home-btn" class="toolbar-btn ie-btn"><img src="All [Without duplicates]/Windows 95 logo.ico" alt="Home" class="ie-icon-img"><small>Home</small></button>
+            </div>
+            <div class="ie-toolbar-right">
+                <!-- Address bar hidden (q00ql3 search lives inside browser content). Keep the hidden input so scripts can still write the URL. -->
+                <input type="text" id="browser-url" readonly style="display:none"> 
+            </div>
+        </div>
+        <div class="window-content ie-content" id="browser-content"></div>
+    </div>
+
+    <div id="explorer-window" class="window hidden">
+            <div class="title-bar">
+            <img src="All [Without duplicates]/Opened Folder.ico" class="icon" alt="Explorer" style="width:16px;height:16px;margin-right:6px;">
+            <span class="title">File Explorer</span>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div class="window-content explorer-content" id="explorer-content">
+            <div class="explorer-left" id="explorer-tree">
+                <!-- folder tree -->
+            </div>
+            <div class="explorer-right" id="explorer-main">
+                <!-- file list will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notepad window (auto-opened) -->
+    <div id="notepad-window" class="notepad-window window hidden">
+        <div class="title-bar">
+            <img src="All [Without duplicates]/Notepad.ico" class="icon" alt="Notepad" style="width:16px;height:16px;margin-right:6px;">
+            <span class="title">Notepad</span>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div class="notepad-content">
+            <textarea id="notepad-textarea" placeholder="Type notes here..."></textarea>
+        </div>
+    </div>
+
+    <!-- Unlock modal for password-protected explorer files -->
+    <div id="unlock-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-window">
+            <div class="modal-titlebar">
+                <span class="modal-title">Enter password</span>
+                <div class="modal-controls"><button id="unlock-close">×</button></div>
+            </div>
+            <div class="modal-content">
+                <p id="unlock-prompt">This file is protected. Enter password to unlock:</p>
+                <input type="password" id="unlock-input" placeholder="password">
+                <div class="modal-actions">
+                    <button id="unlock-submit">Unlock</button>
+                    <button id="unlock-cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mediaplayer-window" class="window hidden">
+        <div class="title-bar">
+            <span class="title">Media Player</span>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div class="window-content mediaplayer-content">
+            <p id="mediaplayer-title"></p>
+            <audio id="mediaplayer-audio" controls></audio>
+        </div>
+    </div>
+
+    <div id="imageviewer-window" class="window hidden">
+        <div class="title-bar">
+            <span class="title">Image Viewer</span>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div class="window-content imageviewer-content">
+            <img id="imageviewer-img" src="" alt="corrupted data">
+        </div>
+    </div>
+
+    <div id="alert-window" class="window hidden">
+        <div class="title-bar">
+            <span class="title">System Alert</span>
+            <div class="window-controls">
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div class="window-content alert-content">
+            <div class="alert-icon">!</div>
+            <p id="alert-text"></p>
+            <button id="alert-ok-btn">OK</button>
+        </div>
+    </div>
+    
+    <audio id="alarm-sound" loop>
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmMeAzyLyvLNfCkGI3PC7+CRQQ0PVa3m67hNFW9kzqOHm4uaU5vFZ8v1Qs2PYGlITXyVJ1tZRsq6K/jYGlLOWYGbja1OXpC3OsU6K4rM8rRdGUZ1T2KJ3sb5jGJwgRJMRuCmFKc=" type="audio/wav">
+    </audio>
+    </div>
+    <script src="lore.js"></script>
+    <script src="dialogue.js"></script>
+    <script src="commands.js"></script>
+    <script src="terminal.js"></script>
+</body>
+</html>

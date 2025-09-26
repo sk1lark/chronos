@@ -1,8 +1,0 @@
-[gd_resource type="TileSet" load_steps=0 format=3 uid="uid://b1pcq3v8x7x7j"]
-
-; This is a placeholder TileSet.
-; To configure it:
-; 1. Double-click this file in the Godot FileSystem dock.
-; 2. The TileSet editor will open at the bottom of the screen.
-; 3. Drag your tile graphics (e.g., a .png file) from the FileSystem dock into the left panel of the TileSet editor.
-; 4. Configure your tiles, collision, etc. using the editor.

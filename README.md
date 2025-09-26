@@ -1,2 +1,3 @@
 # chronos
-  > the terminal waits.
+
+> the terminal waits.
