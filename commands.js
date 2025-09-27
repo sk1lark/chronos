@@ -19,6 +19,16 @@ let gameState = {
     }
 };
 
+// small alias map for convenience and flavor: short commands map to lore keys
+const loreAliases = {
+    diary: 'desktop_diary',
+    shopping: 'shopping_list',
+    receipt: 'installation_receipt',
+    resume: 'resume_draft',
+    mail: 'old_mail_draft',
+    hints: 'password_hints'
+};
+
 const commands = {
     help: (args) => {
         let commandList = 'Available commands:\n';
@@ -31,6 +41,8 @@ const commands = {
     },
     read: (args) => {
         let raw = (args[0] || '').toString().trim();
+        // resolve simple aliases like 'diary' -> 'desktop_diary'
+        if (loreAliases[raw]) raw = loreAliases[raw];
         if (!raw) return 'Error: No file specified. Usage: read <filename>';
 
         // Prepare candidates and do case-insensitive matching against lore keys
@@ -158,29 +170,58 @@ const commands = {
         return '';
     },
     ls: (args) => {
-        // If player explicitly requests `ls all`, show the full listing
-        // otherwise reveal a single file each time `ls` is called to pace discovery.
+        // If player explicitly requests `ls all`, show the full listing but
+        // mark files that remain protected/locked. Otherwise reveal one
+        // accessible (unlocked) file at a time to pace discovery and
+        // prevent spamming from dumping the entire directory.
         const firstArg = (args && args[0]) ? args[0].toString().toLowerCase() : '';
         const keys = Object.keys(lore).sort();
 
+        // deterministic small hash to decide what breach level a file requires
+        // NOTE: returns levels 1..4 so that breachLevel === 0 yields no accessible files
+        const requiredLevelFor = (k) => {
+            let s = 0;
+            for (let i = 0; i < k.length; i++) s += k.charCodeAt(i);
+            // produce levels 1..4 (1 == least protected, higher == more protected)
+            return (Math.abs(s) % 4) + 1;
+        };
+
+        const isAccessible = (k) => {
+            return requiredLevelFor(k) <= (gameState.breachLevel || 0);
+        };
+
         if (firstArg === 'all') {
-            const fileList = keys.map(key => {
-                if (lore[key] && lore[key].type) return `${key}.${lore[key].type}`;
-                return `${key}.log`;
-            }).join('\n');
-            return `Directory listing:\n${fileList}`;
+            // Show an ASCII progress bar plus percentage and counts so players
+            // can see how many files are unlocked without dumping the list.
+            let unlockedCount = 0;
+            const total = keys.length;
+            for (const key of keys) if (isAccessible(key)) unlockedCount++;
+            const pctFloat = total === 0 ? 0 : (unlockedCount / total);
+            const pct = Math.round(pctFloat * 100);
+            const barWidth = 20;
+            const filled = Math.round(pctFloat * barWidth);
+            const bar = '[' + '#'.repeat(filled) + '-'.repeat(Math.max(0, barWidth - filled)) + ']';
+            return `Directory listing: ${bar} ${pct}% unlocked (${unlockedCount}/${total})`;
         }
 
-        // Reveal the next file in sequence
-        if (gameState.lsIndex >= keys.length) {
-            // once exhausted, reset pointer and inform player
-            gameState.lsIndex = 0;
-            return 'No more files to reveal.';
+        // Try to reveal the next accessible file, scanning from lsIndex.
+        if (!Number.isInteger(gameState.lsIndex)) gameState.lsIndex = 0;
+        let scanned = 0;
+        const total = keys.length;
+        while (scanned < total) {
+            const idx = gameState.lsIndex % total;
+            const candidate = keys[idx];
+            gameState.lsIndex = (gameState.lsIndex + 1) % total;
+            scanned += 1;
+            if (isAccessible(candidate)) {
+                const display = (lore[candidate] && lore[candidate].type) ? `${candidate}.${lore[candidate].type}` : `${candidate}.log`;
+                return `Found: ${display}`;
+            }
         }
 
-        const nextKey = keys[gameState.lsIndex++];
-        const display = (lore[nextKey] && lore[nextKey].type) ? `${nextKey}.${lore[nextKey].type}` : `${nextKey}.log`;
-        return `Found: ${display}`;
+        // If we scanned everything and nothing is accessible at the current
+        // security level, instruct the player to progress or try unlocking.
+        return 'No accessible files found. Many files are protected — try `unlock <key>` or increase your breach level.';
     }
     ,
     note: (args) => {
@@ -257,6 +298,17 @@ const commands = {
         return 'File explorer not available.';
     }
 };
+
+// Add top-level convenience commands so the player can type `diary` instead of `read diary`.
+for (const alias in loreAliases) {
+    if (!commands[alias]) {
+        commands[alias] = (args) => {
+            // delegate to read
+            return commands.read([loreAliases[alias]]);
+        };
+        commands[alias].description = `Quick-open: ${loreAliases[alias]}`;
+    }
+}
 
 commands.help.description = "Lists all available commands.";
 commands.read.description = "Reads a file from the system.";

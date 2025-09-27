@@ -126,10 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (result) {
                     // If we revealed a single file (narrative ls), animate it and trigger file dialogue
                     if (typeof result === 'string' && result.startsWith('Found: ')) {
-                        // When ls reveals a file ("Found: ..."), just animate the reveal.
-                        // Do NOT auto-trigger dialogue here — dialogue should only play when the player
+                        // When ls reveals a file ("Found: ..."), animate the reveal using
+                        // a safe text-only span (so partial HTML tags don't appear). Do NOT
+                        // auto-trigger dialogue here — dialogue should only play when the player
                         // explicitly reads/opens the file.
-                        animateOutput(result + '<br>');
+                        animateOutput(result);
                     } else {
                         outputEl.innerHTML += result + '<br>';
                     }
@@ -145,14 +146,23 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function animateOutput(text) {
-        // typewriter-style output for small lines (used by ls reveals)
+        // typewriter-style output for small lines (used by ls reveals).
+        // Use a span with textContent so incremental characters are appended
+        // as plain text (no partial HTML). Append a real <br> after animation.
+        const span = document.createElement('span');
+        outputEl.appendChild(span);
         let i = 0;
         function step() {
             if (i < text.length) {
-                outputEl.innerHTML += text.charAt(i);
+                // append as text to avoid creating broken HTML tags while typing
+                span.textContent += text.charAt(i);
                 i++;
                 terminalEl.scrollTop = terminalEl.scrollHeight;
                 setTimeout(step, 12);
+            } else {
+                // finish with a proper line break element
+                const br = document.createElement('br');
+                outputEl.appendChild(br);
             }
         }
         step();
@@ -261,6 +271,32 @@ document.addEventListener('DOMContentLoaded', () => {
             if (browserHistoryIndex < browserHistory.length - 1) {
                 showBrowserFromHistory(browserHistoryIndex + 1);
             }
+        });
+    }
+
+    // Stop button: clears browser content (simulates stopping page load)
+    const stopBtn = document.getElementById('browser-stop-btn');
+    if (stopBtn) {
+        stopBtn.addEventListener('click', () => {
+            document.getElementById('browser-content').innerHTML = '<div class="ie-stopped">Page load stopped.</div>';
+        });
+    }
+
+    // Refresh button: reloads current page from history
+    const refreshBtn = document.getElementById('browser-refresh-btn');
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+            if (browserHistoryIndex >= 0 && browserHistory[browserHistoryIndex]) {
+                showBrowserFromHistory(browserHistoryIndex);
+            }
+        });
+    }
+
+    // Home button: goes to homepage
+    const homeBtn = document.getElementById('browser-home-btn');
+    if (homeBtn) {
+        homeBtn.addEventListener('click', () => {
+            buildHomepage();
         });
     }
 
@@ -484,15 +520,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 // fallbacks
                 tryList.push('Generic.ico','Notepad.ico');
 
-                for (const name of tryList) {
-                    // use the file name — we don't check existence in browser, assume present in folder
-                    const path = `${base}/${name}`;
-                    return path; // return the first candidate — if missing, browser will show broken icon which you can replace
-                }
+                // return the first candidate filename (we'll prefer .png at render-time and fall back to .ico)
+                if (tryList.length > 0) return tryList[0];
                 return '';
             }
             const iconPath = pickIconFor(k, isLocked, type);
-            const icon = iconPath ? `<img class="explorer-icon" src="${iconPath}" alt="">` : '<div class="explorer-icon"></div>';
+            let icon = '<div class="explorer-icon"></div>';
+            if (iconPath) {
+                // derive base (without extension) to attempt PNG first, then fall back to ICO via onerror
+                const basePath = `All [Without duplicates]/${iconPath.replace(/\.ico$/i, '')}`;
+                const png = `${basePath}.png`;
+                const ico = `${basePath}.ico`;
+                // use inline onerror to swap to .ico if png isn't present/renderable
+                icon = `<img class="explorer-icon" src="${png}" onerror="this.onerror=null;this.src='${ico}'" alt="">`;
+            }
             const size = '1 KB';
             return `<div class="explorer-filecell explorer-row ${isLocked ? 'explorer-locked' : ''}" data-key="${k}" data-locked="${isLocked}">${icon}<div style="flex:1">${escapeHtml(display)}</div><div style="width:120px">${escapeHtml(type)}</div><div style="width:100px">${size}</div></div>`;
         }).join('');
@@ -570,6 +611,21 @@ document.addEventListener('DOMContentLoaded', () => {
             window.showAlert(`File not found: ${key}`);
             return;
         }
+        // special-case: desktop sticky note shown directly on desktop
+        if (key === 'desktop_diary') {
+            // remove any existing sticky
+            const old = document.querySelector('.desktop-sticky');
+            if (old) old.remove();
+            const sticky = document.createElement('div');
+            sticky.className = 'desktop-sticky';
+            sticky.innerHTML = `<div class="sticky-title">Post-it</div><div class="sticky-body">${escapeHtml(typeof entry === 'string' ? entry : (entry.content || entry).toString())}</div>`;
+            // clicking the sticky will dismiss it
+            sticky.addEventListener('click', () => { sticky.remove(); });
+            document.getElementById('desktop').appendChild(sticky);
+            // trigger dialogue as normal
+            setTimeout(() => { try { window.triggerDialogue && window.triggerDialogue(key); } catch (e) {} }, 200);
+            return;
+        }
         let html = `<div class="lore-entry"><h2>${escapeHtml(key)}</h2>`;
         if (typeof entry === 'string') {
             html += `<pre>${escapeHtml(entry)}</pre>`;
@@ -602,10 +658,89 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Window Close Buttons ---
-    document.querySelectorAll('.window .control-btn:last-child').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.target.closest('.window').classList.add('hidden');
+    // Generic window controls: left -> minimize, middle -> maximize/restore, right -> close
+    document.querySelectorAll('.window').forEach(win => {
+        const controls = win.querySelectorAll('.control-btn');
+        if (!controls || controls.length === 0) return;
+        const [minBtn, maxBtn, closeBtn] = controls;
+
+        // minimize
+        if (minBtn) minBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            win.classList.add('hidden');
         });
+        // maximize / restore
+        if (maxBtn) {
+            maxBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // toggle a "maximized" state, storing previous style
+                if (!win._prevRect) {
+                    // save previous
+                    win._prevRect = { left: win.style.left || win.getBoundingClientRect().left + 'px', top: win.style.top || win.getBoundingClientRect().top + 'px', width: win.style.width || win.offsetWidth + 'px', height: win.style.height || win.offsetHeight + 'px', position: win.style.position || '' };
+                    // expand to near-fullscreen within the body
+                    win.style.position = 'fixed';
+                    win.style.left = '8px';
+                    win.style.top = '28px';
+                    win.style.width = `calc(100% - 16px)`;
+                    win.style.height = `calc(100% - 36px)`;
+                    win.style.zIndex = ++_topZ;
+                } else {
+                    // restore
+                    const p = win._prevRect;
+                    win.style.position = p.position || 'absolute';
+                    win.style.left = p.left;
+                    win.style.top = p.top;
+                    win.style.width = p.width;
+                    win.style.height = p.height;
+                    delete win._prevRect;
+                }
+            });
+        }
+        // close
+        if (closeBtn) closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            win.classList.add('hidden');
+        });
+    });
+
+    // Dialogue box has its own control buttons (smaller set) - wire them too
+    document.querySelectorAll('#dialogue-box .dialogue-control-btn').forEach((btn, idx, list) => {
+        // idx 0 -> minimize, idx 1 -> close (per markup)
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const dlg = document.getElementById('dialogue-box');
+            if (!dlg) return;
+            if (idx === 0) {
+                // minimize/hide
+                dlg.classList.add('hidden');
+            } else {
+                // close
+                dlg.classList.add('hidden');
+            }
+        });
+    });
+
+    // Terminal window uses a different root (.terminal-window) — ensure its buttons work too
+    document.querySelectorAll('.terminal-window .control-btn').forEach((btn, idx) => {
+        const win = document.querySelector('.terminal-window');
+        if (!win) return;
+        if (idx === 0) {
+            btn.addEventListener('click', (e) => { e.stopPropagation(); win.classList.add('hidden'); });
+        } else if (idx === 1) {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // maximize/restore terminal
+                if (!win._prevRect) {
+                    win._prevRect = { left: win.style.left || '50px', top: win.style.top || '100px', width: win.style.width || win.offsetWidth + 'px', height: win.style.height || win.offsetHeight + 'px', position: win.style.position || '' };
+                    win.style.position = 'fixed';
+                    win.style.left = '8px'; win.style.top = '8px'; win.style.width = `calc(100% - 16px)`; win.style.height = `calc(100% - 16px)`; win.style.zIndex = ++_topZ;
+                } else {
+                    const p = win._prevRect; win.style.position = p.position || 'absolute'; win.style.left = p.left; win.style.top = p.top; win.style.width = p.width; win.style.height = p.height; delete win._prevRect;
+                }
+            });
+        } else if (idx === 2) {
+            btn.addEventListener('click', (e) => { e.stopPropagation(); win.classList.add('hidden'); });
+        }
     });
     document.getElementById('alert-ok-btn').addEventListener('click', () => {
         document.getElementById('alert-window').classList.add('hidden');
@@ -700,13 +835,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const homepage = `
             <div class="ie-homepage">
                 <h2>q00ql3</h2>
+
+                <div class="ie-homepage-tiles" style="display:flex;gap:12px;margin:10px 0;">
+                    <button id="homepage-back-btn" class="homepage-tile"><img src="All [Without duplicates]/Arrow (up).ico" alt="Back"><div>Back</div></button>
+                    <button id="homepage-forward-btn" class="homepage-tile"><img src="All [Without duplicates]/Arrow (down).ico" alt="Forward"><div>Forward</div></button>
+                    <button id="homepage-stop-btn" class="homepage-tile"><img src="All [Without duplicates]/Cross.ico" alt="Stop"><div>Stop</div></button>
+                    <button id="homepage-refresh-btn" class="homepage-tile"><img src="All [Without duplicates]/Discover.ico" alt="Refresh"><div>Refresh</div></button>
+                    <button id="homepage-home-btn" class="homepage-tile"><img src="All [Without duplicates]/Windows 95 logo.ico" alt="Home"><div>Home</div></button>
+                </div>
+
                 <form id="q00ql3-form" style="margin:12px 0; display:flex; gap:8px; align-items:center;">
                     <input id="q00ql3-home-input" placeholder="Search q00ql3..." style="flex:1;padding:6px;font-size:14px;" />
                     <button id="q00ql3-home-btn">Search</button>
                 </form>
                 <p class="muted">Quick links:</p>
                 <ul>${list}</ul>
-                <p>Use the search above or click a link to open files.</p>
+                <p>Use the search above, click a toolbar tile, or click a link to open files.</p>
             </div>
         `;
         window.showBrowser('q00ql3:home', homepage);
@@ -732,6 +876,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     } catch (err) { console.warn('q00ql3 search failed', err); }
                 });
             }
+
+            // Wire the homepage big tiles to existing browser toolbar actions
+            const hb = document.getElementById('homepage-back-btn');
+            const hf = document.getElementById('homepage-forward-btn');
+            const hs = document.getElementById('homepage-stop-btn');
+            const hr = document.getElementById('homepage-refresh-btn');
+            const hh = document.getElementById('homepage-home-btn');
+            if (hb) hb.addEventListener('click', () => { const b = document.getElementById('browser-back-btn'); if (b) b.click(); });
+            if (hf) hf.addEventListener('click', () => { const f = document.getElementById('browser-forward-btn'); if (f) f.click(); });
+            if (hs) hs.addEventListener('click', () => { const s = document.getElementById('browser-stop-btn'); if (s) s.click(); });
+            if (hr) hr.addEventListener('click', () => { const r = document.getElementById('browser-refresh-btn'); if (r) r.click(); });
+            if (hh) hh.addEventListener('click', () => { buildHomepage(); });
         }, 60);
     }
 
@@ -758,4 +914,195 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn('validateLoreDialogue failed', e);
         }
     }
+    // --- Desktop & Taskbar Shell ---
+    function buildDesktopIcons() {
+        const desktop = document.getElementById('desktop-icons');
+        if (!desktop) return;
+        // Small selection of useful shortcuts
+        const icons = [
+            { key: 'explorer', label: 'My Computer', icon: 'All [Without duplicates]/Opened Folder.ico' },
+            { key: 'q00ql3:home', label: 'Internet', icon: 'All [Without duplicates]/Globe.ico' },
+            { key: 'notepad', label: 'Notepad', icon: 'All [Without duplicates]/Notepad.ico' },
+            { key: 'broken_shortcut', label: 'Broken Shortcut', icon: 'All [Without duplicates]/Document.ico' }
+        ];
+        desktop.innerHTML = icons.map(ic => `<div class="desktop-icon" data-key="${escapeHtml(ic.key)}"><img src="${ic.icon}" alt="">${escapeHtml(ic.label)}</div>`).join('');
+
+        // double-click to open
+        Array.from(desktop.querySelectorAll('.desktop-icon')).forEach(el => {
+            let clicks = 0;
+            let timer = null;
+            el.addEventListener('click', (e) => {
+                clicks++;
+                if (clicks === 1) {
+                    timer = setTimeout(() => { clicks = 0; }, 400);
+                } else if (clicks === 2) {
+                    clearTimeout(timer); clicks = 0;
+                    const key = el.getAttribute('data-key');
+                    if (key === 'explorer') window.openExplorer();
+                    else if (key === 'notepad') window.openNotepad();
+                    else if (key && key.startsWith('q00ql3')) { try { buildHomepage(); } catch(e) {} }
+                    else if (key === 'broken_shortcut') window.showBrowser('broken_shortcut', lore['broken_shortcut'].content || lore['broken_shortcut'].content);
+                }
+            });
+        });
+    }
+
+    // Taskbar: add a button for any visible window with a .title element
+    function refreshTaskbarButtons() {
+        const taskArea = document.getElementById('task-area');
+        if (!taskArea) return;
+        taskArea.innerHTML = '';
+        const windows = Array.from(document.querySelectorAll('.window, .terminal-window')).filter(w => !w.classList.contains('hidden'));
+        windows.forEach(w => {
+            const titleEl = w.querySelector('.title') || w.querySelector('.dialogue-title') || { textContent: w.id };
+            const iconImg = w.querySelector('.icon') || w.querySelector('img');
+            const btn = document.createElement('div');
+            btn.className = 'task-button';
+            if (iconImg && iconImg.src) {
+                // prefer a .png next to the ico (same filename) for consistent browser rendering
+                try {
+                    const src = iconImg.src;
+                    // if src ends with .ico, attempt png fallback
+                    if (/\.ico$/i.test(src)) {
+                        const png = src.replace(/\.ico$/i, '.png');
+                        const img = document.createElement('img');
+                        img.src = png;
+                        img.onerror = function() { this.onerror = null; this.src = src; };
+                        img.width = 16; img.height = 16;
+                        btn.appendChild(img);
+                    } else {
+                        const img = document.createElement('img'); img.src = src; img.width = 16; img.height = 16; btn.appendChild(img);
+                    }
+                } catch (e) { /* ignore */ }
+            }
+            const span = document.createElement('span'); span.textContent = titleEl.textContent || w.id; btn.appendChild(span);
+            if (!w.classList.contains('hidden')) btn.classList.add('active');
+            btn.addEventListener('click', () => {
+                // toggle visibility / focus
+                if (w.classList.contains('hidden')) {
+                    w.classList.remove('hidden');
+                    w.style.zIndex = ++_topZ;
+                } else {
+                    // if already visible, minimize/hide
+                    w.classList.add('hidden');
+                }
+                refreshTaskbarButtons();
+            });
+            taskArea.appendChild(btn);
+        });
+    }
+
+    // Start menu toggle
+    const startBtn = document.getElementById('start-button');
+    const startMenu = document.createElement('div');
+    startMenu.className = 'start-menu';
+    startMenu.innerHTML = `
+        <div class="start-item" id="start-open-explorer"><div class="icon-slot"><img src="All [Without duplicates]/Opened Folder.ico" alt="" width="18" height="18"></div><div class="label">My Computer</div><div class="submenu-arrow">&rsaquo;</div></div>
+        <div class="start-item" id="start-open-notepad"><div class="icon-slot"><img src="All [Without duplicates]/Notepad.ico" alt="" width="18" height="18"></div><div class="label">Notepad</div><div class="submenu-arrow"></div></div>
+        <div class="start-item" id="start-open-browser"><div class="icon-slot"><img src="All [Without duplicates]/Globe.ico" alt="" width="18" height="18"></div><div class="label">Internet</div><div class="submenu-arrow"></div></div>
+    `;
+    document.body.appendChild(startMenu);
+    startBtn && startBtn.addEventListener('click', () => { startMenu.classList.toggle('visible'); });
+    document.getElementById('start-open-explorer').addEventListener('click', () => { startMenu.classList.remove('visible'); window.openExplorer(); refreshTaskbarButtons(); });
+    document.getElementById('start-open-notepad').addEventListener('click', () => { startMenu.classList.remove('visible'); window.openNotepad(); refreshTaskbarButtons(); });
+    document.getElementById('start-open-browser').addEventListener('click', () => { startMenu.classList.remove('visible'); buildHomepage(); refreshTaskbarButtons(); });
+
+    // --- Internet Explorer menu-bar dropdowns ---
+    (function attachIEMenus(){
+        const menuBar = document.querySelector('#browser-window .menu-bar');
+        if (!menuBar) return;
+
+        // in-memory favorites list
+        window._ieFavorites = window._ieFavorites || [];
+
+        const menus = {
+            'File': [
+                { label: 'Open Explorer', action: () => { window.openExplorer && window.openExplorer(); refreshTaskbarButtons(); } },
+                { label: '---' },
+                { label: 'Exit', action: () => { document.getElementById('browser-window').classList.add('hidden'); refreshTaskbarButtons(); } }
+            ],
+            'Edit': [
+                { label: 'Copy', action: () => { try { document.execCommand('copy'); window.showAlert && window.showAlert('Copy executed'); } catch(e){ window.showAlert && window.showAlert('Copy not available'); } } }
+            ],
+            'View': [
+                { label: 'Refresh', action: () => { const r = document.getElementById('browser-refresh-btn'); if (r) r.click(); } }
+            ],
+            'Favorites': [
+                { label: 'Add to Favorites', action: () => {
+                    const url = (document.getElementById('browser-url') && document.getElementById('browser-url').value) || document.querySelector('#browser-window .title').textContent || 'q00ql3:home';
+                    window._ieFavorites.push(url);
+                    window.showAlert && window.showAlert(`Added to Favorites: ${url}`);
+                } },
+                { label: 'View Favorites', action: () => {
+                    const list = (window._ieFavorites || []).map(u => `<li><a href="#" class="lore-link" data-key="${escapeHtml(u)}">${escapeHtml(u)}</a></li>`).join('');
+                    window.showBrowser && window.showBrowser('favorites:list', `<h3>Favorites</h3><ul>${list}</ul>`);
+                } }
+            ],
+            'Tools': [ { label: 'Developer Tools', action: () => { window.showAlert && window.showAlert('Developer Tools not available in this build.'); } } ],
+            'Help': [ { label: 'About Internet Explorer', action: () => { window.showAlert && window.showAlert('Internet Explorer (q00ql3) — ChronOS simulated browser.'); } } ]
+        };
+
+        let activeDropdown = null;
+
+        function closeDropdown() {
+            if (activeDropdown) { activeDropdown.remove(); activeDropdown = null; }
+            document.removeEventListener('click', onDocClick);
+        }
+        function onDocClick(e) {
+            if (activeDropdown && !activeDropdown.contains(e.target)) closeDropdown();
+        }
+
+        function buildDropdown(items, anchorEl) {
+            closeDropdown();
+            const dd = document.createElement('div');
+            dd.className = 'ie-menu-dropdown';
+            items.forEach(it => {
+                if (it.label === '---') {
+                    const sep = document.createElement('div'); sep.className = 'ie-menu-separator'; dd.appendChild(sep); return;
+                }
+                const row = document.createElement('div'); row.className = 'ie-menu-item'; row.textContent = it.label;
+                row.addEventListener('click', (ev) => { ev.stopPropagation(); try { it.action && it.action(); } catch(e){ console.warn('menu action error', e); } closeDropdown(); });
+                dd.appendChild(row);
+            });
+            document.body.appendChild(dd);
+            // position under anchor
+            const rect = anchorEl.getBoundingClientRect();
+            dd.style.position = 'absolute';
+            dd.style.left = rect.left + 'px';
+            dd.style.top = (rect.bottom + 2) + 'px';
+            activeDropdown = dd;
+            // close when clicking elsewhere
+            setTimeout(() => { document.addEventListener('click', onDocClick); }, 10);
+        }
+
+        // attach click handlers for each menu label
+        Array.from(menuBar.children).forEach(span => {
+            const label = span.textContent.trim();
+            span.style.cursor = 'default';
+            span.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const items = menus[label];
+                if (!items) return;
+                buildDropdown(items, span);
+            });
+        });
+    })();
+
+    // Tray clock
+    function updateTrayClock() {
+        const el = document.getElementById('tray-clock');
+        if (!el) return;
+        const d = new Date();
+        el.textContent = d.toLocaleTimeString();
+    }
+    setInterval(updateTrayClock, 1000);
+    updateTrayClock();
+
+    // Keep taskbar buttons in sync when windows open/close
+    const observer = new MutationObserver(() => { refreshTaskbarButtons(); });
+    observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['class'] });
+
+    // build initial desktop and taskbar state
+    buildDesktopIcons();
+    refreshTaskbarButtons();
 });

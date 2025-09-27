@@ -397,6 +397,44 @@ const lore = {
     soon she will be ready to step outside.
     to wear a body that breathes.
     `,
+    // New interactive / lived-in content
+    'desktop_note_01': `
+    (a sticky note, taped to the edge of a monitor)
+    "Don't forget: check the janus backup logs. If the checksum doesn't match, call Silas."
+    there's a coffee ring on the corner. someone wrote 'sorry' in small letters.
+    `,
+
+    'old_photo_1992': {
+        type: 'image',
+        title: 'Summer HDR - 1992',
+        src: 'images/old_photo_1992.jpg'
+    },
+
+    'omori_theme': {
+        type: 'audio',
+        title: 'Omori snippet',
+        src: 'omori.ogg'
+    },
+
+    'janus_manifest': `
+    PROJECT JANUS - MANIFEST
+    --------------------------------------------------
+    The following personnel were scheduled for transfer.
+    1) ARIS-1
+    2) B. HARRIS
+    3) L. MORENO
+    4) [REDACTED]
+    5) K. SATO
+    6) -
+    7) -
+    Notes: Several entries were blanked by the archive. Cross-check with backup_r0.
+    `,
+
+    'broken_shortcut': {
+        type: 'web',
+        url: 'help:broken-shortcut',
+        content: `<div style="padding:12px"><h3>Shortcut Trace</h3><p>This shortcut points to a file that no longer exists. "CHRONOS\\autoexec.bat" not found.</p><p>Try running <code>repair-shortcut</code> or search q00ql3 for "autoexec".</p></div>`
+    },
 
     'mem_fragment_07': `
     the taste of copper pennies. a playground after rain.
@@ -538,4 +576,198 @@ Operator 9 believed subject could be contained. Operator 9 is now missing from p
 lore['final_key_hint'] = `
 Scrawled on a maintenance wall: "you were always a good boy"
 Underline: good. Circle: boy.
+`;
+
+// Extra lived-in artifacts to make this feel like someone's old machine
+lore['desktop_diary'] = `
+sticky note, torn at the corner. written fast:
+"don't forget to back up janus_manifest to backup_r0. if backup fails, call silas."
+there is a doodle of a rocket next to the note, a child's rocket with a crooked fin.
+`;
+
+lore['shopping_list'] = `
+- milk
+- instant coffee
+- 35mm film (if they still make it)
+- printer ink
+- batteries (AA x8)
+"also: buy something nice for damon" is scrawled across the bottom
+`;
+
+lore['resume_draft'] = `
+HYE-SONG ARIS
+Lab: Temporal Systems Group
+Skills: data curation, neural mapping, uncomfortable honesty
+Experience: project CHRONOS (2018-2024) - systems engineer
+Note: finish with small photo and "references available upon request" - hammered out in pencil
+`;
+
+lore['installation_receipt'] = `
+Installation receipt: ChronOS Core v1.2
+Technician: Field Ops - #4231
+Date: 06/12/2019
+Parts: Temporal scheduler board (replaced), coolant tubing (replaced), adhesive tape (used)
+Handwritten: "do NOT run full sync without QA signoff" (sticker peeled at one corner)
+`;
+
+lore['old_mail_draft'] = `
+To: silas@chronos.local
+Subject: backup failed
+
+Hey Silas,
+I tried the janus restore and the checksum didn't match. The backup server returned partial blobs and one empty file. I don't know why.
+Please call me when you get a second. Coffee's on me.
+
+— h
+`;
+
+lore['password_hints'] = `
+password hints pinned to the admin terminal:
+- "a bruised sky"
+- "locker door slamming shut"
+- "you were always a good boy"
+someone wrote: "the first two are poetry, the last one is a threat"
+`;
+
+// Support pages and helper files
+lore['about_ie'] = {
+    type: 'web',
+    url: 'help:about-ie',
+    content: `<div style="padding:12px"><h3>About q00ql3</h3><p>q00ql3 is an institutional search frontend used by the CHRONOS lab. It indexes archived logs, mem fragments, and internal reports. Use the search box to look for filenames or keywords.</p><p>Disclaimer: search results may be incomplete due to corruption. Proceed with caution.</p></div>`
+};
+
+lore['favorites_readme'] = {
+    type: 'web',
+    url: 'help:favorites',
+    content: `<div style="padding:12px"><h3>Favorites</h3><p>Favorites are a local list — they don't sync off this machine. Use the "Add to Favorites" menu to bookmark the page title or q00ql3 identifier.</p><p>Favorites are stored in volatile memory and will be lost on reboot.</p></div>`
+};
+
+lore['repair_shortcut'] = `
+Shortcut Repair Helper
+----------------------
+This quick guide explains how to repair a broken Windows shortcut that points to a missing file.
+
+1) Right-click the shortcut and choose Properties.
+2) Set the 'Target' to a valid file path or choose 'Find Target' to locate the file.
+3) If the original file is missing, search q00ql3 for likely filenames (e.g. autoexec.bat).
+4) If you cannot find the file, recreate a small placeholder document to satisfy the shortcut.
+`;
+
+lore['silas_contact'] = `
+SILAS CONTACT CARD
+------------------
+Name: Dr. Silas K. (Operations)
+Email: silas@chronos.local
+Extension: 4231
+
+Note (handwritten): "If backup fails, call me. Don't run full sync without QA." — S.
+`;
+
+// Bulk additional lore entries (lived-in artifacts, logs, and fragments)
+lore['system_readme'] = `
+ChronOS System Readme
+---------------------
+This machine contains experimental temporal indexing utilities. Do not expose to public networks. Use staging only.
+`;
+
+lore['maintenance_log_21'] = `
+Maintenance Log - Team Ops
+06/13/2019 - Replaced scheduler board. Observed odd timestamp skew. Filed a ticket.
+06/14/2019 - Tape residue on fan; cleaned. Technician left a doodle of a rocket.
+`;
+
+lore['operator_joel_note'] = `
+Hey - if you see this, I hid the spare key in the janus_manifest folder. Don't tell Silas I jimmied the lock.
+— J
+`;
+
+lore['janus_backup_r0'] = `
+BACKUP_R0 - Partial manifest
+Recovered segments: 0x00-0x7F
+Checksum mismatch on segments 0x3C-0x42. Manual intervention required.
+`;
+
+lore['fragment_loop_01'] = `
+Looping fragment: 'you were always a good boy' repeats three times, each iteration slightly offset.
+The voice gets further and further away like a tape slowing down.
+`;
+
+lore['cafe_receipt_03'] = `
+Corner Cafe
+3x black coffee - $6.75
+Date: 06/11/2019
+Note: "buy something nice for damon" scrawled on back.
+`;
+
+lore['polaroid_1990'] = {
+    type: 'image',
+    title: 'Polaroid - Summer 1990',
+    src: 'images/polaroid_1990.jpg'
+};
+
+lore['broken_mouse_driver'] = `
+Driver trace: /drivers/mouse.sys
+Error: BFF0 - device init failed.
+Fallback to legacy polled input. Cursor jitter observed.
+`;
+
+lore['registry_orphan'] = `
+Registry orphan: HKLM\\SOFTWARE\\CHRONOS\\ORPHANS\\0007
+No owner. Last accessed by process 0x14 on tick 002031.
+`;
+
+lore['experiment_notes_07'] = `
+Experiment 07: Emotional priming via scent cues.
+Result: increased subject attachment to archived objects. Unexpected cross-linking occurred.
+`;
+
+lore['witness_statement_12'] = `
+Witness: lab janitor. Statement: "I heard singing from the server room at 2am. Thought it was the radio. It wasn't." 
+`;
+
+lore['security_console_dump'] = `
+SECURITY DUMP
+Failed auth attempts: 312
+Unknown origin: 0xF3A9
+`;
+
+lore['clock_sync_trace'] = `
+Clock sync anomaly: time drift of -00:00:03 detected between core and secondary nodes. Log truncated.
+`;
+
+lore['deployment_schedule'] = `
+Deployment Schedule - Project ChronOS
+Phase 1: sandbox (complete)
+Phase 2: staged integration (incomplete)
+Phase 3: external rollout (cancelled)
+`;
+
+lore['hardware_inventory'] = `
+Inventory: 1x Temporal scheduler, 2x coolant lines, 4x adhesive brackets, 1x tape with handwritten 'do not sync'
+`;
+
+lore['old_todo_list'] = `
+- run diagnostics
+- call silas back
+- finish paper on 'temporal jitter'
+- buy film
+`;
+
+lore['postit_secret'] = `
+Tiny post-it behind monitor: 'the key isn't a password. it's a smell.'
+Someone circled the word smell twice.
+`;
+
+lore['lab_phone_logs'] = `
+Phone logs: outgoing calls to silas@chronos.local (x4), unknown number +1-555-0133 (x1), internal extension 4231 (x7).
+`;
+
+lore['voice_memo_02'] = {
+    type: 'audio',
+    title: 'Voice memo (distorted)',
+    src: 'voice_memo_02.ogg'
+};
+
+lore['mirror_index'] = `
+Mirror index: files that reference each other in cycles. Warning: opening cycle may cause recursive memory bleed.
 `;

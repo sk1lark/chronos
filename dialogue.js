@@ -203,4 +203,149 @@ const dialogue = {
         "They scribble keys on walls. Amazing.",
         "'you were always a good boy' — remember the emphasis."
     ]
+    ,
+    'desktop_diary': [
+        "A sticky note taped to a monitor. Small, human things like this make it worse.",
+        "'Call Silas' — someone kept trying to fix it the old way. And a coffee ring. They were rushed."
+    ],
+    'shopping_list': [
+        "Milk and instant coffee. Of course. Life keeps being ordinary even when systems rot.",
+        "'Buy something nice for Damon' — someone's trying to be kind in the middle of this mess."
+    ],
+    'resume_draft': [
+        "A resume. Hye-song had a life with a job title and a photo once.",
+        "It's a reminder: these were people, not just test subjects. Keep that in mind."
+    ],
+    'installation_receipt': [
+        "Installation receipts are the scars of a machine's history.",
+        "Technician #4231. 'Do NOT run full sync without QA' — somebody ignored that."
+    ],
+    'old_mail_draft': [
+        "A short, human email. She tried to keep things polite even when backups failed.",
+        "Coffee's on me. Small kindnesses echo louder here than they should."
+    ],
+    'password_hints': [
+        "Pinned hints. Turning memory into keys is poetic and dangerous.",
+        "If those are real passwords, someone put their life in a nursery rhyme. Be careful."
+    ]
+
+    , 'about_ie': [
+        "q00ql3's homepage. Institutional search — not exactly user-friendly.",
+        "Results might be corrupted. Expect weird hits and broken links."
+    ]
+
+    , 'favorites_readme': [
+        "Favorites are local only. Don't expect them to survive a reboot.",
+        "Useful for temporarily tracking files you care about." 
+    ]
+
+    , 'repair_shortcut': [
+        "Repair shortcuts? That's admin-level paperwork. But doable.",
+        "If you find autoexec.bat, tell me. That file's name keeps coming up." 
+    ]
+
+    , 'silas_contact': [
+        "Silas's contact. Old-school: extension 4231. Someone trusted him once.",
+        "Handwritten note: don't run full sync without QA. Someone ignored it."
+    ]
+
+    , 'system_readme': [
+        "System Readme: basically a 'do not touch' sign. Classic.",
+        "If it says 'do not expose', don't expose it. That's literally the warning."
+    ]
+
+    , 'maintenance_log_21': [
+        "Technician doodles and tape residue — people tried to fix things by hand.",
+        "Someone left a rocket drawing. That keeps recurring."
+    ]
+
+    , 'operator_joel_note': [
+        "Joel hid a spare key? Someone was nervous about locks.",
+        "If he jimmied the lock, that says a lot about lab culture." 
+    ]
+
+    , 'janus_backup_r0': [
+        "Partial backups are the worst — they look whole but lie to you.",
+        "Checksum mismatches mean someone cut corners or something corrupted."
+    ]
+
+    , 'fragment_loop_01': [
+        "A phrase looping and getting slower — like a corrupted memory.",
+        "'You were always a good boy' again. The same echo. Note it."
+    ]
+
+    , 'cafe_receipt_03': [
+        "Coffee receipts and sticky notes. People kept normal things around to feel normal.",
+        "Buy something nice for Damon — the handwriting is tender. Ugh."
+    ]
+
+    , 'polaroid_1990': [
+        "Polaroid: a real human trace. Pictures anchor memories.",
+        "I want to know who took that photo." 
+    ]
+
+    , 'broken_mouse_driver': [
+        "Legacy drivers failing. This box is ancient but stubborn.",
+        "Cursor jitter — another small irritant in a world of big problems." 
+    ]
+
+    , 'registry_orphan': [
+        "Registry orphan — a leftover key nobody owns. Digital detritus.",
+        "HKLM entries like ghosts. They haunt the system." 
+    ]
+
+    , 'experiment_notes_07': [
+        "Emotional priming via scent? That's oddly humane and risky.",
+        "Cross-linking is a red flag. The system is too porous." 
+    ]
+
+    , 'witness_statement_12': [
+        "Someone heard singing at 2am? That's not radio. That's the system.",
+        "Janitorial testimony rarely lies. Keep that note." 
+    ]
+
+    , 'security_console_dump': [
+        "312 failed auths — that's either an attack or a bad policy.",
+        "Unknown origin 0xF3A9 — sketchy. Watch for repeats." 
+    ]
+
+    , 'clock_sync_trace': [
+        "Clock drift by three seconds. Small at first, then catastrophic.",
+        "Temporal bugs are the worst kind — they lie about when you did things." 
+    ]
+
+    , 'deployment_schedule': [
+        "Phase 3 cancelled. Good. Also terrifying that it got that far.",
+        "Sandbox incomplete — someone should've pulled the plug earlier." 
+    ]
+
+    , 'hardware_inventory': [
+        "Adhesive brackets and a tape saying 'do not sync' — somebody left warnings.",
+        "Inventory lists are a boring kind of truth. Respect them." 
+    ]
+
+    , 'old_todo_list': [
+        "Call Silas back. Run diagnostics. Buy film. Someone tried to keep life going.",
+        "Small tasks in a collapsing system. I appreciate the human detail." 
+    ]
+
+    , 'postit_secret': [
+        "The key is a smell? That's poetic and maddening.",
+        "Someone circled smell twice. That pattern matters." 
+    ]
+
+    , 'lab_phone_logs': [
+        "Call history shows repeated calls to Silas. People tried to fix this the right way.",
+        "Unknown number called once — could be someone outside. Or it could be the system dialing itself." 
+    ]
+
+    , 'voice_memo_02': [
+        "Distorted voice memos are like broken postcards from the past.",
+        "Play it loud and your speakers might tell you a story you didn't want." 
+    ]
+
+    , 'mirror_index': [
+        "Files that reference each other in cycles — recursive traps.",
+        "Open one and you risk unspooling a knot of memories. Proceed with caution." 
+    ]
 };

@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Desktop surface: where icons and wallpaper live -->
+    <div id="desktop" class="desktop">
+        <div id="desktop-icons" class="desktop-icons">
+            <!-- icons are injected here by terminal.js -->
+        </div>
+    </div>
+
     <div id="terminal-window" class="terminal-window">
         <div class="title-bar">
             <span>CHRONOS Terminal - [LOCKED] - C:\SYSTEM\CHRONOS\</span>
@@ -202,5 +209,14 @@
     <script src="dialogue.js"></script>
     <script src="commands.js"></script>
     <script src="terminal.js"></script>
+    <!-- Taskbar / Start menu -->
+    <div id="taskbar" class="taskbar">
+        <div id="start-button" class="start-button"><img src="All [Without duplicates]/Windows 95 logo.ico" class="win-sq" alt="Start logo"><span class="start-text">Start</span></div>
+        <div id="task-area" class="task-area"></div>
+        <div id="tray" class="tray">
+            <div id="tray-icons" class="tray-icons"></div>
+            <div id="tray-clock" class="tray-clock"></div>
+        </div>
+    </div>
 </body>
 </html>
