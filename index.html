@@ -4,15 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHRONOS Terminal - [LOCKED]</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1">
 </head>
 <body>
-    <!-- Desktop surface: where icons and wallpaper live -->
-    <div id="desktop" class="desktop">
-        <div id="desktop-icons" class="desktop-icons">
-            <!-- icons are injected here by terminal.js -->
+    <div class="menubar">
+        <div class="apple" title="Apple"></div>
+    <div class="menu-item">Chronos</div>
+    <div class="menu-item">File</div>
+    <div class="menu-item">Edit</div>
+    <div class="menu-item">View</div>
+    <div class="menu-item">Label</div>
+    <div class="menu-item">Special</div>
+        <div class="menuright">
+            <div class="menu-item">7:48 PM</div>
         </div>
     </div>
+    <!-- Desktop surface: where icons and wallpaper live -->
+    <div id="desktop" class="desktop">
+            <div id="desktop-icons" class="desktop-icons">
+            <!-- icons are injected here by terminal.js -->
+        </div>
+        <div class="desktop-trash" id="desktop-trash">Trash</div>
+    </div>
+
+    <!-- Little lived-in detail: a sticky note on the desktop -->
+    <div id="desktop-sticky" class="desktop-sticky">Don't forget: backup ledger before EOD</div>
+    <div class="desktop-sticky" style="left: 200px; top: 100px; background: #ffff7a;">System update pending. Reboot after tasks.</div>
 
     <div id="terminal-window" class="terminal-window">
         <div class="title-bar">
@@ -38,13 +55,6 @@
     <div id="warning-overlay" class="warning-overlay"></div>
     
     <div id="dialogue-box" class="dialogue-box hidden">
-        <div class="dialogue-title-bar">
-            <span class="dialogue-title">Jordan</span>
-            <div class="dialogue-controls">
-                <div class="dialogue-control-btn">_</div>
-                <div class="dialogue-control-btn">×</div>
-            </div>
-        </div>
         <div class="vn-dialogue-content">
             <div class="vn-character-info">
                 <img src="player.jpg" alt="Jordan" class="vn-avatar">
@@ -71,8 +81,7 @@
 
     <div id="browser-window" class="window hidden">
         <div class="title-bar browser-titlebar">
-            <img src="All [Without duplicates]/Globe.ico" class="icon" alt="IE">
-            <span class="title">Internet Explorer</span>
+            <span class="title">Netscape Navigator</span>
             <div class="window-controls">
                 <div class="control-btn">_</div>
                 <div class="control-btn">□</div>
@@ -89,15 +98,15 @@
         </div>
         <div class="browser-toolbar ie-toolbar">
             <div class="ie-toolbar-left">
-                <button id="browser-back-btn" class="toolbar-btn ie-btn"><img src="All [Without duplicates]/Arrow (up).ico" alt="Back" class="ie-icon-img"><small>Back</small></button>
-                <button id="browser-forward-btn" class="toolbar-btn ie-btn"><img src="All [Without duplicates]/Arrow (down).ico" alt="Forward" class="ie-icon-img"><small>Forward</small></button>
-                <button id="browser-stop-btn" class="toolbar-btn ie-btn"><img src="All [Without duplicates]/Cross.ico" alt="Stop" class="ie-icon-img"><small>Stop</small></button>
-                <button id="browser-refresh-btn" class="toolbar-btn ie-btn"><img src="All [Without duplicates]/Discover.ico" alt="Refresh" class="ie-icon-img"><small>Refresh</small></button>
-                <button id="browser-home-btn" class="toolbar-btn ie-btn"><img src="All [Without duplicates]/Windows 95 logo.ico" alt="Home" class="ie-icon-img"><small>Home</small></button>
+                <!-- Compact q00ql3 search box (replaces the old large icon buttons) -->
+                <div class="q00ql3-search">
+                    <input type="text" id="q00ql3-input" placeholder="q00ql3 search" aria-label="Search q00ql3">
+                    <button id="q00ql3-btn">Search</button>
+                </div>
             </div>
             <div class="ie-toolbar-right">
-                <!-- Address bar hidden (q00ql3 search lives inside browser content). Keep the hidden input so scripts can still write the URL. -->
-                <input type="text" id="browser-url" readonly style="display:none"> 
+                <!-- Address bar hidden (browser URL is managed by scripts). Keep the hidden input so scripts can still write the URL. -->
+                <input type="text" id="browser-url" readonly style="display:none">
             </div>
         </div>
         <div class="window-content ie-content" id="browser-content"></div>
@@ -105,8 +114,8 @@
 
     <div id="explorer-window" class="window hidden">
             <div class="title-bar">
-            <img src="All [Without duplicates]/Opened Folder.ico" class="icon" alt="Explorer" style="width:16px;height:16px;margin-right:6px;">
-            <span class="title">File Explorer</span>
+            <img src="All [Without duplicates]/Opened Folder.ico" class="icon" alt="Finder" style="width:16px;height:16px;margin-right:6px;">
+            <span class="title">Finder</span>
             <div class="window-controls">
                 <div class="control-btn">_</div>
                 <div class="control-btn">□</div>
@@ -122,12 +131,58 @@
             </div>
         </div>
     </div>
+    
+        <!-- Accounting application window -->
+        <div id="accounting-window" class="window accounting-window hidden" style="width:520px; height:360px; top:120px; left:520px;">
+            <div class="title-bar browser-titlebar">
+                <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Crect x='1' y='1' width='14' height='14' fill='%23FFFFFF' stroke='%23000000'/%3E%3Cpath d='M11 1 L15 5 L11 5 Z' fill='%23FFFFFF' stroke='%23000000'/%3E%3C/svg%3E" class="icon" alt="" style="width:16px;height:16px;margin-right:6px;">
+                <span class="title">CNSheets Xpress</span>
+                <span id="accounting-conn" class="conn-dot disconnected" title="Disconnected" aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:50%;margin-left:8px;background:#b00;border:1px solid #000"></span>
+                <div class="window-controls">
+                    <div class="control-btn" data-action="minimize">_</div>
+                    <div class="control-btn" data-action="toggle">□</div>
+                    <div class="control-btn" data-action="close">×</div>
+                </div>
+            </div>
+            <div class="menu-bar">
+                <span>File</span>
+                <span>Edit</span>
+                <span>View</span>
+                <span>Favorites</span>
+                <span>Tools</span>
+                <span>Help</span>
+            </div>
+            <div class="browser-toolbar ie-toolbar">
+                <div class="ie-toolbar-left">
+                    <div class="q00ql3-search">
+                        <input type="text" id="accounting-search-input" placeholder="Search sheets" aria-label="Search accounting">
+                        <button id="accounting-search-btn">Go</button>
+                    </div>
+                </div>
+                <div class="ie-toolbar-right">
+                    <button id="accounting-refresh" class="toolbar-btn">Refresh</button>
+                    <button id="accounting-open-terminal" class="toolbar-btn">Terminal</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div style="display:flex; gap:8px; margin-bottom:8px; align-items:center;">
+                    <label>Username: <input id="accounting-username" type="text" value=""></label>
+                    <label>Password: <input id="accounting-password" type="password" value=""></label>
+                    <button id="accounting-login-btn">Login</button>
+                </div>
+                <div id="accounting-progress" style="margin-bottom:8px; font-weight:bold;">Tasks completed: 0/6</div>
+                <div id="accounting-tasks" style="height:200px; overflow:auto; background:#fff; border:1px solid #000; padding:6px;">
+                    <!-- task rows injected here -->
+                </div>
+                <div id="accounting-debug" style="margin-top:8px; font-size:10px; color:#666; background:#f0f0f0; border:1px solid #ccc; padding:4px; max-height:100px; overflow:auto;"></div>
+            </div>
+        </div>
 
     <!-- Notepad window (auto-opened) -->
     <div id="notepad-window" class="notepad-window window hidden">
         <div class="title-bar">
-            <img src="All [Without duplicates]/Notepad.ico" class="icon" alt="Notepad" style="width:16px;height:16px;margin-right:6px;">
-            <span class="title">Notepad</span>
+            <img src="All [Without duplicates]/Notepad.ico" class="icon" alt="SimpleText" style="width:16px;height:16px;margin-right:6px;">
+            <span class="title">SimpleText</span>
             <div class="window-controls">
                 <div class="control-btn">_</div>
                 <div class="control-btn">□</div>
@@ -201,6 +256,101 @@
         </div>
     </div>
     
+    <!-- Calculator window -->
+    <div id="calculator-window" class="window hidden">
+        <div class="title-bar">
+            <span class="title">Calculator</span>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div class="window-content calculator-content">
+            <div class="calculator-display" id="calc-display">0</div>
+            <div class="calculator-buttons">
+                <button class="calc-btn" data-value="7">7</button>
+                <button class="calc-btn" data-value="8">8</button>
+                <button class="calc-btn" data-value="9">9</button>
+                <button class="calc-btn calc-op" data-value="/">/</button>
+                <button class="calc-btn" data-value="4">4</button>
+                <button class="calc-btn" data-value="5">5</button>
+                <button class="calc-btn" data-value="6">6</button>
+                <button class="calc-btn calc-op" data-value="*">*</button>
+                <button class="calc-btn" data-value="1">1</button>
+                <button class="calc-btn" data-value="2">2</button>
+                <button class="calc-btn" data-value="3">3</button>
+                <button class="calc-btn calc-op" data-value="-">-</button>
+                <button class="calc-btn" data-value="0">0</button>
+                <button class="calc-btn" data-value=".">.</button>
+                <button class="calc-btn calc-equals" data-value="=">=</button>
+                <button class="calc-btn calc-op" data-value="+">+</button>
+                <button class="calc-btn calc-clear" data-value="C">C</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paint window -->
+    <div id="paint-window" class="window hidden">
+        <div class="title-bar">
+            <span class="title">Paint</span>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div class="window-content paint-content">
+            <div class="paint-toolbar">
+                <button class="paint-tool" id="paint-brush" title="Brush">🖌️</button>
+                <button class="paint-tool" id="paint-eraser" title="Eraser">🧽</button>
+                <button class="paint-tool" id="paint-clear" title="Clear">🗑️</button>
+                <input type="color" id="paint-color" value="#000000" title="Color">
+                <input type="range" id="paint-size" min="1" max="20" value="5" title="Size">
+            </div>
+            <canvas id="paint-canvas" width="400" height="300"></canvas>
+        </div>
+    </div>
+
+    <!-- Solitaire window -->
+    <div id="solitaire-window" class="window hidden">
+        <div class="title-bar">
+            <span class="title">Solitaire</span>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div class="window-content solitaire-content">
+            <div class="solitaire-controls">
+                <button id="solitaire-new">New Game</button>
+                <span id="solitaire-score">Score: 0</span>
+            </div>
+            <div id="solitaire-board">
+                <div class="solitaire-foundations">
+                    <div class="foundation" data-suit="hearts"></div>
+                    <div class="foundation" data-suit="diamonds"></div>
+                    <div class="foundation" data-suit="clubs"></div>
+                    <div class="foundation" data-suit="spades"></div>
+                </div>
+                <div class="solitaire-tableau">
+                    <div class="tableau-column" id="col1"></div>
+                    <div class="tableau-column" id="col2"></div>
+                    <div class="tableau-column" id="col3"></div>
+                    <div class="tableau-column" id="col4"></div>
+                    <div class="tableau-column" id="col5"></div>
+                    <div class="tableau-column" id="col6"></div>
+                    <div class="tableau-column" id="col7"></div>
+                </div>
+                <div class="solitaire-stock">
+                    <div id="stock-pile"></div>
+                    <div id="waste-pile"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <audio id="alarm-sound" loop>
         <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmMeAzyLyvLNfCkGI3PC7+CRQQ0PVa3m67hNFW9kzqOHm4uaU5vFZ8v1Qs2PYGlITXyVJ1tZRsq6K/jYGlLOWYGbja1OXpC3OsU6K4rM8rRdGUZ1T2KJ3sb5jGJwgRJMRuCmFKc=" type="audio/wav">
     </audio>
@@ -209,14 +359,31 @@
     <script src="dialogue.js"></script>
     <script src="commands.js"></script>
     <script src="terminal.js"></script>
-    <!-- Taskbar / Start menu -->
-    <div id="taskbar" class="taskbar">
-        <div id="start-button" class="start-button"><img src="All [Without duplicates]/Windows 95 logo.ico" class="win-sq" alt="Start logo"><span class="start-text">Start</span></div>
-        <div id="task-area" class="task-area"></div>
-        <div id="tray" class="tray">
-            <div id="tray-icons" class="tray-icons"></div>
-            <div id="tray-clock" class="tray-clock"></div>
-        </div>
+    <script>
+        // Prefill notepad and gently place a sticky note; executed after main scripts
+        window.addEventListener('load', () => {
+            try {
+                const ta = document.getElementById('notepad-textarea');
+                if (ta && !ta.value) ta.value = "Hey Jordan,\n- reconcile petty cash\n- invoice #042\n- post month-end balances\n\n";
+                // make sticky note draggable-ish (simple click to open notepad)
+                const sticky = document.getElementById('desktop-sticky');
+                if (sticky) {
+                    sticky.addEventListener('dblclick', () => {
+                        const np = document.getElementById('notepad-window');
+                        if (np) np.classList.remove('hidden');
+                        try { np.style.zIndex = ++window._topZ; } catch(e) {}
+                    });
+                }
+            } catch(e) {}
+        });
+    </script>
+    <!-- Menu Bar -->
+    <div id="menubar" class="menubar">
+        <div class="menu-item">Chronos</div>
+        <div class="menu-item">File</div>
+        <div class="menu-item">Edit</div>
+        <div class="menu-item">View</div>
+        <div class="menu-item">Special</div>
     </div>
 </body>
 </html>

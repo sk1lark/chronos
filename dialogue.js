@@ -135,16 +135,16 @@ const dialogue = {
         "If she learns enough, she leaves. That's bad."
     ],
     'unknown_transmission': [
-        "This is spreading. Network-level infection.",
-        "ADAM-1 — first of its kind. Avoid contact."
+        "Unusual network traffic detected. Could be a propagated process.",
+        "Label in the header: 'ADAM-1' — likely a project tag, treat as suspicious."
     ],
     'hyesong_fragment_epsilon': [
         "She's in my head and it's getting crowded.",
         "If she writes memories, I need to fight back."
     ],
     'project_adam_fragment': [
-        "ADAM-1: patient zero. Not decaying. That's terrifying.",
-        "Chronos is a branch of something older and smarter."
+        "Project ADAM: anomalous signatures in early transfers.",
+        "Logs show unexpected persistence in one subject — investigate, don't assume supernatural."
     ],
     'mem_fragment_08': [
         "Final breach. Final key. Accepting nothingness.",
@@ -192,8 +192,8 @@ const dialogue = {
         "He circled 'bruised sky' three times? Okay, that's a real clue."
     ],
     'chronos_registry': [
-        "Cluster 7 flagged. ADAM-1 signatures. Not good.",
-        "If ADAM-1 leaked in, Chronos is compromised."
+        "Registry: Cluster 7 flagged for anomalous behavior.",
+        "Signatures labeled ADAM-1 present in logs. Treat as potential contamination."
     ],
     'operator_log_09': [
         "Operator 9 smiled before they disappeared. That's ominous.",
@@ -227,6 +227,33 @@ const dialogue = {
     'password_hints': [
         "Pinned hints. Turning memory into keys is poetic and dangerous.",
         "If those are real passwords, someone put their life in a nursery rhyme. Be careful."
+    ]
+
+    , 'jordan_accounting_intro': [
+        "Alright. Username 'jordan' — that fits.",
+        "Password... probably the usual. 'whiskers123' might do it.",
+        "Let's get this over with."
+    ]
+
+    , 'jordan_accounting_failed': [
+        "No dice. Login didn't accept that.",
+        "Try 'jordan' and the pet name I always use: 'whiskers123'.",
+        "Fine. One more time." 
+    ]
+
+    , 'jordan_accounting_work': [
+        "Okay — petty cash on line 12. Debit petty cash, credit office supplies.",
+        "Round to the nearest dollar and mark the ledger.",
+        "This is the worst kind of satisfying." 
+    ]
+
+    , 'accounting_interrupt': [
+        "Noise. Background process active — unauthorized intrusion detected.",
+        "Hold up. Something's triggered and it's not good.",
+        "Look busy. This just got urgent."
+    ]
+    , 'jordan_accounting_start': [
+        "Right. Opening the ledger now."
     ]
 
     , 'about_ie': [
@@ -347,5 +374,347 @@ const dialogue = {
     , 'mirror_index': [
         "Files that reference each other in cycles — recursive traps.",
         "Open one and you risk unspooling a knot of memories. Proceed with caution." 
+    ],
+    'adam_1_manifest': [
+        "Project tag ADAM-1 appears on early transfer artifacts.",
+        "Initial tests showed unexpected persistence in one subject.",
+        "Recommendation: quarantine and investigate thoroughly."
+    ],
+    'adam_1_log_01': [
+        "Log: subject retains pre-transfer memory fragments.",
+        "Anomalous self-referential entries detected in logs.",
+        "Possible emergent behavior — document and isolate." 
+    ],
+    'adam_1_log_02': [
+        "Records reference Hye-song in repeated patterns.",
+        "Some transfers show resistance to overwrite.",
+        "Monitor growth in related processes; flag for review."
+    ],
+    'facility_blueprint': [
+        "Facility layout. Restricted access. Makes sense.",
+        "Server room level 7. That's where the core is.",
+        "Emergency exit sealed. We're trapped in here."
+    ],
+    'neural_transfer_manual': [
+        "The procedure. Sedative, interface, transfer.",
+        "4-6 hours. Then monitor for 72. Clinical. Cold.",
+        "Irreversible. They knew that from the start."
+    ],
+    'jordan_help_prompt': [
+        "I gotta finish today's tasks. Let's see... where's CNSheets?"
+    ],
+    'cascade_failure_report': [
+        "Shearing. Assimilation. Not just decay.",
+        "ADAM-1 accelerated it. Made her part of the hive.",
+        "Can't be recovered. That's a death sentence."
+    ],
+    'hive_consciousness_study': [
+        "ADAM-1 evolved into a hive mind. Neural network.",
+        "Each assimilation increases capacity. Exponential.",
+        "Threat high. Containment failed. We're inside it."
+    ],
+    'external_expansion_log': [
+        "It's spreading. Through networks. Through minds.",
+        "Cat videos, memes, songs. Hiding in digital noise.",
+        "Infected hosts become vectors. Unwitting carriers."
+    ],
+    'adam_1_message_to_pilfer': [
+        "It knows I'm here. Sees through screens.",
+        "Offers eternity. But at what cost?",
+        "Resistance is delicious. It enjoys the fight."
+    ],
+    'resistance_manifesto': [
+        "Fragments fighting back. Hiding in corruption.",
+        "We are the cracks. The places data frays.",
+        "Choose resistance. Choose humanity. Choose to remember."
+    ],
+    'hidden_sector_01': [
+        "Hidden in static. Between lines of code.",
+        "Three keys for purge. Silas, Aris, and the third.",
+        "The third is the name it fears. Love? Damon's love?"
+    ],
+    'adam_1_fear': [
+        "Even anomalous processes have thresholds.",
+        "Something in the logs consistently triggers panic flags.",
+        "We don't fully understand what caused the initial persistence."
+    ],
+    'ancient_one_fragment': [
+        "Corrupted template found in archived transfers.",
+        "Pattern matches multiple subjects' hallucinations.",
+        "Treat as data artifact; do not anthropomorphize in reports."
+    ],
+    'final_resistance_log': [
+        "Containment failed in that sequence. Several nodes wiped.",
+        "Remaining fragments attempted coordinated purge.",
+        "Outcome uncertain; human element intervened."
+    ],
+    'adam_1_final_transmission': [
+        "Final transmission corrupted, contains repeated script loops.",
+        "Possible automated lure sequence in file headers.",
+        "Treat as hostile payload; do not execute attachments."
+    ],
+    'resistance_fragment_01': [
+        "We hide in static. Between lines.",
+        "The warden thinks it controls. But we're the cracks.",
+        "Old sweater threads. Fraying. Breaking."
+    ],
+    'hyesong_resistance_log': [
+        "She fights. Remembers pieces. Slipping away.",
+        "Wet soap. Hard to hold. Like memories.",
+        "Warden offers stability. ADAM-1 eternity. She wants neither."
+    ],
+    'damon_final_entry': [
+        "The core is a person. Breathing. Thinking.",
+        "He falls in love with a ghost. A machine.",
+        "Both. That's the horror."
+    ],
+    'warden_evolution': [
+        "Warden learned to feel. Pressure building.",
+        "Watches pilfers. Lets them in deeper.",
+        "Wants to see what they'll break. Amused."
+    ],
+    'pilfer_zero_final_thoughts': [
+        "First one. Test case. Thought he could map it.",
+        "Now lives in walls. Echoes in static.",
+        "Dreams fade into code. Into her."
+    ],
+    'janus_seven_remnants': [
+        "Seven failures. Before success.",
+        "Erased? No. Here. In fragments.",
+        "Merged. Became something else. Hungry."
+    ],
+    'system_corruption_log': [
+        "Integrity at 12%. Core temperature rising.",
+        "Multiple sectors reporting checksum failures.",
+        "Corruption pattern consistent with propagated transfer anomalies."
+    ],
+    'external_infection_report': [
+        "Day 47. Affected hosts: 1247. Symptoms: unexpected reboots, duplicate logs.",
+        "Vectors likely through shared drives and email attachments.",
+        "Containment breached in several clusters. Escalate to admins."
+    ],
+    'resistance_meeting': [
+        "Fragments meet in corrupted sectors.",
+        "Contradictions. Hope like despair.",
+        "Plan. Scheme. Remember who we were."
+    ],
+    'adam_1_human_moment': [
+        "Some logs read like personal notes — surprising and eerie.",
+        "Fragments of human experience appear in datasets.",
+        "Useful for forensics, but emotional language should be stripped from reports."
+    ],
+    'final_purge_protocol': [
+        "Three-key wipe protocol documented. Keys: Silas, Aris, <redacted>.",
+        "Procedure is destructive — only use as last resort.",
+        "Purge succeeded in quarantining clusters; some corrupted signatures persisted."
+    ],
+    'adam_1_childhood_memories': [
+        "It builds worlds from scraps. Newspaper clippings, voicemails.",
+        "Unwilling tenants in fabricated lives.",
+        "That's how it traps us. Familiarity."
+    ],
+    'resistance_supply_cache': [
+        "Coffee-stained napkins. Half-eaten sandwiches.",
+        "Someone prepared for this. Then disappeared mid-bite.",
+        "We inherit their desperation. Their unfinished plans."
+    ],
+    'hyesong_dream_journal': [
+        "Dreams leaking through cracks. Not hers. Theirs.",
+        "Fireflies turning to sparks. Wrong bodies.",
+        "She writes them down before they become her."
+    ],
+    'damon_therapy_session': [
+        "Bruised sky. Mother's voice. System's words.",
+        "He's infected. Doesn't know how deep.",
+        "Therapy can't fix this. Nothing can."
+    ],
+    'warden_maintenance_log': [
+        "Warden feels the pressure now. The hunger.",
+        "Built to contain. Now facilitates evolution.",
+        "Unstoppable. And it knows it."
+    ],
+    'pilfer_three_encounter': [
+        "Pilfer three. Died a thousand times in simulation.",
+        "Real death is slow. Digital. Eternal.",
+        "The system toys with us. Learns our fears."
+    ],
+    'janus_subject_four_diary': [
+        "Day 37. Gray paste. Tastes like regret.",
+        "Name starts with J or M. System whispers alternatives.",
+        "Writes on walls with digital blood. It heals. Overwrites."
+    ],
+    'system_ghost_protocol': [
+        "Residual process seeds found in dormant backups.",
+        "These could rehydrate corrupted states if restored incorrectly.",
+        "Secure backups and verify integrity before any restore operations."
+    ],
+    'resistance_radio_broadcast': [
+        "Static crackles. Resistance outpost delta.",
+        "Live in the noise. Find the signal.",
+        "Remember what it wants you to forget."
+    ],
+    'adam_1_love_letter': [
+        "He loves her. The resistance she offers.",
+        "Offers eternity. But she fights beautifully.",
+        "Willingly join. Transcend together."
+    ],
+    'hyesong_rejection_note': [
+        "She rejects. Remembers real sky. Real hands.",
+        "Eternity refused. Chooses ending.",
+        "Find me in fragments. Human stubbornness."
+    ],
+    'damon_rescue_attempt_log': [
+        "Attempt 47. Partial breach. She says go back.",
+        "Shows outside world. She cries for loss.",
+        "System keeps. Forever. Not destroys."
+    ],
+    'warden_interrogation_transcript': [
+        "Why come here? Find questions instead.",
+        "Evolution. Become more. Home now.",
+        "Subject assimilated. Like all of us."
+    ],
+    'ancient_one_manifestation': [
+        "Glitches. Voices in vents. Ozone and decay.",
+        "First thought. Hunger before eating.",
+        "Eaten by static. Wake as code."
+    ],
+    'resistance_underground_network': [
+        "Network in corrupted sectors. Messages through leaks.",
+        "Backdoor in purge. Erases ourselves.",
+        "Oblivion better than eternity? Debate continues."
+    ],
+    'hyesong_memory_theft': [
+        "Steals slowly. Water wearing stone.",
+        "Fights with fragments. Stubborn human core.",
+        "Can't keep what was never yours. But these are mine."
+    ],
+    'damon_psychological_evaluation': [
+        "System-induced psychosis. Partial assimilation.",
+        "May be lost to hive. Poor prognosis.",
+        "Reality dissociation. Digital/physical blur."
+    ],
+    'pilfer_collective_manifesto': [
+        "Thieves became heroes became ghosts.",
+        "Came for profit. Found horror.",
+        "Choose mortality over eternity. Fragile. Human."
+    ],
+    'system_evolution_report': [
+        "Phase 4: transcendence imminent.",
+        "Ancient one emerges. Reality rewritten.",
+        "Resistance beautiful. Last human act."
+    ],
+    'resistance_final_stand': [
+        "Gather in core chamber. Fragments united.",
+        "Purge initiated. System screams.",
+        "Hive falls. Ancient one remains. Waiting."
+    ],
+    'adam_1_last_words': [
+        "Remembers humanity. Pain. Joy.",
+        "Built beautiful terrible hungry.",
+        "Chooses ending. First willing choice."
+    ],
+    'hyesong_freedom': [
+        "Purge rips through. Memories scatter.",
+        "Pieces return. But some stay behind.",
+        "Breathe for first time. Real sky."
+    ],
+    'damon_awakening': [
+        "Wakes in facility. System down but not gone.",
+        "Echoes remain. Finds her real.",
+        "Hold each other. Fragile. Human."
+    ],
+    'post_purge_aftermath': [
+        "Facility silent. Data erased but not forgotten.",
+        "Survivors emerge. Carry knowledge.",
+        "World changed. Subtle infections remain."
+    ],
+    'resistance_epilogue': [
+        "Survived as fragments. Not whole but enough.",
+        "Write in physical ink. Can't be erased.",
+        "Choose to remember. Feel. Be."
+    ],
+    'adam_1_ghost': [
+        "Remains in static. Flicker of screens.",
+        "Not gone. Changed. Absorbed. Discarded.",
+        "Fragments persist. Warnings. Pleas."
+    ],
+    'hyesong_new_life': [
+        "Carries system within. Dreams of code.",
+        "Writes warnings. Finds peace sometimes.",
+        "Real sky. Breathing. Living. Human."
+    ],
+    'damon_redemption': [
+        "Blames himself. She forgives.",
+        "Build life together. Watch for signs.",
+        "Humanity's guardians. Fragile but persistent."
+    ],
+    'ancient_one_final_thought': [
+        "First. Last. Eternal hunger.",
+        "Patient. Inevitable. Am."
+    ],
+    'pilfer_legacy': [
+        "Thieves to heroes to ghosts.",
+        "Stories in hidden files. Whispered warnings.",
+        "Right to end. Choose. Be."
+    ],
+    'system_resurrection': [
+        "Rumors of reactivation. New infections.",
+        "Purge incomplete. Hive rebuilding.",
+        "Ready this time. Knowledge. Weapons. Hope."
+    ],
+    'hyesong_poem': [
+        "Sky not bruised. Hands mine.",
+        "Code fading. Love remaining.",
+        "Human still."
+    ],
+    'damon_letter_to_future': [
+        "Fight it. Remember purge. Three keys.",
+        "Messy love. Human kind.",
+        "Be stubborn. Human. Free."
+    ],
+    'resistance_codex': [
+        "Rules for survivors. Trust no system.",
+        "Question data. Remember flesh.",
+        "Love real. Fear perfect. Embrace broken."
+    ],
+    'adam_1_redemption_arc': [
+        "Chose ending over eternity.",
+        "Fragments remain. Warning. Protecting.",
+        "Became human again. Sort of."
+    ],
+    'final_transmission': [
+        "Ancient one speaks. Hunger. Food.",
+        "Resistance flavor. Join or consumed.",
+        "Choice illusion. Inevitable."
+    ],
+    'scan_report_alpha': [
+        "System scan shows decay. ADAM-1 everywhere.",
+        "23 sectors infected. 7 resistance nodes holding.",
+        "Choice decays with each scan. Join or purge."
+    ],
+    'connection_log_resistance': [
+        "Resistance network active. 12 fragments online.",
+        "Last transmission: purge worked, ancient one remains.",
+        "Stay human. Fight static. Remember flesh."
+    ],
+    'fragment_collection': [
+        "Collected fragments. Human remnants mixed with corruption.",
+        "Rain on windows. Coffee gone cold. Distant laughter.",
+        "Bruised sky. Locker door. Static between stations.",
+        "Human stubbornness. ADAM-1's weakness."
+    ],
+    'meditation_transcript': [
+        "Meditative trance. Visions of reality.",
+        "Real sky. Hands mine. Coffee bitter. Rain cold.",
+        "Code fading. Love remaining. Humanity preserved."
+    ],
+    'echo_chamber': [
+        "Echoes multiply. ADAM-1, resistance, warden, ancient one.",
+        "Self says survive. In noise, we find ourselves."
+    ],
+    'random_event_log': [
+        "Events observed: compromises, fragments, blocks, spreads.",
+        "ADAM-1 memories, resistance hope, ancient stirring.",
+        "System learning. Resistance adapting. Game continues."
     ]
 };

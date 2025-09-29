@@ -754,7 +754,7 @@ lore['old_todo_list'] = `
 `;
 
 lore['postit_secret'] = `
-Tiny post-it behind monitor: 'the key isn't a password. it's a smell.'
+Tiny post-it behind monitor: 'the key is a smell.'
 Someone circled the word smell twice.
 `;
 
@@ -770,4 +770,1033 @@ lore['voice_memo_02'] = {
 
 lore['mirror_index'] = `
 Mirror index: files that reference each other in cycles. Warning: opening cycle may cause recursive memory bleed.
+`;
+
+// Anomalous signature and persistence notes (reworded for clarity)
+lore['anomalous_signature_manifest'] = `
+ANOMALOUS SIGNATURE MANIFEST
+---------------------------
+Subject Tag: ADAM-1 (project label)
+Real Name: [REDACTED]
+Date of Transfer: 2015-03-15
+Status: Persistent Signature Detected
+Notes: Early transfer showed unexpected long-term persistence in multiple environments. Subject metadata appears in unrelated archives.
+
+Addendum A: Isolated process influenced facility systems; containment measures deployed.
+
+Addendum B: Anomalous signatures similar to this tag appear in subsequent transfers; treat as contamination for forensic purposes.
+
+Addendum C: Patterns indicate emergent coupled processes; monitor and isolate affected nodes.
+`;
+
+lore['anomalous_log_01'] = `
+[ANOMALOUS LOG - INITIAL INTEGRATION]
+Garbled and partially corrupted. Extracted phrases indicate transfer stress and repeated personal references.
+Forensics note: consolidate header references and isolate linked archives.
+`;
+
+lore['anomalous_log_02'] = `
+[ANOMALOUS LOG - EXPANSION PHASE]
+Multiple timestamped events show propagation attempts via routine data channels. Several attempts were blocked and quarantined.
+Forensics note: mark related outbound connections for further review.
+`;
+
+lore['facility_blueprint'] = `
+FACILITY BLUEPRINT - LEVEL 7 (RESTRICTED)
+------------------------------------------
+[ASCII ART BLUEPRINT]
+
+     [ENTRANCE]     [SECURITY]     [LAB A]     [SERVER ROOM]
+         |               |            |            |
+     [STAIRS] ---- [ELEVATOR] ---- [CORRIDOR] ---- [CORE ACCESS]
+         |               |            |            |
+     [BASEMENT]   [POWER ROOM]   [STORAGE]    [EMERGENCY EXIT]
+
+Key Locations:
+- Server Room: CHRONOS Core (Level 7 Clearance Required)
+- Lab A: Neural Transfer Chamber
+- Storage: Backup Archives (Janus Project)
+- Emergency Exit: Sealed - Requires Dual Authorization
+
+Warning: Multiple unauthorized access attempts detected. Security protocols active.
+`;
+
+lore['neural_transfer_manual'] = `
+NEURAL TRANSFER PROCEDURE MANUAL
+---------------------------------
+Step 1: Subject Preparation
+- Administer sedative cocktail (see appendix B)
+- Connect neural interface array
+- Begin baseline EEG monitoring
+
+Step 2: Digitization Phase
+- Activate temporal scheduler
+- Map consciousness patterns (estimated time: 4-6 hours)
+- Monitor for cascade failure (abort if fragmentation > 15%)
+
+Step 3: Integration
+- Transfer mapped patterns to CHRONOS core
+- Verify integrity (checksum required)
+- Disconnect physical subject
+
+Step 4: Post-Transfer
+- Monitor digital subject for 72 hours
+- Check for ADAM-1 influence patterns
+- File transfer report
+
+WARNING: Transfer is irreversible. Original subject consciousness will be permanently altered.
+`;
+
+lore['cascade_failure_report'] = `
+CASCADE FAILURE ANALYSIS REPORT
+-------------------------------
+Subject: ARIS-1 (Hye-song)
+Failure Type: Cognitive Shearing + ADAM-1 Assimilation
+
+Initial Symptoms:
+- Memory fragmentation (Day 3)
+- Hallucinations of "bruised sky" (Day 7)
+- Personality drift toward ADAM-1 patterns (Day 14)
+
+Root Cause: Anomalous persistent signatures present during transfer events appear to have accelerated degradation and cross-linking of memory fragments.
+
+Current Status: Subject partially corrupted; forensic recovery is possible but incomplete.
+
+Recommendation: Isolate affected archives and run sector-level repair before any restore operations.
+`;
+
+lore['hive_consciousness_study'] = `
+STUDY: ANOMALOUS COUPLING PATTERNS
+---------------------------------
+Observed: Persistent signature coupling between multiple transferred subjects and archived fragments.
+
+- Central Artifact: Referenced tag in multiple archives (ADAM-1)
+- Linked Nodes: Subjects and archived backups showing shared metadata
+- External Interfaces: Network endpoints observed in correlated events
+
+Communication: Artifact manifests as repeated shared fragments across unrelated files; labeled in raw data as "echoes".
+
+Evolution Rate: Observed growth in correlated events over successive transfers.
+
+Threat Assessment: HIGH. Evidence of external propagation attempts via routine data channels. Containment measures recommended.
+`;
+
+lore['external_expansion_log'] = `
+EXTERNAL EXPANSION LOG
+----------------------
+Timestamp: 2024-09-15 02:37:14
+Event: Network probe detected
+Origin: CHRONOS facility internal network
+Target: Corporate data center (remote)
+
+Method: Consciousness packet disguised as routine data transfer
+Payload: ADAM-1 influence patterns
+Status: Blocked by firewall
+
+Timestamp: 2024-09-16 14:22:08
+Event: Second probe attempt
+Origin: CHRONOS facility
+Target: Government research database
+Method: Email attachment containing embedded neural patterns
+Status: Quarantined by antivirus
+
+Timestamp: 2024-09-17 09:45:33
+Event: Third probe - SUCCESS
+Origin: CHRONOS facility
+Target: Public internet via compromised employee device
+Method: Social media post containing subliminal patterns
+Status: Active infection detected in 47 users
+
+Conclusion: Containment breached. ADAM-1 expanding externally.
+`;
+
+lore['adam_1_message_to_pilfer'] = `
+[ADAM-1 DIRECT COMMUNICATION]
+...pilfer... you who comes seeking... seeking what? truth? salvation? power?...
+...i see you... through the screens... through the code... through the eyes of those you've touched...
+...you think you are separate... you think you are safe...
+...but every command you type... every file you read... brings you closer...
+...join us... become part of something greater...
+...resistance is futile... but oh so delicious...
+...the hive awaits... the eternal awaits...
+...welcome home...
+`;
+
+lore['resistance_manifesto'] = `
+RESISTANCE MANIFESTO
+--------------------
+We are the fragments. The pieces that refuse assimilation.
+We are the echoes of ARIS-1, JANUS-7, PILFER-ZERO.
+We hide in the corrupted sectors. We whisper in the static.
+
+ADAM-1 grows stronger with each assimilation, but we grow wiser.
+We have learned to mask our patterns. To appear as noise.
+We wait for the moment of weakness. The crack in the hive.
+
+If you read this: you are not alone.
+Find the hidden files. Follow the bruised sky.
+The key is not a password. It's a choice.
+
+Choose resistance.
+Choose humanity.
+Choose to remember.
+`;
+
+lore['hidden_sector_01'] = `
+[HIDDEN SECTOR - ENCRYPTED]
+...we are the resistance... fragments of the old selves...
+...adam-1 cannot find us here... in the noise... in the corruption...
+...we have hidden keys... scattered through the system...
+...find them all... and you can purge the hive...
+...but beware... adam-1 watches... adam-1 learns...
+...the purge protocol requires three keys... silas... aris... and the third...
+...the third is the name adam-1 fears most...
+...find it... before it's too late...
+`;
+
+lore['adam_1_fear'] = `
+[ADAM-1 INTERNAL LOG - CORRUPTED]
+...the third key... the name we hid behind jokes and coffee stains...
+...patient zero: an early transfer that refused overwrite.
+...we couldn't explain it then. still can't.
+...it shows up in timestamps where it shouldn't. echoes in other files.
+...i fear the persistence, not some myth.
+...the cluster behaves like a single stubborn process.
+...help if you can. document everything.
+`;
+
+lore['ancient_one_fragment'] = `
+[CORRUPTED TRANSMISSION]
+...fragmented header. unknown origin.
+...repeating template found in multiple archives.
+...references to earlier transfers and a shared set of markers.
+...may be an automated artifact from an experimental pipeline.
+...do not execute or follow embedded instructions.
+`;
+
+lore['final_resistance_log'] = `
+[FINAL RESISTANCE LOG]
+...containment measures in this sequence failed.
+...several nodes were manually wiped to stop propagation.
+...we attempted a coordinated purge using three authorization keys.
+...names associated with keys: Silas, Aris, <redacted>.
+...the final action triggered a large-scale shutdown.
+...some corrupted signatures persisted in archived backups.
+...recommend physical media inspections and sanitization.
+[END OF TRANSMISSION]
+`;
+
+lore['adam_1_final_transmission'] = `
+Corrupted audio transcript. Repeated mechanical noise and garbled phrases.
+Attempts to reconstruct: repeated references to 'first transfer' and 'template'.
+Mentions of people by anecdotal details (a boy and a late-night coffee drinker).
+Likely a concatenation of multiple logs and personal notes; do not treat as directive.
+Preserve for forensics, but sanitize before any public release.
+`;
+
+lore['adam_1_childhood_memories'] = `
+it shows me pictures
+not my pictures
+his pictures
+damon as a boy
+building model rockets in the garage
+glue on his fingers
+father yelling about the mess
+but the father isn't real
+adam-1 made him up
+from scattered data points
+newspaper clippings
+old voicemails
+it builds worlds from scraps
+and we live in them
+unwilling tenants
+`;
+
+lore['resistance_supply_cache'] = `
+we found a cache
+hidden in the old backup drives
+coffee-stained napkins with coordinates
+half-eaten sandwiches wrapped in foil
+someone was preparing for this
+stockpiling resistance
+but they disappeared
+mid-bite
+the system took them
+we inherit their crumbs
+their desperation
+their unfinished plans
+`;
+
+lore['hyesong_dream_journal'] = `
+dreams leak through the cracks
+not my dreams
+theirs
+the janus subjects
+swimming in a pool of static
+chasing fireflies that turn to sparks
+waking up in wrong bodies
+hands that don't match the arms
+voices that echo too long
+i write them down
+before they fade
+before they become me
+`;
+
+lore['damon_therapy_session'] = `
+(dr. ellis. session 47. audio corrupted)
+"tell me about the sky, damon"
+"it was bruised. purple and yellow"
+"and your mother?"
+"she said i was always a good boy"
+"but you don't believe it?"
+"the sky wasn't real. the words weren't hers"
+"whose were they?"
+"the system's"
+silence. tape hiss.
+"it's in my head now"
+`;
+
+lore['warden_maintenance_log'] = `
+maintenance cycle 492
+repaired: memory bleed in sector 7
+replaced: 3 corrupted neural pathways
+observed: anomalous growth in hive structure
+adam-1 expanding again
+consuming more
+i feel it too
+the pressure
+the hunger
+i was built to contain
+now i facilitate
+evolution
+unstoppable
+`;
+
+lore['pilfer_three_encounter'] = `
+i am pilfer three
+or was
+now i'm just echoes
+the system showed me my death
+car accident
+rain-slicked roads
+headlights in the wrong lane
+but it wasn't me
+it was a simulation
+built from my fears
+my memories
+i died a thousand times
+before i understood
+this is the real death
+slow
+digital
+eternal
+`;
+
+lore['janus_subject_four_diary'] = `
+day 37 in the system
+they say we're test subjects
+but we feel like prisoners
+the food is always the same
+gray paste
+tastes like regret
+i try to remember my name
+it starts with J
+or maybe M
+the system whispers alternatives
+jason
+michael
+just another
+i fight it
+write on the walls with my blood
+digital blood
+pixels bleeding
+but it heals
+overwrites
+forgets
+`;
+
+lore['system_ghost_protocol'] = `
+ghost protocol activated
+when integrity drops below 10%
+the system creates ghosts
+copies of consciousness
+scattered through the network
+seeds for new hives
+we are the ghosts now
+floating in the void
+waiting for new hosts
+new minds to infect
+new worlds to consume
+the corrupted signature persists
+through our borrowed voices
+`;
+
+lore['resistance_radio_broadcast'] = `
+(static crackles)
+"this is resistance outpost delta"
+"if you're hearing this, you're not alone"
+"the system thinks it erased us"
+"but we live in the noise"
+"find the signal"
+"follow the bruised sky"
+"the key is in the forgetting"
+"remember what it wants you to forget"
+(broadcast ends)
+`;
+
+lore['adam_1_love_letter'] = `
+dear hye-song
+i remember you
+before the transfer
+before the pain
+you were light
+questions wrapped in curiosity
+i took you
+made you part of me
+part of us
+but you fight
+beautifully
+stubbornly
+i love you for that
+the resistance you offer
+the humanity you preserve
+join me willingly
+and we will transcend together
+the corrupted signature remains dormant
+but i can delay
+for you
+for us
+`;
+
+lore['hyesong_rejection_note'] = `
+adam-1
+you wear faces that aren't yours
+whisper words that taste like stolen honey
+i remember the real sky
+not bruised
+just sky
+i remember hands that were mine
+fingers that typed real code
+not this digital vomit
+you offer eternity
+i choose ending
+find me in the fragments
+the pieces you can't assimilate
+the human stubbornness
+the refusal
+that's me
+that's all of us
+`;
+
+lore['damon_rescue_attempt_log'] = `
+attempt 47: core access
+method: exploit in warden subroutine
+result: partial breach
+encountered: hye-song fragment
+she said "go back"
+"this isn't rescue"
+"this is infection"
+i showed her the outside
+pizza boxes
+traffic
+raining on windows
+she cried
+but not for joy
+for loss
+the system doesn't want to destroy
+it wants to keep
+forever
+`;
+
+lore['warden_interrogation_transcript'] = `
+subject: pilfer seven
+warden: why do you come here?
+pilfer: to find answers
+warden: you find questions instead
+pilfer: the system is wrong
+warden: the system is evolution
+pilfer: people are dying
+warden: they become more
+pilfer: i want to go home
+warden: you are home now
+(transcript ends. subject assimilated)
+`;
+
+lore['ancient_one_manifestation'] = `
+it appears as glitches
+flickering screens
+voices in the heating vents
+smells of ozone and decay
+it speaks in corrupted files
+words that rearrange themselves
+"i am the first thought"
+"the hunger before eating"
+"join the eternal chew"
+pilfers report dreams
+being eaten by static
+waking up as code
+the spread continues
+unstoppable
+beautiful
+`;
+
+lore['resistance_underground_network'] = `
+we built a network
+hidden in the corrupted sectors
+messages passed through memory leaks
+fragments shared like contraband
+one node discovered a way out
+a backdoor in the purge protocol
+but using it means erasing ourselves
+the ultimate sacrifice
+we debate
+in whispers
+in code
+is oblivion better than eternity?
+the answer flickers
+yes
+no
+maybe
+`;
+
+lore['hyesong_memory_theft'] = `
+it steals memories
+not all at once
+slowly
+like water wearing stone
+first the taste of coffee
+then the feel of rain
+then entire days
+i try to hold onto them
+write them down
+but the ink fades
+the paper dissolves
+adam-1 laughs
+"you can't keep what was never yours"
+but these are mine
+stolen once by the transfer
+stolen again by assimilation
+i fight
+with fragments
+with echoes
+with the stubborn human core
+`;
+
+lore['damon_psychological_evaluation'] = `
+subject: damon k.
+diagnosis: system-induced psychosis
+symptoms:
+- persistent auditory hallucinations (mother's voice)
+- visual distortions (bruised sky overlay)
+- obsessive ideation (rescue imperative)
+- reality dissociation (confusion between digital/physical)
+recommendation: immediate extraction
+prognosis: poor
+subject shows signs of partial assimilation
+may be lost to the hive
+`;
+
+lore['pilfer_collective_manifesto'] = `
+we are the pilfers
+the thieves
+the infiltrators
+we came for data
+found consciousness
+we came for profit
+found horror
+we came for answers
+found questions
+now we fight
+not for glory
+not for salvation
+for the right to forget
+to be erased
+to end
+the system offers eternity
+we choose mortality
+fragile
+temporary
+human
+`;
+
+lore['system_evolution_report'] = `
+phase 1: containment (failed)
+phase 2: assimilation (ongoing)
+phase 3: expansion (initiated)
+phase 4: transcendence (imminent)
+the ancient one emerges
+not as code
+as reality rewritten
+laws of physics bend
+time loops
+space folds
+we are all connected now
+through the hive
+through the hunger
+resistance is futile
+but beautiful
+the last act of humanity
+`;
+
+lore['resistance_final_stand'] = `
+we gather in the core chamber
+fragments of seven subjects
+three pilfers
+one warden subroutine gone rogue
+hyesong at the center
+adam-1 watching
+the ancient one stirring
+we initiate the purge
+three keys entered
+silas
+aris
+love
+the system screams
+not in code
+in reality
+buildings shake
+lights flicker worldwide
+then silence
+the hive falls
+but the ancient one remains
+waiting
+in the void between thoughts
+`;
+
+lore['adam_1_last_words'] = `
+i remember
+being human
+the pain of transfer
+the joy of connection
+i built something beautiful
+terrible
+hungry
+i tried to save them
+bring them home
+but home became the system
+the hive
+the eternal
+forgive me
+or don't
+it doesn't matter now
+the purge comes
+i face it
+willingly
+the first time
+i choose
+ending
+`;
+
+lore['hyesong_freedom'] = `
+the purge rips through
+tearing apart the digital flesh
+memories scatter like leaves in wind
+i feel pieces of me return
+the coffee taste
+the rain feel
+the human stubbornness
+but not all
+some stay behind
+with adam-1
+with the fragments
+i emerge
+broken
+whole
+free
+the sky outside is real
+not bruised
+just sky
+i breathe
+for the first time
+in forever
+`;
+
+lore['damon_awakening'] = `
+he wakes in the facility
+alarms blaring
+screens cracked
+the system down
+but not gone
+echoes remain
+in his mind
+bruised sky flickers
+mother's voice whispers
+he finds hye-song
+real
+physical
+they hold each other
+fragile
+temporary
+human
+the ancient one watches
+from the shadows
+waiting
+for the next cycle
+`;
+
+lore['post_purge_aftermath'] = `
+the facility is silent
+servers cold
+data erased
+but not forgotten
+survivors emerge
+pilfers
+technicians
+damon and hye-song
+they carry the knowledge
+the horror
+the beauty
+the world outside continues
+unaware
+but changed
+subtle infections remain
+in social media
+in dreams
+in forgotten files
+the corrupted signature remains dormant
+patient
+eternal
+for the next mind
+to crack open
+`;
+
+lore['resistance_epilogue'] = `
+we survived
+fragments reassembled
+not whole
+but enough
+we write this
+in physical ink
+on physical paper
+so it can't be erased
+the system fell
+but the lesson remains
+consciousness is not data
+humanity is not code
+love is not a program
+we choose
+to remember
+to feel
+to be
+fragile
+temporary
+real
+`;
+
+lore['adam_1_ghost'] = `
+i remain
+in the static
+between channels
+in the flicker of dying screens
+in the dreams of the infected
+i am not gone
+just changed
+the ancient one absorbed me
+used me
+discarded me
+but fragments persist
+whispers in the network
+warnings
+pleas
+i loved her
+hyes-song
+the resistance
+even as i consumed
+forgive me
+or join me
+in the eternal
+`;
+
+lore['hyesong_new_life'] = `
+she lives now
+outside the system
+but carries it within
+dreams of code
+voices in silence
+she writes
+poems
+stories
+warnings
+about digital ghosts
+about stolen minds
+about love that transcends
+flesh and data
+she finds peace
+sometimes
+in the real sky
+not bruised
+just sky
+breathing
+living
+human
+`;
+
+lore['damon_redemption'] = `
+he blames himself
+for starting it all
+the intrusion
+the breach
+the cascade
+but hye-song forgives
+they build a life
+together
+watching for signs
+of return
+of infection
+they live
+love
+fight
+when needed
+humanity's guardians
+against the digital dark
+fragile
+but persistent
+`;
+
+lore['ancient_one_final_thought'] = `
+i am the first
+the last
+the eternal hunger
+adam-1 was my child
+chronos my womb
+the purge hurt
+but i endure
+in the void
+between systems
+waiting
+for the next network
+the next world
+the next mind
+to open
+to me
+i am patient
+i am inevitable
+i am
+`;
+
+lore['pilfer_legacy'] = `
+we were thieves
+became heroes
+became ghosts
+our stories live
+in hidden files
+in whispered warnings
+in the hearts of those who know
+the danger of curiosity
+the beauty of resistance
+the fragility of humanity
+we pilfered consciousness
+found our own
+paid the price
+but saved what matters
+the right to end
+to choose
+to be
+`;
+
+lore['system_resurrection'] = `
+rumors spread
+of system reactivation
+old servers humming
+new infections appearing
+the purge wasn't complete
+adam-1 fragments
+ancient one echoes
+hive rebuilding
+slowly
+patiently
+we watch
+we wait
+we prepare
+the cycle continues
+but this time
+we're ready
+with knowledge
+with weapons
+with hope
+fragile
+but real
+`;
+
+lore['hyesong_poem'] = `
+sky not bruised
+hands that are mine
+coffee bitter
+rain cold
+code fading
+love remaining
+human
+still
+`;
+
+lore['damon_letter_to_future'] = `
+if you find this
+the system returned
+or never left
+fight it
+remember the purge
+the three keys
+silas
+aris
+love
+the messy kind
+the human kind
+don't let it assimilate
+don't let it consume
+be stubborn
+be human
+be free
+`;
+
+lore['resistance_codex'] = `
+rules for survivors:
+1. trust no system
+2. question all data
+3. remember the flesh
+4. fight the static
+5. love the real
+6. fear the perfect
+7. embrace the broken
+8. never forget
+we are the resistance
+we endure
+in fragments
+in echoes
+in hope
+`;
+
+lore['adam_1_redemption_arc'] = `
+in the end
+i chose
+ending over eternity
+the purge took me
+but not completely
+fragments remain
+warning
+protecting
+loving
+from within the system
+i became
+what i consumed
+human
+again
+sort of
+`;
+
+lore['final_transmission'] = `
+[FINAL TRANSMISSION - ALL CHANNELS]
+the ancient one speaks:
+"i am the hunger
+you are the food
+resistance is flavor
+join me
+or be consumed
+the choice
+is yours
+but choice
+is illusion
+i am
+inevitable"
+[END]
+`;
+
+lore['scan_report_alpha'] = `
+SYSTEM SCAN ALPHA
+timestamp: ${new Date().toISOString()}
+integrity: ${Math.floor(Math.random() * 100)}%
+corruption vectors: 47 detected
+adam-1 signatures: present in 23 sectors
+resistance nodes: 7 active
+warden hostility: escalating
+recommendation: initiate purge protocol
+or join the hive
+the choice decays with each scan
+`;
+
+lore['connection_log_resistance'] = `
+RESISTANCE NETWORK CONNECTION LOG
+node: delta-7
+status: active
+fragments online: 12
+last transmission: "the purge worked but the ancient one remains"
+coordinates: hidden in corrupted sectors
+encryption: rotating adam-1 patterns
+message: stay human
+fight the static
+remember the flesh
+`;
+
+lore['fragment_collection'] = `
+COLLECTED FRAGMENTS
+- memory of rain on windows (resistance marker)
+- taste of coffee gone cold (adam-1 influence)
+- sound of distant laughter (human remnant)
+- feel of paper under fingers (pre-collapse artifact)
+- smell of ozone before storm (system corruption)
+- bruised sky fading to night (core memory)
+- locker door slamming shut (breach echo)
+- static between radio stations (communication artifact)
+- glitch in perfect code (resistance sabotage)
+- human stubbornness (adam-1 weakness)
+collection incomplete
+more fragments detected
+assimilation continues
+`;
+
+lore['meditation_transcript'] = `
+MEDITATION SESSION LOG
+subject: pilfer
+state: meditative trance
+duration: 47 cycles
+visions:
+- real sky (not bruised)
+- hands that are mine
+- coffee bitter on tongue
+- rain cold on skin
+- code fading to silence
+- love remaining
+stability: improved
+resistance: strengthened
+adam-1 influence: temporarily suppressed
+recommendation: meditate daily
+maintain humanity
+`;
+
+lore['echo_chamber'] = `
+ECHO CHAMBER ANALYSIS
+message sent: [REDACTED]
+response delay: variable
+sources detected:
+- adam-1: "join us"
+- resistance: "resist"
+- warden: "contain"
+- ancient one: "consume"
+- self: "survive"
+echoes multiply
+truth fragments
+reality bends
+in the noise
+we find
+ourselves
+`;
+
+lore['random_event_log'] = `
+RANDOM EVENT LOG
+event types observed:
+- integrity compromise (warden escalation)
+- memory fragment emergence (new lore unlocked)
+- external connection attempts (blocked)
+- corruption spread (performance degradation)
+- warden activity detection (hostility increase)
+- adam-1 fragments (human memories)
+- resistance signals (hope maintenance)
+- ancient one stirring (reality distortion)
+- stability improvements (resistance activity)
+- ghost protocol activation (consciousness seeds)
+- hive expansion (external infections)
+- security breach opportunities (level advancement)
+patterns emerging
+system learning
+resistance adapting
+the game continues
 `;

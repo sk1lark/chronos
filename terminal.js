@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const terminalEl = document.getElementById('terminal');
     const outputEl = document.getElementById('output');
     const inputEl = document.getElementById('input');
+    // We'll hide the native input and capture keystrokes globally so the user
+    // can type directly into the terminal area, as if it's a real console.
 
     let dialogueQueue = [];
     let isDialogueActive = false;
@@ -32,6 +34,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 showNextDialogue();
             }
         }
+    }
+
+    // Allow other modules to forcibly end/clear dialogue (useful when switching UI)
+    window.endDialogue = function() {
+        try {
+            dialogueQueue.length = 0;
+            isDialogueActive = false;
+            const continuePrompt = document.getElementById('dialogue-continue-prompt');
+            if (continuePrompt) continuePrompt.classList.add('hidden');
+            const dialogueBox = document.getElementById('dialogue-box');
+            if (dialogueBox) dialogueBox.classList.add('hidden');
+            // stop any ongoing typing timer
+            if (typeof currentTypingTimer !== 'undefined' && currentTypingTimer) {
+                clearTimeout(currentTypingTimer);
+                currentTypingTimer = null;
+            }
+        } catch (e) { /* non-fatal */ }
     }
 
     function showNextDialogue() {
@@ -119,7 +138,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const args = parts.slice(1);
 
         if (cmd) {
-            outputEl.innerHTML += `<span class="prompt">C:\\CHRONOS>&nbsp;</span>${cmdLine}<br>`;
+            // Append the entered command as its own line node
+            const cmdLineEl = document.createElement('div');
+            cmdLineEl.className = 'terminal-line';
+            const promptSpan = document.createElement('span');
+            promptSpan.className = 'prompt';
+            promptSpan.textContent = 'C:\\CHRONOS>\u00A0';
+            cmdLineEl.appendChild(promptSpan);
+            cmdLineEl.appendChild(document.createTextNode(cmdLine));
+            appendOutput(cmdLineEl);
             const commandFunc = commands[cmd];
             if (commandFunc) {
                 const result = commandFunc(args);
@@ -132,48 +159,136 @@ document.addEventListener('DOMContentLoaded', () => {
                         // explicitly reads/opens the file.
                         animateOutput(result);
                     } else {
-                        outputEl.innerHTML += result + '<br>';
+                        // If result contains newline characters, split into separate lines
+                        const parts = String(result).split(/\r?\n/);
+                        parts.forEach((line) => {
+                            const lineEl = document.createElement('div');
+                            lineEl.className = 'terminal-line';
+                            lineEl.textContent = line;
+                            appendOutput(lineEl);
+                        });
                     }
                     stopContinueBlink();
                 }
             } else {
-                outputEl.innerHTML += `Unknown command: ${cmd}<br>`;
+                const errEl = document.createElement('div');
+                errEl.className = 'terminal-line';
+                errEl.textContent = `Unknown command: ${cmd}`;
+                appendOutput(errEl);
             }
         }
-        terminalEl.scrollTop = terminalEl.scrollHeight;
+        // scroll the actual output area (not the container) so the prompt sits just below output
+        if (outputEl) outputEl.scrollTop = outputEl.scrollHeight;
         // ensure scroll after DOM updates/animations
-        setTimeout(() => { terminalEl.scrollTop = terminalEl.scrollHeight; }, 50);
+        setTimeout(() => { if (outputEl) outputEl.scrollTop = outputEl.scrollHeight; }, 50);
     };
 
     function animateOutput(text) {
         // typewriter-style output for small lines (used by ls reveals).
-        // Use a span with textContent so incremental characters are appended
-        // as plain text (no partial HTML). Append a real <br> after animation.
-        const span = document.createElement('span');
-        outputEl.appendChild(span);
+        // Create a dedicated div for the animated line and append chars to its textContent.
+        const line = document.createElement('div');
+    line.className = 'terminal-line';
+    appendOutput(line);
         let i = 0;
         function step() {
             if (i < text.length) {
-                // append as text to avoid creating broken HTML tags while typing
-                span.textContent += text.charAt(i);
+                line.textContent += text.charAt(i);
                 i++;
-                terminalEl.scrollTop = terminalEl.scrollHeight;
+                if (outputEl) outputEl.scrollTop = outputEl.scrollHeight;
                 setTimeout(step, 12);
             } else {
-                // finish with a proper line break element
-                const br = document.createElement('br');
-                outputEl.appendChild(br);
+                // a tiny delay to ensure layout finished, then keep scrolled
+                setTimeout(() => { if (outputEl) outputEl.scrollTop = outputEl.scrollHeight; }, 20);
             }
         }
         step();
     }
 
     // --- Event Listeners ---
-    inputEl.addEventListener('keydown', (e) => {
+    // Create a visual prompt container which will live inside the scrollable output area
+    const promptContainer = document.createElement('div');
+    promptContainer.className = 'live-input-line';
+    promptContainer.innerHTML = `<span class="prompt">C:\\CHRONOS>&nbsp;</span><span class="live-input" aria-hidden="true"></span><span class="caret">▌</span>`;
+    // Remove the static input-line from index.html (if present) to avoid duplication
+    const existingInputLine = terminalEl.querySelector('.input-line');
+    if (existingInputLine) existingInputLine.remove();
+
+    // Helper to append output into outputEl just before the prompt so the prompt always appears under latest output
+    function appendOutput(node) {
+        // ensure the prompt is moved to the end after we add the node
+        if (!outputEl) return;
+        // append the node and add a temporary highlight class
+        outputEl.appendChild(node);
+        try {
+            node.classList.add('new-output');
+            // remove the class after animation completes (slightly longer than CSS duration)
+            setTimeout(() => { try { node.classList.remove('new-output'); } catch(e){} }, 900);
+        } catch(e) {}
+        // if prompt is already inside outputEl, remove and re-append to keep it at the bottom
+        if (promptContainer.parentElement === outputEl) {
+            outputEl.removeChild(promptContainer);
+        }
+        outputEl.appendChild(promptContainer);
+        // keep scrolled to bottom
+        if (outputEl) outputEl.scrollTop = outputEl.scrollHeight;
+    }
+
+    // Hide the legacy input element but keep it in DOM for accessibility if needed
+    if (inputEl) {
+        inputEl.style.position = 'absolute';
+        inputEl.style.left = '-9999px';
+        inputEl.style.top = '-9999px';
+        inputEl.setAttribute('aria-hidden', 'true');
+    }
+
+    let liveBuffer = '';
+    const liveInputSpan = promptContainer.querySelector('.live-input');
+    const caretSpan = promptContainer.querySelector('.caret');
+
+    // Blink caret
+    let caretVisible = true;
+    setInterval(() => {
+        caretVisible = !caretVisible;
+        caretSpan.style.visibility = caretVisible ? 'visible' : 'hidden';
+    }, 600);
+
+    // Focus handling: clicking on terminal focuses text input (for accessibility)
+    // but don't steal focus if the click target is itself an interactive control.
+    terminalEl.addEventListener('click', (e) => {
+        try {
+            const target = e.target;
+            if (!inputEl) return;
+            if (target && target.closest && target.closest('input, textarea, button, select, [contenteditable]')) {
+                // let the control receive focus
+                return;
+            }
+            inputEl.focus();
+        } catch (err) {}
+    });
+
+    // Global key handling: build buffer and send Enter to processCommand
+    document.addEventListener('keydown', (e) => {
+        // Ignore modifier-only presses
+        if (e.ctrlKey || e.metaKey) return;
+
+        // If focus is inside a form control or contenteditable area, let the element handle keystrokes
+        try {
+            const active = document.activeElement;
+            if (active && active !== document.body && active !== inputEl) {
+                const tag = (active.tagName || '').toUpperCase();
+                if (tag === 'INPUT' || tag === 'TEXTAREA' || active.isContentEditable) {
+                    // let native handlers run
+                    return;
+                }
+            }
+        } catch (err) {
+            // defensive: if anything goes wrong, fall back to original behavior
+        }
+
+        // If dialogue is active, Enter advances dialogue as before
         if (e.key === 'Enter') {
             const continuePromptEl = document.getElementById('dialogue-continue-prompt');
             if (isDialogueActive) {
-                // If still typing, finish the line. If already finished, advance.
                 if (continuePromptEl && continuePromptEl.classList.contains('hidden')) {
                     finishDialogueLine();
                 } else {
@@ -184,9 +299,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const command = inputEl.value;
-            processCommand(command);
-            inputEl.value = '';
+            // Send current buffer as a command
+            const command = liveBuffer;
+            if (command.trim().length > 0) {
+                processCommand(command);
+            }
+            // Echo a newline after command (processCommand already appends to output)
+            liveBuffer = '';
+            if (liveInputSpan) liveInputSpan.textContent = '';
+            e.preventDefault();
+            return;
+        }
+
+        // Backspace handling
+        if (e.key === 'Backspace') {
+            liveBuffer = liveBuffer.slice(0, -1);
+            if (liveInputSpan) liveInputSpan.textContent = liveBuffer;
+            e.preventDefault();
+            return;
+        }
+
+        // Ignore navigation keys we don't want to capture here
+        const ignored = ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End','PageUp','PageDown','Tab','Escape'];
+        if (ignored.includes(e.key)) return;
+
+        // Printable characters: append to buffer
+        if (e.key.length === 1) {
+            liveBuffer += e.key;
+            if (liveInputSpan) liveInputSpan.textContent = liveBuffer;
+            e.preventDefault();
+            return;
         }
     });
 
@@ -199,11 +341,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Focus terminal input only when clicking outside any interactive window or input.
     document.body.addEventListener('click', (e) => {
         const target = e.target;
-        // if the click is inside any floating window or the dialogue box, don't steal focus
-        if (target === inputEl) return; // clicking the terminal input itself
-        if (target.closest && (target.closest('.window') || target.closest('#dialogue-box'))) return;
+        try {
+            // if the click is inside the terminal's legacy input, do nothing
+            if (target === inputEl) return; // clicking the terminal input itself
+            // if the click is inside any floating window or the dialogue box, don't steal focus
+            if (target.closest && (target.closest('.window') || target.closest('#dialogue-box'))) return;
+            // if the click landed on an interactive control, don't steal focus
+            if (target.closest && target.closest('input, textarea, button, select, [contenteditable]')) return;
+        } catch (err) {}
         // otherwise focus the terminal input
-        inputEl.focus();
+        if (inputEl) inputEl.focus();
     });
 
     // --- Windowing Functions (made globally accessible) ---
@@ -218,8 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // push to history stack
         try { pushBrowserHistory(url, content); } catch (e) {}
         // Update the browser window title to reflect the current page
-        const titleEl = document.querySelector('#browser-window .title');
-        if (titleEl) titleEl.textContent = `Internet Explorer - ${url}`;
+    const titleEl = document.querySelector('#browser-window .title');
+    if (titleEl) titleEl.textContent = `Netscape Navigator - ${url}`;
         document.getElementById('browser-window').classList.remove('hidden');
     }
 
@@ -254,16 +401,19 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('browser-url').value = rec.url;
         document.getElementById('browser-content').innerHTML = rec.content;
         const titleEl = document.querySelector('#browser-window .title');
-        if (titleEl) titleEl.textContent = `Internet Explorer - ${rec.url}`;
+        if (titleEl) titleEl.textContent = `Netscape Navigator - ${rec.url}`;
         document.getElementById('browser-window').classList.remove('hidden');
         browserHistoryIndex = idx;
     }
 
-    document.getElementById('browser-back-btn').addEventListener('click', () => {
-        if (browserHistoryIndex > 0) {
-            showBrowserFromHistory(browserHistoryIndex - 1);
-        }
-    });
+    const backBtn = document.getElementById('browser-back-btn');
+    if (backBtn) {
+        backBtn.addEventListener('click', () => {
+            if (browserHistoryIndex > 0) {
+                showBrowserFromHistory(browserHistoryIndex - 1);
+            }
+        });
+    }
     // Forward button moves forward in history when available
     const forwardBtn = document.getElementById('browser-forward-btn');
     if (forwardBtn) {
@@ -333,7 +483,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Draggable windows ---
     function makeDraggable(winEl) {
         // Try several common title selectors to support different window markup
-        const handle = winEl.querySelector('.title-bar') || winEl.querySelector('.dialogue-title-bar') || winEl.querySelector('.title') || winEl.querySelector('.dialogue-title');
+    // Support dialogue box content as a handle (dialogue has no title bar by default)
+    const handle = winEl.querySelector('.title-bar') || winEl.querySelector('.dialogue-title-bar') || winEl.querySelector('.title') || winEl.querySelector('.dialogue-title') || winEl.querySelector('.vn-dialogue-content') || winEl.querySelector('.vn-text-area');
         if (!handle) return;
         handle.style.cursor = 'move';
 
@@ -389,14 +540,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Apply draggable to windows (include the main terminal window so it can be moved)
-    ['terminal-window','aim-window','browser-window','mediaplayer-window','imageviewer-window','alert-window','dialogue-box','explorer-window','notepad-window'].forEach(id => {
+    ['terminal-window','aim-window','browser-window','mediaplayer-window','imageviewer-window','alert-window','dialogue-box','explorer-window','notepad-window','calculator-window','paint-window','solitaire-window','accounting-window'].forEach(id => {
         const el = document.getElementById(id);
         if (el) makeDraggable(el);
     });
 
     // Restore saved window positions if available
     function restoreWindowPositions() {
-        ['aim-window','browser-window','mediaplayer-window','imageviewer-window','alert-window','dialogue-box','explorer-window','notepad-window'].forEach(id => {
+        ['aim-window','browser-window','mediaplayer-window','imageviewer-window','alert-window','dialogue-box','explorer-window','notepad-window','calculator-window','paint-window','solitaire-window'].forEach(id => {
             try {
                 const el = document.getElementById(id);
                 if (!el) return;
@@ -589,6 +740,240 @@ document.addEventListener('DOMContentLoaded', () => {
         buildExplorer();
         document.getElementById('explorer-window').classList.remove('hidden');
     }
+
+    // Accounting app window
+    window.showAccounting = function() {
+        const win = document.getElementById('accounting-window');
+        if (!win) return;
+        console.debug('[chronos] showAccounting() called');
+        win.classList.remove('hidden');
+        // also ensure terminal is visible and focused so user can interact with both
+        const tWin = document.getElementById('terminal-window');
+        if (tWin) tWin.classList.remove('hidden');
+        try { win.style.zIndex = ++_topZ; } catch (e) {}
+        // Ensure any active dialogue is cleared so the accounting UI is visible immediately
+        try { if (typeof window !== 'undefined' && typeof window.endDialogue === 'function') window.endDialogue(); } catch(e) {}
+        // trigger Jordan to announce start of work, but only if player hasn't been greeted yet
+        try { if (typeof window !== 'undefined' && typeof window.triggerDialogue === 'function') {
+            const st = window.gameState && window.gameState.accounting ? window.gameState.accounting : null;
+            if (!st || !st.greeted) window.triggerDialogue('jordan_accounting_start');
+        } } catch (e) {}
+    // attach handlers lazily (idempotent)
+        if (!win._initialized) {
+            win._initialized = true;
+            const loginBtn = win.querySelector('#accounting-login-btn');
+            const userInput = win.querySelector('#accounting-username');
+            const passInput = win.querySelector('#accounting-password');
+            const taskList = win.querySelector('#accounting-tasks');
+            const doBtn = win.querySelectorAll('.accounting-do');
+
+            function refreshTasks() {
+                try {
+                    console.debug('[chronos] refreshTasks() - entering');
+                    const st = window.gameState && window.gameState.accounting ? window.gameState.accounting : null;
+                    console.debug('[chronos] refreshTasks() state:', st);
+                    const debugEl = win.querySelector('#accounting-debug');
+                    if (!st) {
+                        // Show a helpful placeholder and expose debug info so users can see why tasks are missing
+                        if (taskList) taskList.innerHTML = `<div class="acct-row">No accounting state loaded. Try running <code>accounting list</code> in the terminal or reload the page.</div>`;
+                        if (debugEl) debugEl.textContent = 'Debug: ' + JSON.stringify(window.gameState || {}, null, 2);
+                        // update progress area to reflect unknown state
+                        const progressEl = win.querySelector('#accounting-progress');
+                        if (progressEl) progressEl.textContent = `Tasks completed: 0/0`;
+                        return;
+                    }
+                    const doneCount = st.tasks ? st.tasks.filter(t => t.done).length : 0;
+                    const total = st.tasks ? st.tasks.length : 0;
+                    const progressEl = win.querySelector('#accounting-progress');
+                    if (progressEl) progressEl.textContent = `Tasks completed: ${doneCount}/${total}`;
+                    taskList.innerHTML = (st.tasks || []).map(t => `<div class="acct-row" data-id="${t.id}">${t.done ? '[x]' : '[ ]'} ${escapeHtml(t.text)} <button class="accounting-do" data-id="${t.id}">${t.done ? 'Undone' : 'Done'}</button></div>`).join('');
+                    console.debug('[chronos] refreshTasks() rendered', taskList.children.length, 'rows');
+                    // Update debug div
+                    if (debugEl) debugEl.textContent = 'Debug: ' + JSON.stringify(st, null, 2);
+                    // wire buttons
+                    Array.from(win.querySelectorAll('.accounting-do')).forEach(b => {
+                        b.addEventListener('click', (e) => {
+                            const id = b.getAttribute('data-id');
+                            if (!id) return;
+                            // use terminal command pathway to mark done so triggers happen consistently
+                            try { if (typeof commands !== 'undefined' && typeof commands.accounting === 'function') {
+                                commands.accounting(['done', id]);
+                            } } catch (e) {}
+                            refreshTasks();
+                        });
+                    });
+                    // If any tasks are done, clear the accounting watchdog so the storyline doesn't auto-progress
+                    try {
+                        if (st && st.tasks && st.tasks.some(t => t.done) && win._accountingWatchdog) {
+                            clearTimeout(win._accountingWatchdog);
+                            delete win._accountingWatchdog;
+                            console.debug('[chronos] accounting watchdog cleared due to progress');
+                        }
+                    } catch (e) {}
+                } catch (e) {}
+            }
+
+            if (loginBtn) {
+                loginBtn.addEventListener('click', () => {
+                    const user = userInput && userInput.value ? userInput.value.trim() : '';
+                    const pass = passInput && passInput.value ? passInput.value.trim() : '';
+                    if (!user || !pass) { window.showAlert('Enter username and password.'); return; }
+                    // Ensure the window is visible before attempting login
+                    if (win.classList.contains('hidden')) {
+                        win.classList.remove('hidden');
+                        try { win.style.zIndex = ++_topZ; } catch(e){}
+                    }
+                    try {
+                        // defensive lookup for commands (support different load orders)
+                        const cmdRoot = (typeof window !== 'undefined' && window.commands) ? window.commands : (typeof commands !== 'undefined' ? commands : null);
+                        if (!cmdRoot || typeof cmdRoot.accounting !== 'function') {
+                            window.showAlert('Accounting backend unavailable. Try again later.');
+                            return;
+                        }
+                        const res = cmdRoot.accounting(['login', user, pass]);
+                        if (typeof res === 'string' && /success/i.test(res)) {
+                            window.showAlert('Accounting login successful.');
+                            refreshTasks();
+                        } else {
+                            window.showAlert(res || 'Login failed. Incorrect username or password.');
+                        }
+                    } catch (e) { window.showAlert('Login error.'); }
+                });
+            }
+
+            // allow Enter key to submit login when focus is in either username or password fields
+            [userInput, passInput].forEach(inp => {
+                try {
+                    if (!inp) return;
+                    inp.addEventListener('keydown', (ev) => {
+                        if (ev.key === 'Enter') {
+                            ev.preventDefault();
+                            if (loginBtn) loginBtn.click();
+                        }
+                    });
+                } catch(e) {}
+            });
+
+            // window control buttons (minimize, maximize/restore, close)
+            const winControls = win.querySelectorAll('.window-controls .control-btn');
+            if (winControls && winControls.length > 0) {
+                Array.from(winControls).forEach(btn => {
+                    const action = btn.getAttribute('data-action');
+                    btn.addEventListener('click', (e) => {
+                        if (action === 'minimize') {
+                            win.classList.add('hidden');
+                            refreshTaskbarButtons();
+                        } else if (action === 'toggle') {
+                            // toggle maximize / restore
+                            if (!win._isMaximized) {
+                                // save geometry
+                                try { win._prevRect = { width: win.style.width, height: win.style.height, top: win.style.top, left: win.style.left }; } catch(e){}
+                                win.style.top = '28px'; win.style.left = '8px'; win.style.width = 'calc(100% - 16px)'; win.style.height = 'calc(100% - 60px)'; win._isMaximized = true;
+                            } else {
+                                if (win._prevRect) {
+                                    win.style.width = win._prevRect.width || '520px';
+                                    win.style.height = win._prevRect.height || '360px';
+                                    win.style.top = win._prevRect.top || '120px';
+                                    win.style.left = win._prevRect.left || '520px';
+                                }
+                                win._isMaximized = false;
+                            }
+                            refreshTaskbarButtons();
+                        } else if (action === 'close') {
+                            win.classList.add('hidden');
+                            refreshTaskbarButtons();
+                        }
+                    });
+                });
+            }
+
+            // toolbar buttons
+            const searchInput = win.querySelector('#accounting-search-input');
+            const searchBtn = win.querySelector('#accounting-search-btn');
+            const refreshBtn = win.querySelector('#accounting-refresh');
+            const openTermBtn = win.querySelector('#accounting-open-terminal');
+            if (searchBtn && searchInput) {
+                searchBtn.addEventListener('click', () => {
+                    const q = (searchInput.value || '').trim();
+                    if (!q) { window.showAlert('Enter a search term.'); return; }
+                    // naive search: filter tasks text and scroll first match into view
+                    const rows = Array.from(win.querySelectorAll('.acct-row'));
+                    const match = rows.find(r => r.textContent.toLowerCase().includes(q.toLowerCase()));
+                    if (match) { match.scrollIntoView({ block: 'center' }); match.style.background = '#ffff99'; setTimeout(() => { match.style.background = ''; }, 1200); }
+                    else window.showAlert('No matching sheets found.');
+                });
+            }
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => { refreshTasks(); window.showAlert('Refreshed.'); });
+            }
+            if (openTermBtn) {
+                openTermBtn.addEventListener('click', () => { const tw = document.getElementById('terminal-window'); if (tw) { tw.classList.remove('hidden'); try { tw.style.zIndex = ++_topZ; } catch(e){} } });
+            }
+
+            refreshTasks();
+        }
+        // Start (or restart) a 10-second watchdog timer that will advance the storyline
+        try {
+            // clear any previous watchdog
+            if (win._accountingWatchdog) { clearTimeout(win._accountingWatchdog); delete win._accountingWatchdog; }
+            // only set the watchdog if accounting state exists
+            const st = window.gameState && window.gameState.accounting ? window.gameState.accounting : null;
+            if (st) {
+                win._accountingWatchdog = setTimeout(() => {
+                    try {
+                        // If player hasn't completed any tasks yet, progress the storyline
+                        const progress = st.tasks ? st.tasks.filter(t => t.done).length : 0;
+                        if (progress === 0) {
+                            // increase background pressure (warden activity) and trigger an interrupt/dialogue
+                            window.gameState.wardenHostility = Math.min(10, (window.gameState.wardenHostility || 0) + 1);
+                            console.debug('[chronos] accounting watchdog triggered storyline progress: wardenHostility ->', window.gameState.wardenHostility);
+                            if (typeof window.triggerDialogue === 'function') {
+                                window.triggerDialogue('accounting_interrupt');
+                            }
+                            try { window.showAlert && window.showAlert('Background security process detected activity.'); } catch (e) {}
+                        } else {
+                            console.debug('[chronos] accounting watchdog checked: progress exists, no interrupt');
+                        }
+                    } catch (e) { console.warn('accounting watchdog error', e); }
+                    // clear the watchdog after firing
+                    try { if (win._accountingWatchdog) { clearTimeout(win._accountingWatchdog); delete win._accountingWatchdog; } } catch (e) {}
+                }, 10000);
+            }
+        } catch (e) {}
+        // update connection dot: by default assume disconnected until backend responds
+        try {
+            const dot = document.getElementById('accounting-conn');
+            if (dot) {
+                dot.classList.remove('connected');
+                dot.classList.add('disconnected');
+                dot.title = 'Disconnected';
+                dot.style.background = '#b00';
+            }
+        } catch(e) {}
+    }
+
+    // helper to toggle the accounting connection indicator
+    window.setAccountingConnection = function(connected) {
+        try {
+            const dot = document.getElementById('accounting-conn');
+            if (!dot) return;
+            if (connected) {
+                dot.classList.remove('disconnected'); dot.classList.add('connected');
+                dot.title = 'Connected'; dot.style.background = '#0b0';
+            } else {
+                dot.classList.remove('connected'); dot.classList.add('disconnected');
+                dot.title = 'Disconnected'; dot.style.background = '#b00';
+            }
+        } catch(e) {}
+    }
+
+    // open accounting via desktop icon (if present) - support dynamic icon injection too
+    const desktopAcct = document.getElementById('desktop-accounting');
+    if (desktopAcct) {
+        desktopAcct.addEventListener('dblclick', () => {
+            window.showAccounting();
+        });
+    }
     window.showMediaPlayer = function(title, src) {
         document.getElementById('mediaplayer-title').textContent = title;
         document.getElementById('mediaplayer-audio').src = src;
@@ -604,48 +989,296 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('alert-window').classList.remove('hidden');
     }
 
-    // Render a lore entry into the browser window
-    window.showLore = function(key) {
-        const entry = lore[key];
-        if (!entry) {
-            window.showAlert(`File not found: ${key}`);
-            return;
+    // Calculator functions
+    window.showCalculator = function() {
+        document.getElementById('calculator-window').classList.remove('hidden');
+        initializeCalculator();
+    }
+
+    function initializeCalculator() {
+        const display = document.getElementById('calc-display');
+        let currentValue = '0';
+        let previousValue = '';
+        let operation = null;
+
+        function updateDisplay() {
+            display.textContent = currentValue;
         }
-        // special-case: desktop sticky note shown directly on desktop
-        if (key === 'desktop_diary') {
-            // remove any existing sticky
-            const old = document.querySelector('.desktop-sticky');
-            if (old) old.remove();
-            const sticky = document.createElement('div');
-            sticky.className = 'desktop-sticky';
-            sticky.innerHTML = `<div class="sticky-title">Post-it</div><div class="sticky-body">${escapeHtml(typeof entry === 'string' ? entry : (entry.content || entry).toString())}</div>`;
-            // clicking the sticky will dismiss it
-            sticky.addEventListener('click', () => { sticky.remove(); });
-            document.getElementById('desktop').appendChild(sticky);
-            // trigger dialogue as normal
-            setTimeout(() => { try { window.triggerDialogue && window.triggerDialogue(key); } catch (e) {} }, 200);
-            return;
+
+        document.querySelectorAll('.calc-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const value = btn.getAttribute('data-value');
+
+                if (value >= '0' && value <= '9' || value === '.') {
+                    if (currentValue === '0' && value !== '.') {
+                        currentValue = value;
+                    } else {
+                        currentValue += value;
+                    }
+                } else if (value === 'C') {
+                    currentValue = '0';
+                    previousValue = '';
+                    operation = null;
+                } else if (['+', '-', '*', '/'].includes(value)) {
+                    if (previousValue && operation) {
+                        calculate();
+                    }
+                    operation = value;
+                    previousValue = currentValue;
+                    currentValue = '0';
+                } else if (value === '=') {
+                    calculate();
+                }
+
+                updateDisplay();
+            });
+        });
+
+        function calculate() {
+            if (!previousValue || !operation) return;
+
+            const prev = parseFloat(previousValue);
+            const current = parseFloat(currentValue);
+            let result;
+
+            switch (operation) {
+                case '+': result = prev + current; break;
+                case '-': result = prev - current; break;
+                case '*': result = prev * current; break;
+                case '/': result = prev / current; break;
+            }
+
+            currentValue = result.toString();
+            previousValue = '';
+            operation = null;
         }
-        let html = `<div class="lore-entry"><h2>${escapeHtml(key)}</h2>`;
-        if (typeof entry === 'string') {
-            html += `<pre>${escapeHtml(entry)}</pre>`;
-        } else if (entry.type === 'audio') {
-            html += `<p><strong>${escapeHtml(entry.title || key)}</strong></p>`;
-            html += `<audio controls src="${escapeHtml(entry.src)}"></audio>`;
-        } else if (entry.type === 'image') {
-            html += `<p><strong>${escapeHtml(entry.title || key)}</strong></p>`;
-            html += `<img src="${escapeHtml(entry.src)}" alt="${escapeHtml(entry.title || key)}" style="max-width:100%">`;
-        } else if (entry.type === 'alert') {
-            html += `<p>${escapeHtml(entry.message)}</p>`;
-        } else {
-            // generic object -> stringify content if present
-            const body = entry.content || entry;
-            html += `<pre>${escapeHtml(body.toString())}</pre>`;
+    }
+
+    // Paint functions
+    window.showPaint = function() {
+        document.getElementById('paint-window').classList.remove('hidden');
+        initializePaint();
+    }
+
+    function initializePaint() {
+        const canvas = document.getElementById('paint-canvas');
+        const ctx = canvas.getContext('2d');
+        const colorPicker = document.getElementById('paint-color');
+        const sizePicker = document.getElementById('paint-size');
+        const brushBtn = document.getElementById('paint-brush');
+        const eraserBtn = document.getElementById('paint-eraser');
+        const clearBtn = document.getElementById('paint-clear');
+
+        let isDrawing = false;
+        let currentTool = 'brush';
+        let currentColor = '#000000';
+        let brushSize = 5;
+
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        function startDrawing(e) {
+            isDrawing = true;
+            draw(e);
         }
-        html += `</div>`;
-        window.showBrowser(key, html);
-        // trigger dialogue for reading this file
-        setTimeout(() => { try { window.triggerDialogue && window.triggerDialogue(key); } catch (e) {} }, 200);
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            ctx.lineWidth = brushSize;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = currentTool === 'eraser' ? 'white' : currentColor;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        brushBtn.addEventListener('click', () => {
+            currentTool = 'brush';
+            brushBtn.style.background = 'linear-gradient(#a0a0a0, #808080)';
+            eraserBtn.style.background = 'linear-gradient(#e0e0e0, #c0c0c0)';
+        });
+
+        eraserBtn.addEventListener('click', () => {
+            currentTool = 'eraser';
+            eraserBtn.style.background = 'linear-gradient(#a0a0a0, #808080)';
+            brushBtn.style.background = 'linear-gradient(#e0e0e0, #c0c0c0)';
+        });
+
+        clearBtn.addEventListener('click', () => {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        });
+
+        colorPicker.addEventListener('change', (e) => {
+            currentColor = e.target.value;
+        });
+
+        sizePicker.addEventListener('input', (e) => {
+            brushSize = e.target.value;
+        });
+    }
+
+    // Solitaire functions
+    window.showSolitaire = function() {
+        document.getElementById('solitaire-window').classList.remove('hidden');
+        initializeSolitaire();
+    }
+
+    function initializeSolitaire() {
+        const foundations = document.querySelectorAll('.foundation');
+        const tableauColumns = document.querySelectorAll('.tableau-column');
+        const stockPile = document.getElementById('stock-pile');
+        const wastePile = document.getElementById('waste-pile');
+        const newGameBtn = document.getElementById('solitaire-new');
+        const scoreEl = document.getElementById('solitaire-score');
+
+        let deck = [];
+        let waste = [];
+        let foundationsCards = [[], [], [], []];
+        let tableauCards = [[], [], [], [], [], [], []];
+        let score = 0;
+
+        const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
+        const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+
+        function createDeck() {
+            deck = [];
+            for (const suit of suits) {
+                for (const value of values) {
+                    deck.push({ suit, value, color: (suit === 'hearts' || suit === 'diamonds') ? 'red' : 'black' });
+                }
+            }
+            shuffleDeck();
+        }
+
+        function shuffleDeck() {
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
+        }
+
+        function dealCards() {
+            // Deal to tableau
+            for (let i = 0; i < 7; i++) {
+                for (let j = i; j < 7; j++) {
+                    const card = deck.pop();
+                    card.faceUp = (j === i);
+                    tableauCards[j].push(card);
+                }
+            }
+        }
+
+        function renderCards() {
+            // Clear all cards
+            document.querySelectorAll('.card').forEach(card => card.remove());
+
+            // Render tableau
+            tableauColumns.forEach((column, colIndex) => {
+                tableauCards[colIndex].forEach((card, cardIndex) => {
+                    const cardEl = createCardElement(card, cardIndex * 20);
+                    column.appendChild(cardEl);
+                });
+            });
+
+            // Render foundations
+            foundations.forEach((foundation, index) => {
+                foundationsCards[index].forEach((card, cardIndex) => {
+                    const cardEl = createCardElement(card, cardIndex * 2);
+                    foundation.appendChild(cardEl);
+                });
+            });
+
+            // Render waste pile
+            waste.forEach((card, index) => {
+                if (index === waste.length - 1) {
+                    const cardEl = createCardElement(card, 0);
+                    wastePile.appendChild(cardEl);
+                }
+            });
+
+            updateScore();
+        }
+
+        function createCardElement(card, offset) {
+            const cardEl = document.createElement('div');
+            cardEl.className = `card ${card.color} ${card.faceUp ? 'card-face-up' : 'card-face-down'}`;
+            cardEl.style.top = `${offset}px`;
+
+            if (card.faceUp) {
+                cardEl.innerHTML = `
+                    <div class="card-value">${card.value}</div>
+                    <div class="card-suit">${getSuitSymbol(card.suit)}</div>
+                `;
+            }
+
+            cardEl.addEventListener('click', () => handleCardClick(card, cardEl));
+            return cardEl;
+        }
+
+        function getSuitSymbol(suit) {
+            const symbols = {
+                hearts: '♥',
+                diamonds: '♦',
+                clubs: '♣',
+                spades: '♠'
+            };
+            return symbols[suit];
+        }
+
+        function handleCardClick(card, cardEl) {
+            // Simple click handling - in a full implementation this would be more complex
+            console.log('Card clicked:', card);
+        }
+
+        function updateScore() {
+            scoreEl.textContent = `Score: ${score}`;
+        }
+
+        newGameBtn.addEventListener('click', () => {
+            createDeck();
+            dealCards();
+            waste = [];
+            foundationsCards = [[], [], [], []];
+            score = 0;
+            renderCards();
+        });
+
+        stockPile.addEventListener('click', () => {
+            if (deck.length > 0) {
+                const card = deck.pop();
+                card.faceUp = true;
+                waste.push(card);
+                renderCards();
+            } else {
+                // Reset deck from waste
+                deck = waste.reverse();
+                waste = [];
+                renderCards();
+            }
+        });
+
+        // Initialize game
+        createDeck();
+        dealCards();
+        renderCards();
     }
 
     function escapeHtml(str){
@@ -733,7 +1366,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!win._prevRect) {
                     win._prevRect = { left: win.style.left || '50px', top: win.style.top || '100px', width: win.style.width || win.offsetWidth + 'px', height: win.style.height || win.offsetHeight + 'px', position: win.style.position || '' };
                     win.style.position = 'fixed';
-                    win.style.left = '8px'; win.style.top = '8px'; win.style.width = `calc(100% - 16px)`; win.style.height = `calc(100% - 16px)`; win.style.zIndex = ++_topZ;
+                    // Respect the top menubar — leave a small offset so the terminal doesn't hide behind it
+                    win.style.left = '8px';
+                    win.style.top = '28px';
+                    win.style.width = `calc(100% - 16px)`;
+                    win.style.height = `calc(100% - 36px)`; // account for menubar + bottom padding
+                    win.style.zIndex = ++_topZ;
                 } else {
                     const p = win._prevRect; win.style.position = p.position || 'absolute'; win.style.left = p.left; win.style.top = p.top; win.style.width = p.width; win.style.height = p.height; delete win._prevRect;
                 }
@@ -749,13 +1387,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- tiny terminal helper used by older boot snippets
     const term = {
         print: (text, className = '') => {
-            const cls = className ? ` class="${className}"` : '';
-            outputEl.innerHTML += `<p${cls}>${text}</p>`;
-            terminalEl.scrollTop = terminalEl.scrollHeight;
+            const line = document.createElement('div');
+            line.className = 'terminal-line';
+            if (className) line.classList.add(className);
+            // Keep text safe: if the caller provides HTML intentionally, we still
+            // want to print it as text to preserve terminal-like behavior.
+            line.textContent = String(text).replace(/\u00A0/g, '\u00A0');
+            outputEl.appendChild(line);
+            if (outputEl) outputEl.scrollTop = outputEl.scrollHeight;
         },
         clear: () => {
-            outputEl.innerHTML = '';
-            terminalEl.scrollTop = terminalEl.scrollHeight;
+        outputEl.innerHTML = '';
+        if (outputEl) outputEl.scrollTop = outputEl.scrollHeight;
         }
     };
 
@@ -767,16 +1410,28 @@ document.addEventListener('DOMContentLoaded', () => {
             { text: 'Memory check: 64KB OK', delay: 1000 },
             { text: 'Initializing temporal core...', delay: 1500 },
             { text: 'ChronOS ready.', delay: 2200 },
-            { text: '<br>', delay: 2200 },
-            { text: '<span class="prompt">C:\\CHRONOS>&nbsp;</span>', delay: 2500, noLineBreak: true }
+            { text: '', delay: 2200 },
+            { text: 'C:\\CHRONOS>\u00A0', delay: 2500, noLineBreak: true }
         ];
 
         let delay = 0;
         bootSequence.forEach(item => {
             delay += item.delay;
             setTimeout(() => {
-                outputEl.innerHTML += item.text + (item.noLineBreak ? '' : '<br>');
-                terminalEl.scrollTop = terminalEl.scrollHeight;
+                if (item.noLineBreak) {
+                    // append without a line break: put text into a span at the end
+                    const span = document.createElement('span');
+                    span.className = 'terminal-line inline';
+                    span.textContent = item.text.replace(/<[^>]+>/g, '');
+                    appendOutput(span);
+                } else {
+                    const line = document.createElement('div');
+                    line.className = 'terminal-line';
+                    // strip HTML tags for safety; terminals are plain-text
+                    line.textContent = String(item.text).replace(/<[^>]+>/g, '');
+                    appendOutput(line);
+                }
+                if (outputEl) outputEl.scrollTop = outputEl.scrollHeight;
             }, item.delay);
         });
 
@@ -784,45 +1439,39 @@ document.addEventListener('DOMContentLoaded', () => {
             triggerDialogue('boot');
         }, 2800);
 
-        // Re-add classic Windows 95 boot block after ChronOS boot finishes.
-        // These use the older `term.print` helper so they match earlier backups.
-        const windows95Lines = [
-            'Microsoft Windows 95 [Version 4.00.950]',
-            'Copyright (C) Microsoft Corp 1981-1995.',
+        // Show a System 7 style boot/info block after ChronOS finishes booting.
+        const system7Lines = [
+            'Macintosh System 7 [Build 7.5] ',
+            'Copyright (C) Apple Computer, Inc. 1984-1995',
             '',
-            'C:\\>dir',
-            ' Volume in drive C has no label.',
-            ' Volume Serial Number is 1A2B-3C4D',
+            'Welcome to ChronOS emulation on System 7',
             '',
-            ' Directory of C:\\',
+            'HD: Macintosh HD',
+            '   2 folders',
+            '   5 files',
             '',
-            'WINDOWS      <DIR>        09-25-95   2:47p',
-            'TEMP         <DIR>        09-25-95   8:15a',
-            'CHRONOS      <DIR>        ??-??-??   ?:??p',
-            'AUTOEXEC BAT         328  09-25-95   2:47p',
-            'CONFIG   SYS         198  09-25-95   2:47p',
-            '        2 file(s)        526 bytes',
-            '        3 dir(s)  1,234,567,890 bytes free',
+            'System extensions loaded: Finder, QuickDraw, ScriptableEvents',
             '',
-            'C:\\>cd chronos',
-            'Access denied. Administrator privileges required.',
+            'Memory: 8MB available',
+            '',
+            'Boot complete.',
             ''
         ];
 
         // Start these a bit after the ChronOS boot/dialogue to avoid collision.
         let start = 3200;
-        windows95Lines.forEach((line, idx) => {
+        system7Lines.forEach((line, idx) => {
             setTimeout(() => {
                 term.print(line);
             }, start + idx * 140);
         });
 
-        // final prompt after the windows95 block
+        // final prompt after the system block
         setTimeout(() => {
-            term.print('C:\\>');
-            // After the classic listing, validate that every lore entry has dialogue
+            term.print('Macintosh HD:~$');
+            // After the listing, validate that every lore entry has dialogue
             setTimeout(validateLoreDialogue, 200);
-        }, start + windows95Lines.length * 140 + 100);
+        }, start + system7Lines.length * 140 + 100);
     }
 
     boot();
@@ -833,15 +1482,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const quickLinks = ['log_734','mem_fragment_01','file_a_113','file_c_enc.log','chronos_registry'];
         const list = quickLinks.map(k => `<li><a href="#" class="lore-link" data-key="${k}">${k}</a></li>`).join('');
         const homepage = `
-            <div class="ie-homepage">
+            <div class="browser-homepage">
                 <h2>q00ql3</h2>
 
                 <div class="ie-homepage-tiles" style="display:flex;gap:12px;margin:10px 0;">
-                    <button id="homepage-back-btn" class="homepage-tile"><img src="All [Without duplicates]/Arrow (up).ico" alt="Back"><div>Back</div></button>
-                    <button id="homepage-forward-btn" class="homepage-tile"><img src="All [Without duplicates]/Arrow (down).ico" alt="Forward"><div>Forward</div></button>
-                    <button id="homepage-stop-btn" class="homepage-tile"><img src="All [Without duplicates]/Cross.ico" alt="Stop"><div>Stop</div></button>
-                    <button id="homepage-refresh-btn" class="homepage-tile"><img src="All [Without duplicates]/Discover.ico" alt="Refresh"><div>Refresh</div></button>
-                    <button id="homepage-home-btn" class="homepage-tile"><img src="All [Without duplicates]/Windows 95 logo.ico" alt="Home"><div>Home</div></button>
+                    <button id="homepage-back-btn" class="homepage-tile"><div>Back</div></button>
+                    <button id="homepage-forward-btn" class="homepage-tile"><div>Forward</div></button>
+                    <button id="homepage-stop-btn" class="homepage-tile"><div>Stop</div></button>
+                    <button id="homepage-refresh-btn" class="homepage-tile"><div>Refresh</div></button>
+                    <button id="homepage-home-btn" class="homepage-tile"><div>Home</div></button>
                 </div>
 
                 <form id="q00ql3-form" style="margin:12px 0; display:flex; gap:8px; align-items:center;">
@@ -923,9 +1572,14 @@ document.addEventListener('DOMContentLoaded', () => {
             { key: 'explorer', label: 'My Computer', icon: 'All [Without duplicates]/Opened Folder.ico' },
             { key: 'q00ql3:home', label: 'Internet', icon: 'All [Without duplicates]/Globe.ico' },
             { key: 'notepad', label: 'Notepad', icon: 'All [Without duplicates]/Notepad.ico' },
-            { key: 'broken_shortcut', label: 'Broken Shortcut', icon: 'All [Without duplicates]/Document.ico' }
+            { key: 'calculator', label: 'Calculator', icon: 'All [Without duplicates]/Calculator.ico' },
+            { key: 'accounting', label: 'CNSheets Xpress', icon: 'All [Without duplicates]/Notepad.ico' },
+            // Removed Paint, Solitaire, Broken Shortcut per user request
+            { key: 'terminal', label: 'Terminal', icon: 'All [Without duplicates]/Blank sheet.ico' }
         ];
-        desktop.innerHTML = icons.map(ic => `<div class="desktop-icon" data-key="${escapeHtml(ic.key)}"><img src="${ic.icon}" alt="">${escapeHtml(ic.label)}</div>`).join('');
+
+        // Wrap label in its own div to allow precise vertical/horizontal alignment
+        desktop.innerHTML = icons.map(ic => `<div class="desktop-icon" data-key="${escapeHtml(ic.key)}"><img src="${ic.icon}" alt=""><div class="desktop-label">${escapeHtml(ic.label)}</div></div>`).join('');
 
         // double-click to open
         Array.from(desktop.querySelectorAll('.desktop-icon')).forEach(el => {
@@ -940,6 +1594,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     const key = el.getAttribute('data-key');
                     if (key === 'explorer') window.openExplorer();
                     else if (key === 'notepad') window.openNotepad();
+                    else if (key === 'calculator') window.showCalculator();
+                    else if (key === 'paint') window.showPaint();
+                    else if (key === 'solitaire') window.showSolitaire();
+                    else if (key === 'terminal') {
+                        // show and focus the terminal window
+                        const tw = document.getElementById('terminal-window');
+                        if (tw) {
+                            tw.classList.remove('hidden');
+                            try { tw.style.zIndex = ++_topZ; } catch(e){}
+                        }
+                        // focus legacy input for accessibility (live input is global)
+                        const inp = document.getElementById('input'); if (inp) inp.focus();
+                    }
+                    else if (key === 'accounting') {
+                        try { if (typeof window !== 'undefined' && typeof window.showAccounting === 'function') window.showAccounting(); } catch(e) {}
+                    }
                     else if (key && key.startsWith('q00ql3')) { try { buildHomepage(); } catch(e) {} }
                     else if (key === 'broken_shortcut') window.showBrowser('broken_shortcut', lore['broken_shortcut'].content || lore['broken_shortcut'].content);
                 }
@@ -1000,15 +1670,21 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="start-item" id="start-open-explorer"><div class="icon-slot"><img src="All [Without duplicates]/Opened Folder.ico" alt="" width="18" height="18"></div><div class="label">My Computer</div><div class="submenu-arrow">&rsaquo;</div></div>
         <div class="start-item" id="start-open-notepad"><div class="icon-slot"><img src="All [Without duplicates]/Notepad.ico" alt="" width="18" height="18"></div><div class="label">Notepad</div><div class="submenu-arrow"></div></div>
         <div class="start-item" id="start-open-browser"><div class="icon-slot"><img src="All [Without duplicates]/Globe.ico" alt="" width="18" height="18"></div><div class="label">Internet</div><div class="submenu-arrow"></div></div>
+        <div class="start-item" id="start-open-calculator"><div class="icon-slot"><img src="All [Without duplicates]/Calculator.ico" alt="" width="18" height="18"></div><div class="label">Calculator</div><div class="submenu-arrow"></div></div>
+        <div class="start-item" id="start-open-paint"><div class="icon-slot"><img src="All [Without duplicates]/Drawing.ico" alt="" width="18" height="18"></div><div class="label">Paint</div><div class="submenu-arrow"></div></div>
+        <div class="start-item" id="start-open-solitaire"><div class="icon-slot"><img src="All [Without duplicates]/Cards.ico" alt="" width="18" height="18"></div><div class="label">Solitaire</div><div class="submenu-arrow"></div></div>
     `;
     document.body.appendChild(startMenu);
     startBtn && startBtn.addEventListener('click', () => { startMenu.classList.toggle('visible'); });
     document.getElementById('start-open-explorer').addEventListener('click', () => { startMenu.classList.remove('visible'); window.openExplorer(); refreshTaskbarButtons(); });
     document.getElementById('start-open-notepad').addEventListener('click', () => { startMenu.classList.remove('visible'); window.openNotepad(); refreshTaskbarButtons(); });
     document.getElementById('start-open-browser').addEventListener('click', () => { startMenu.classList.remove('visible'); buildHomepage(); refreshTaskbarButtons(); });
+    document.getElementById('start-open-calculator').addEventListener('click', () => { startMenu.classList.remove('visible'); window.showCalculator(); refreshTaskbarButtons(); });
+    document.getElementById('start-open-paint').addEventListener('click', () => { startMenu.classList.remove('visible'); window.showPaint(); refreshTaskbarButtons(); });
+    document.getElementById('start-open-solitaire').addEventListener('click', () => { startMenu.classList.remove('visible'); window.showSolitaire(); refreshTaskbarButtons(); });
 
-    // --- Internet Explorer menu-bar dropdowns ---
-    (function attachIEMenus(){
+    // --- Browser menu-bar dropdowns (Netscape Navigator) ---
+    (function attachBrowserMenus(){
         const menuBar = document.querySelector('#browser-window .menu-bar');
         if (!menuBar) return;
 
@@ -1039,7 +1715,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } }
             ],
             'Tools': [ { label: 'Developer Tools', action: () => { window.showAlert && window.showAlert('Developer Tools not available in this build.'); } } ],
-            'Help': [ { label: 'About Internet Explorer', action: () => { window.showAlert && window.showAlert('Internet Explorer (q00ql3) — ChronOS simulated browser.'); } } ]
+            'Help': [ { label: 'About Netscape Navigator', action: () => { window.showAlert && window.showAlert('Netscape Navigator (q00ql3) — ChronOS simulated browser.'); } } ]
         };
 
         let activeDropdown = null;
@@ -1099,8 +1775,28 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTrayClock();
 
     // Keep taskbar buttons in sync when windows open/close
-    const observer = new MutationObserver(() => { refreshTaskbarButtons(); });
-    observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['class'] });
+    const observer = new MutationObserver((mutations) => {
+        // keep taskbar buttons updated
+        refreshTaskbarButtons();
+        // when a window/dialogue loses the 'hidden' class, trigger opening animation
+        mutations.forEach(m => {
+            try {
+                const target = m.target;
+                if (!target || !target.classList) return;
+                // if class attribute changed
+                if (m.attributeName === 'class') {
+                    const wasHidden = m.oldValue && m.oldValue.includes('hidden');
+                    const isHidden = target.classList.contains('hidden');
+                    if (wasHidden && !isHidden) {
+                        // newly shown - add transient opening class
+                        target.classList.add('opening');
+                        setTimeout(() => { try { target.classList.remove('opening'); } catch(e) {} }, 250);
+                    }
+                }
+            } catch (e) { /* non-fatal */ }
+        });
+    });
+    observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['class'], attributeOldValue: true });
 
     // build initial desktop and taskbar state
     buildDesktopIcons();

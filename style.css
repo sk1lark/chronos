@@ -1,376 +1,335 @@
-@import url('https://fonts.googleapis.com/css2?family=Perfect+DOS+VGA+437&display=swap');
+/* System 7 style stylesheet - minimal, monochrome GUI inspired by classic Macintosh System 7 */
+/* Use the local Chicago OTF across the site */
+@font-face {
+    font-family: 'Chicago';
+    src: url('chicago-12-1.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'System7UI';
+    src: local('Geneva'), local('Helvetica'), local('Arial');
+}
+
+/* Force Chicago as the site-wide font. Using !important ensures inputs, terminals
+   and components that set their own font-family inherit Chicago as requested. */
+html, body, * {
+    font-family: Chicago, System7UI, Geneva, Helvetica, Arial, sans-serif !important;
+}
+
+html, body {
+    height: 100%;
+}
 
 body {
-    background-color: #000000;
-    color: #00ff00;
-    font-family: 'Perfect DOS VGA 437', 'Courier New', monospace;
-    font-size: 14px;
-    line-height: 1.2;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-}
+    font-family: System7UI, Geneva, Helvetica, Arial, sans-serif;
+    /* System 7 - strict 1-bit monochrome stylesheet
+       Clean, valid CSS that applies Chicago font site-wide and avoids nested/duplicated rules.
+    */
 
-/* Desktop / Taskbar */
-.desktop {
-    position: absolute;
-    inset: 0;
-    background: #008080; /* classic teal wallpaper */
-    background-image: linear-gradient(rgba(0,0,0,0.03), rgba(255,255,255,0.02));
-    overflow: hidden;
-}
-.desktop-icons { position: absolute; left: 12px; top: 12px; display:flex; flex-direction:column; gap:12px; }
-.desktop-icon { width:72px; text-align:center; color:#00ff00; font-size:12px; cursor:pointer; background:transparent; font-family: 'Perfect DOS VGA 437', 'Courier New', monospace; }
-.desktop-icon img { width:48px; height:48px; display:block; margin:0 auto 4px; image-rendering:pixelated; }
+    /* The actual scrollable output area inside the terminal */
+      font-family: 'Chicago';
+      src: url('chicago-12-1.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
 
-/* Sticky note on desktop (used for desktop_diary) */
-.desktop-sticky {
-    position: absolute;
-    top: 80px;
-    left: 240px;
-    width: 520px;
-    background: #fff9b0; /* pale yellow */
-    border: 4px solid #f0e27a; /* darker paper edge */
-    box-shadow: 6px 6px 0 rgba(0,0,0,0.5);
-    padding: 18px 16px;
-    font-family: 'Perfect DOS VGA 437', 'Courier New', monospace;
-    color: #00ff00;
-    font-size: 16px;
-    line-height: 1.4;
-    z-index: 1200;
-}
-.desktop-sticky .sticky-title { font-weight:700; color:#00ff00; margin-bottom:8px; }
-.desktop-sticky .sticky-body { white-space: pre-wrap; }
+    @font-face {
+      font-family: 'System7UI';
+      src: local('Geneva'), local('Helvetica'), local('Arial');
+    }
 
-.taskbar { position:fixed; left:0; right:0; bottom:0; height:36px; background:#c0c0c0; border-top:2px solid #808080; display:flex; align-items:center; gap:8px; padding:4px; box-sizing:border-box; box-shadow: inset 0 1px 0 #fff; }
-.start-button { min-width:86px; height:26px; background:#c0c0c0; border-left:2px solid #fff; border-top:2px solid #fff; border-right:2px solid #404040; border-bottom:2px solid #404040; display:flex; align-items:center; gap:6px; padding:2px 6px; cursor:pointer; font-weight:bold; color:#000; box-sizing:border-box; }
-.start-button .win-sq { width:16px; height:16px; display:inline-block; image-rendering:pixelated; margin-left:2px; margin-right:4px; }
-.start-button .start-text { font-family: 'MS Sans Serif', 'Helvetica', sans-serif; font-size:12px; line-height:16px; }
-.task-area { flex:1; display:flex; gap:6px; align-items:center; padding-left:8px; }
-.task-button { background:#c0c0c0; border-left:2px solid #fff; border-top:2px solid #fff; border-right:2px solid #404040; border-bottom:2px solid #404040; padding:2px 8px; cursor:pointer; font-size:12px; display:inline-flex; align-items:center; gap:6px; min-width:96px; height:26px; box-sizing:border-box; }
-.task-button.active { border-left:2px solid #404040; border-top:2px solid #404040; border-right:2px solid #fff; border-bottom:2px solid #fff; background:#c0c0c0; box-shadow: inset 1px 1px 0 rgba(0,0,0,0.6); }
-.task-button img { width:16px; height:16px; image-rendering: pixelated; }
-.task-button span { font-size:12px; line-height:1; }
-.tray { display:flex; align-items:center; gap:8px; padding-right:8px; }
-.tray-clock { font-family: 'Courier New', monospace; font-size:12px; color:#000; background:#fff; padding:2px 6px; border:1px solid #000; }
+    /* Base */
+    html, body { height: 100%; }
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Chicago, System7UI, Geneva, Helvetica, Arial, sans-serif;
+        background: #e6e6e6;
+        color: #000;
+        font-size: 16px; /* larger text everywhere */
+        line-height: 1.2;
+        overflow: hidden;
+    }
 
-.start-menu { position:fixed; left:8px; bottom:44px; width:260px; background:#eaeaea; border-left:2px solid #fff; border-top:2px solid #fff; border-right:2px solid #404040; border-bottom:2px solid #404040; box-shadow:2px 2px 0 #000; display:none; padding:4px; box-sizing:border-box; }
-.start-menu.visible { display:block; }
-.start-menu .start-item { display:flex; align-items:center; gap:8px; padding:6px 8px; cursor:pointer; border-bottom:1px solid rgba(0,0,0,0.08); font-family: 'MS Sans Serif', 'Helvetica', sans-serif; background:transparent; color:#000; }
-.start-menu .start-item:last-child { border-bottom: none; }
-.start-menu .start-item img { width:18px; height:18px; image-rendering:pixelated; margin-left:4px; }
-.start-menu .start-item .label { flex:1; }
-.start-menu .start-item .submenu-arrow { width:20px; text-align:center; color:inherit; }
-.start-menu .start-item:hover, .start-menu .start-item.active { background:#000080; color:#fff; }
-.start-menu .start-item:hover .submenu-arrow, .start-menu .start-item.active .submenu-arrow { color:#fff; }
-.start-menu .start-item .icon-slot { width:20px; height:20px; display:inline-block; }
+    /* Force Chicago for form controls and general text, but keep monospace for terminals */
+    * { box-sizing: border-box; }
+    input, select, button, textarea { font-family: Chicago, System7UI, Geneva, Helvetica, Arial, sans-serif; }
 
-/* Classic titlebar appearance */
-.title-bar, .dialogue-title-bar { background: linear-gradient(90deg,#d0d8ee,#7a8fbf); color: #000; border-bottom:1px solid #000; height:18px; padding:2px 6px; font-family: 'MS Sans Serif', 'Helvetica', sans-serif; font-size:12px; }
-.window .control-btn { width:18px; height:14px; background:linear-gradient(#e9e9e9,#cfcfcf); border:2px outset #fff; display:flex; align-items:center; justify-content:center; }
-.window .control-btn:active { border:2px inset #fff; }
+    /* Desktop and menubar */
+    .menubar {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: 26px;
+        background: #fff;
+        border-bottom: 1px solid #000;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 8px;
+        z-index: 2000;
+        font-size: 16px;
+    }
+    .menubar .apple { width:18px; height:18px; background:#000; margin-right:8px; border:1px solid #000; }
+    .menu-item { padding: 0 10px; line-height:26px; color: #000; cursor: default; }
+    .menu-item:hover { background: #000; color: #fff; }
+    .menuright { margin-left: auto; display:flex; gap:8px; align-items:center; }
 
-/* Make windows look boxed like Win95 */
-.window { border:2px solid #000; box-shadow:none; }
-.window .window-content { background:#c0c0c0; border:2px inset #fff; }
+    .desktop { position: absolute; top: 26px; left:0; right:0; bottom:0; background:#e6e6e6; }
+    /* Tiny dark grey grid background to mimic System 7 desktop dither */
+    .desktop.dither {
+        background-color: #dcdcdc;
+        background-image:
+            linear-gradient(0deg, rgba(0,0,0,0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px);
+        background-size: 4px 4px;
+    }
 
+    /* Desktop icons */
+    /* place desktop icons on the left column like System 7 style */
+    .desktop-icons { position:absolute; left:12px; top:36px; display:flex; flex-direction:column; gap:14px; align-items:center; }
+    .desktop-icon { width:84px; text-align:center; font-size:16px; cursor:pointer; display:flex; flex-direction:column; align-items:center; }
+    .desktop-icon img { width:48px; height:48px; image-rendering: pixelated; display:block; }
+    .desktop-label { display:block; margin-top:6px; font-family: 'Geneva', 'Helvetica', sans-serif; font-weight:700; font-size:14px; line-height:1; text-align:center; }
 
-.terminal-window {
-    position: absolute;
-    top: 100px;
-    left: 50px;
-    width: 600px;
-    height: 400px;
-    background-color: #c0c0c0;
-    border: 2px outset #c0c0c0;
-    display: flex;
-    flex-direction: column;
-    z-index: 100;
-}
+    /* Generic window chrome */
+    .window, .terminal-window, .notepad-window, .dialogue-box, .browser-window {
+        position: absolute;
+        border: 2px solid #000; /* thicker outer border like System 7 */
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: none;
+    }
 
-.notepad-window {
-    position: absolute;
-    top: 80px;
-    right: 50px;
-    width: 400px;
-    height: 300px;
-    background-color: #c0c0c0;
-    border: 2px outset #c0c0c0;
-    display: flex;
-    flex-direction: column;
-    z-index: 99;
-}
+    .title-bar, .dialogue-title-bar, .browser-titlebar {
+        height: 28px;
+        background: linear-gradient(180deg, #fff 0%, #e6e6e6 100%);
+        color: #000;
+        display: flex;
+        align-items: center;
+        padding: 0 4px;
+        border-bottom: 2px solid #000;
+        position: relative;
+    }
+    .title-left { display:flex; gap:6px; align-items:center; margin-right:8px; }
+    .title-center { position: absolute; left: 50%; transform: translateX(-50%); top: 3px; }
+    .title-center .title-box { display:inline-block; border:1px solid #000; background:#fff; padding:2px 8px; font-weight:bold; }
 
-.notepad-content {
-    flex: 1;
-    background-color: white;
-    margin: 2px;
-    border: 2px inset #c0c0c0;
-}
+    .window .window-controls, .dialogue-title-bar .dialogue-controls { display:flex; gap:4px; margin-right:8px; }
+    .control-btn, .dialogue-control-btn { width:18px; height:16px; border:2px solid #808080; background:#dcdcdc; display:flex; align-items:center; justify-content:center; font-size:12px; cursor:pointer; box-shadow: 1px 1px 0 #ffffff inset, -1px -1px 0 #000000 inset; }
+    .control-btn:active { background:#808080; color:#fff; }
 
-.notepad-content textarea {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    border: none;
-    padding: 8px;
-    font-family: 'Perfect DOS VGA 437', 'Courier New', monospace;
-    font-size: 12px;
-    white-space: pre-wrap; /* preserve line breaks but wrap long lines */
-    word-wrap: break-word;
-    overflow: auto; /* allow scrolling when content is large */
-    resize: none;
-    outline: none;
-}
+    /* Compact System-7 style control buttons (small boxed look) */
+    .window .control-btn { width:20px; height:16px; margin-left:4px; padding:0; border:1px solid #000; background:#ffffff; box-shadow:none; display:flex; align-items:center; justify-content:center; font-size:11px; }
+    .window .control-btn:active { background:#000; color:#fff; }
 
-.title-bar {
-    background: linear-gradient(90deg, #0000ff 0%, #000080 100%);
-    color: white;
-    padding: 2px 5px;
-    font-size: 11px;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #808080;
-}
+    .window::after { content: ''; position: absolute; right:4px; bottom:4px; width:9px; height:9px; border:1px solid #000; background:#fff; }
 
-.window-controls {
-    display: flex;
-    gap: 2px;
-}
+    .window .window-content, .notepad-content, .vn-text-area { padding:6px; background:#fff; color:#000; }
 
-.control-btn {
-    width: 16px;
-    height: 14px;
-    background-color: #c0c0c0;
-    border: 1px outset #c0c0c0;
-    font-size: 10px;
-    text-align: center;
-    line-height: 12px;
-    cursor: pointer;
-}
+    /* Terminal: use monospace for better readability, but still System 7 look */
+    /* Make the terminal element grow to fill the terminal window and keep the
+       scrollable output area inside #output so the black terminal fills the
+       chrome instead of leaving a large white gap. */
+    #terminal {
+        background: #000;
+        color: #fff;
+        padding: 6px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 12px;
+        border: 2px solid #fff; /* white border for 1-bit System 7 look */
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto; /* fill remaining vertical space in .terminal-window */
+        overflow: hidden; /* keep scrolling on #output */
+    }
+    /* The actual scrollable output area inside the terminal */
+    #output {
+        flex: 1 1 auto;
+        overflow: scroll; /* force scrollbar to always show */
+        padding-right: 6px; /* avoid overlaying scrollbar on text */
+    }
+    #output::-webkit-scrollbar {
+        width: 12px;
+    }
+    #output::-webkit-scrollbar-track {
+        background: #000;
+    }
+    #output::-webkit-scrollbar-thumb {
+        background: #fff; /* white scrollbar for visibility */
+    }
+    #output::-webkit-scrollbar-thumb:hover {
+        background: #ccc;
+    }
+    /* Input / live prompt lines sit at the bottom */
+    .input-line, .live-input-line {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 6px;
+        color: #fff;
+        min-width: 0; /* allow children to shrink properly in flex layout */
+    }
 
-#terminal {
-    background-color: #000000;
-    color: #c0c0c0;
-    padding: 8px;
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    line-height: 1.2;
-    border: 2px inset #c0c0c0;
-    margin: 2px;
-}
+    .live-input-line .live-input { 
+        white-space: pre; 
+        color: #fff; 
+        display: inline-block;
+        flex: 0 0 auto; /* size to content so caret appears directly after text */
+        min-width: 0; /* allow it to shrink in constrained layouts */
+        max-width: calc(100% - 48px); /* leave room for prompt and caret; long input will scroll */
+        overflow-x: auto; /* allow long input to scroll horizontally */
+    }
 
-#terminal::-webkit-scrollbar {
-    width: 16px;
-}
+    .live-input-line .caret { color: #fff; margin-left: 4px; }
+    /* Each appended line in the terminal is a separate block to emulate real terminals */
+    .terminal-line { white-space: pre-wrap; font-family: 'Courier New', Courier, monospace; color: #fff; margin: 0; line-height: 1.2; }
+    .terminal-line .prompt { color: #fff; font-weight:700; }
+    #terminal::-webkit-scrollbar { width:12px; }
+    #terminal::-webkit-scrollbar-track { background:#000; }
+    #terminal::-webkit-scrollbar-thumb { background:#000; }
 
-#terminal::-webkit-scrollbar-track {
-    background-color: #c0c0c0;
-    border: 1px inset #c0c0c0;
-}
+    /* subtle highlight animation when new output appears */
+    .terminal-line.new-output {
+        animation: newOutputFlash 700ms ease forwards;
+    }
 
-#terminal::-webkit-scrollbar-thumb {
-    background-color: #808080;
-    border: 1px outset #808080;
-}
+    @keyframes newOutputFlash {
+        0% { background: rgba(255,255,255,0.06); transform: translateY(-2px); }
+        40% { background: rgba(255,255,255,0.03); transform: translateY(0); }
+        100% { background: transparent; transform: none; }
+    }
 
-#output {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
+    /* Positioning for the terminal window so it doesn't sit under the very top of the page */
+    .terminal-window {
+        top: 72px; /* below the 22px menubar + a small gap */
+        left: 120px;
+        right: 120px;
+        max-width: 980px;
+        height: 600px; /* increased height for longer terminal */
+        z-index: 300; /* keep terminal above desktop items */
+        display:flex; flex-direction:column;
+    }
 
-.input-line {
-    display: flex;
-    align-items: center;
-}
+    /* Terminal-specific title bar to emulate classic System 7 blue chrome */
+    .terminal-window .title-bar {
+        background: #c0c0c0; /* System 7 gray for more monochrome look */
+        color: #000;
+        padding: 2px 8px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 2px solid #000;
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+    .terminal-window .title-bar .title-box { border:1px solid #000; background:#c0c0c0; color:#000; padding:2px 6px; }
+    .terminal-window .title-left { position: absolute; left: 6px; }
+    .terminal-window .window-controls { position: absolute; right: 6px; display:flex; gap:4px; }
 
-.prompt {
-    color: #00ff00;
-}
+    /* Dialogue box */
+    .dialogue-box { width:420px; height:160px; }
+    .dialogue-title { font-weight:bold; }
+    .vn-character-info { width:56px; padding:4px; }
+    .vn-avatar { width:48px; height:48px; border:1px solid #000; background:#fff; display:block; }
+    .vn-text-area { margin-left:64px; }
+    .vn-dialogue-text { color:#000; font-size:12px; }
 
-input {
-    background: transparent;
-    border: none;
-    color: #00ff00;
-    font-family: 'Perfect DOS VGA 437', 'Courier New', monospace;
-    font-size: 14px;
-    width: 100%;
-    outline: none;
-}
+    /* Notepad */
+    .notepad-window { width:420px; height:320px; }
+    .notepad-content textarea { width:100%; height:100%; box-sizing:border-box; border:1px solid #000; outline:none; font-family: 'Courier New', Courier, monospace; font-size:12px; }
 
-.ascii-art {
-    color: #00ff00;
-    white-space: pre;
-    font-family: 'Perfect DOS VGA 437', 'Courier New', monospace;
-    text-align: center;
-    margin: 20px 0;
-}
+    /* Menus & dropdowns */
+    .ie-menu-dropdown, .menu-dropdown { background:#fff; border:1px solid #000; min-width:160px; }
+    .ie-menu-item, .menu-item-row { padding:4px 8px; cursor:pointer; }
+    .ie-menu-item:hover, .menu-item-row:hover { background:#000; color:#fff; }
 
-.error {
-    color: #ff0000;
-}
+    /* Toolbars & buttons */
+    .browser-toolbar, .toolbar, .ie-toolbar { background:#fff; border-bottom:1px solid #000; padding:4px; display:flex; gap:6px; align-items:center; }
+    .toolbar-btn, .ie-btn, .calc-btn, .paint-tool { border:1px solid #000; background:#fff; padding:2px 6px; cursor:pointer; }
+    .toolbar-btn:active, .ie-btn:active, .calc-btn:active, .paint-tool:active { background:#000; color:#fff; }
 
-.system {
-    color: #ffff00;
-}
+    /* Status bar */
+    .status-bar { background:#fff; border-top:1px solid #000; padding:4px; font-size:11px; display:flex; justify-content:space-between; }
 
-.log-entry {
-    color: #00ffff;
-    border-left: 1px solid #00ffff;
-    padding-left: 1em;
-    margin: 0.5em 0;
-}
+    /* Explorer panes */
+    .explorer-left { background:#fff; border-right:1px solid #000; }
+    .explorer-right { background:#fff; }
+    .explorer-row { padding:6px; border:1px solid transparent; background:#fff; }
+    .explorer-row:hover { background:#000; color:#fff; }
 
-.memory-fragment {
-    color: #ff00ff;
-    margin: 1em 0;
-}
+    /* Modal and alerts */
+    .modal-window, .alert-content, .mediaplayer-content, .imageviewer-content { background:#fff; border:1px solid #000; }
+    .modal-overlay { background: rgba(0,0,0,0.5); }
 
-.warden-text {
-    color: #ff0000;
-    font-style: italic;
-}
+    /* Cards / graphics simplified */
+    .card { background:#fff; border:1px solid #000; }
 
-.p0-text {
-    color: #ffff00;
-    border-left: 1px solid #ffff00;
-    padding-left: 1em;
-    margin: 0.5em 0;
-}
+    /* Desktop trash */
+    .desktop-trash { position:absolute; right:12px; bottom:12px; width:40px; height:40px; border:1px solid #000; background:#fff; display:flex; align-items:center; justify-content:center; }
 
-.status-bar {
-    background-color: #c0c0c0;
-    border-top: 1px solid #808080;
-    padding: 2px 5px;
-    font-size: 11px;
-    color: black;
-    display: flex;
-    justify-content: space-between;
-}
+    /* Sticky note for lived-in desktop feel */
+    .desktop-sticky {
+        position: absolute;
+        left: 120px;
+        top: 64px;
+        width: 180px;
+        padding: 6px 8px;
+        background: #fff79a; /* pale sticky yellow */
+        border: 1px solid #000;
+        box-shadow: 2px 2px 0 #c0c0c0;
+        font-size: 12px;
+        cursor: default;
+        z-index: 50;
+        white-space: pre-wrap;
+    }
 
-.danger-text {
-    color: #ff0000;
-    animation: blink 1s infinite;
-    font-weight: bold;
-}
+    /* Helpers */
+    .hidden { display:none !important; }
 
-.critical-text {
-    color: #ff0000;
-    background-color: #ffff00;
-    animation: flash 0.5s infinite;
-    font-weight: bold;
-}
+    /* Opening animation used when windows are shown */
+    @keyframes opening-pop {
+        0% { opacity: 0; transform: translateY(8px) scale(0.96); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .window.opening, .terminal-window.opening, .dialogue-box.opening {
+        animation: opening-pop 180ms cubic-bezier(.2,.8,.2,1) both;
+    }
+    input[type="text"], textarea { font-family: Chicago, System7UI, Geneva, Helvetica, Arial, sans-serif; font-size:12px; color:#000; }
 
-.glitch {
-    animation: glitch 0.3s infinite;
-}
+    /* Ensure standard scrollbar visuals (monochrome-friendly) */
+    ::-webkit-scrollbar { background: #fff; }
 
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-}
+    /* Small utility classes */
+    .align-right { text-align: right; }
+    .align-left { text-align: left; }
 
-@keyframes flash {
-    0%, 50% { background-color: #ffff00; color: #ff0000; }
-    51%, 100% { background-color: #ff0000; color: #ffff00; }
-}
-
-@keyframes glitch {
-    0% { transform: translateX(0); }
-    20% { transform: translateX(-2px); }
-    40% { transform: translateX(2px); }
-    60% { transform: translateX(-1px); }
-    80% { transform: translateX(1px); }
-    100% { transform: translateX(0); }
-}
-
-.warning-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 0, 0, 0.1);
-    pointer-events: none;
-    opacity: 0;
-    animation: warning-pulse 2s infinite;
-}
-
-@keyframes warning-pulse {
-    0%, 90% { opacity: 0; }
-    95%, 100% { opacity: 0.3; }
-}
-
-.corruption {
-    color: #ff00ff;
-    text-shadow: 2px 0 #00ff00, -2px 0 #ff0000;
-}
-
-/* Dialogue Box */
-
-/* Windows 95 Dialogue Box */
-.dialogue-box {
-    position: fixed;
-    top: 150px;
-    right: 30px;
-    width: 400px;
-    height: 170px;
-    background-color: #c0c0c0;
-    border: 2px outset #c0c0c0;
-    font-family: 'MS Sans Serif', sans-serif;
-    font-size: 11px;
-    z-index: 1000;
-    transition: all 0.3s ease;
-}
-
-.dialogue-title-bar {
-    background: linear-gradient(90deg, #000080, #000060);
-    color: white;
-    padding: 2px 4px;
-    font-size: 11px;
-    font-weight: bold;
+/* Explicit accounting task row styles to ensure visibility and spacing */
+.acct-row {
+    padding: 6px 8px;
+    border-bottom: 1px solid #000;
+    background: #fff;
+    color: #000;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 16px;
+    gap: 8px;
 }
 
-.dialogue-title {
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.dialogue-controls {
-    display: flex;
-    gap: 2px;
-}
-
-.dialogue-control-btn {
-    width: 16px;
-    height: 14px;
-    background-color: #c0c0c0;
-    border: 1px outset #c0c0c0;
-    font-size: 8px;
-    font-weight: bold;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    line-height: 1;
-}
-
+/* Dialogue and related styles continue below */
 .dialogue-control-btn:hover {
-    background-color: #d0d0d0;
+    background-color: #cccccc;
 }
 
 .dialogue-control-btn:active {
-    border: 1px inset #c0c0c0;
+    background-color: #aaaaaa;
 }
 
 .dialogue-box.hidden {
@@ -383,6 +342,17 @@ input {
     position: relative;
     height: calc(100% - 20px);
     padding: 0;
+}
+
+/* Make the dialogue content visibly draggable and ensure it can be used as a handle */
+.dialogue-box {
+    cursor: default;
+    z-index: 1300; /* higher to ensure it pops up */
+}
+.dialogue-box .vn-dialogue-content,
+.dialogue-box .vn-text-area {
+    cursor: move; /* indicate draggable area */
+    user-select: none; /* avoid selecting text while dragging */
 }
 
 .vn-character-info {
@@ -416,7 +386,29 @@ input {
 
 /* Notepad adjustments */
 .notepad-window { width: 420px; height: 320px; }
-.notepad-content textarea { width: 100%; height: 100%; border: none; padding: 6px; font-family: 'Courier New', monospace; font-size: 12px; resize: none; outline: none; background: #fff; }
+/* Make the notepad content fill the window and use flex so the textarea
+   can expand to fill the available space under the title bar. */
+.notepad-content {
+    padding: 0;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    background: #fff;
+}
+
+.notepad-content textarea {
+    flex: 1 1 auto;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    padding: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    resize: none;
+    outline: none;
+    background: #fff;
+    color: #000;
+}
 
 .vn-text-area {
     position: absolute;
@@ -426,7 +418,7 @@ input {
     bottom: 8px;
     padding: 6px;
     background-color: #ffffff;
-    border: 1px inset #c0c0c0;
+    border: none;
 }
 
 .vn-dialogue-text {
@@ -458,34 +450,33 @@ input {
     left: 120px;
     width: 400px;
     height: 300px;
-    border: 2px solid #000;
-    background-color: #c0c0c0;
-    box-shadow: 2px 2px 0px #000;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    box-shadow: 2px 2px 0 #cccccc;
     display: flex;
     flex-direction: column;
     z-index: 100;
 }
 
 .window .title-bar {
-    background-color: #000080;
-    color: #fff;
+    background-color: #ffffff;
+    color: #000000;
+    border-bottom: 1px solid #000000;
     padding: 3px;
-    font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .browser-titlebar {
-    /* Classic IE titlebar - Win95 look */
     height: 22px;
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 2px 6px;
-    background: linear-gradient(90deg,#000080,#000070);
-    color: #fff;
-    border: 2px outset #c0c0c0;
+    background: #ffffff;
+    color: #000000;
+    border-bottom: 1px solid #000000;
 }
 .browser-titlebar .icon {
     width: 16px;
@@ -495,12 +486,10 @@ input {
 }
 .browser-titlebar .title {
     font-size: 13px;
-    font-weight: bold;
     margin-left: 2px;
-    margin-right: auto; /* push controls to the far right */
-    color: #ffffff;
-    text-shadow: 1px 1px rgba(0,0,0,0.25);
-    font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
+    margin-right: auto;
+    color: #000000;
+    font-family: 'Geneva', 'Helvetica', sans-serif;
 }
 .browser-titlebar .window-controls {
     margin-left: auto;
@@ -509,21 +498,17 @@ input {
     align-items: center;
 }
 .browser-titlebar .control-btn {
-    width: 18px;
-    height: 18px;
-    font-size: 12px;
-    line-height: 14px;
+    width: 14px;
+    height: 14px;
+    font-size: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(#e0e0e0,#bdbdbd);
-    border: 2px outset #ffffff;
-    box-shadow: inset -1px -1px 0 rgba(0,0,0,0.15);
-    color: #000;
-    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #000000;
 }
 .browser-titlebar .control-btn:active {
-    border: 2px inset #ffffff;
+    background: #cccccc;
 }
 
 .menu-bar {
@@ -542,7 +527,7 @@ input {
 .ie-menu-item:hover { background:#000080; color:#fff; }
 .ie-menu-separator { height:1px; background:rgba(0,0,0,0.1); margin:4px 0; }
 
-/* Internet Explorer toolbar styling to imitate Windows 95 */
+/* Browser toolbar styling (System 7 themed) */
 .ie-toolbar {
     display: flex;
     flex-direction: row;
@@ -551,31 +536,20 @@ input {
     background: linear-gradient(90deg,#eaeaea,#dcdcdc);
     border-bottom: 2px inset #c0c0c0;
 }
-.ie-toolbar .ie-toolbar-left { display:flex; gap:8px; align-items:center; padding-left:6px; flex:0 0 auto; }
-.ie-toolbar .ie-toolbar-left .toolbar-btn { min-width:64px; }
-.ie-toolbar .ie-toolbar-right { display:flex; align-items:center; gap:8px; margin-left:12px; flex:1 1 auto; justify-content:flex-end; }
-.ie-toolbar .toolbar-btn {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:4px;
-    width:64px;
-    height:64px;
-    padding:6px 4px;
-    background: linear-gradient(#eaeaea,#dcdcdc);
-    border:1px solid #9a9a9a;
-    box-sizing:border-box;
-    font-size:12px;
-    color:black;
-    cursor:pointer;
-    font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
-}
-.ie-toolbar .toolbar-btn:active { border:1px inset #808080; box-shadow: inset 0 2px 4px rgba(0,0,0,0.12); }
-.ie-toolbar .toolbar-btn small { font-weight:700; }
-.ie-toolbar .toolbar-btn:hover { background-color:#d0d0d0; }
-.ie-toolbar .toolbar-btn small { display:block; font-size:12px; margin-top:4px; color:#101010; line-height:1; }
-.ie-icon-img { width:20px; height:20px; image-rendering:pixelated; display:block; object-fit:contain; }
+    .ie-toolbar .ie-toolbar-left { display:flex; gap:8px; align-items:center; padding-left:6px; flex:0 0 auto; }
+    .ie-toolbar .ie-toolbar-right { display:flex; align-items:center; gap:8px; margin-left:12px; flex:1 1 auto; justify-content:flex-end; }
+    /* Compact q00ql3 search input/button (System 7 friendly) */
+    .q00ql3-search { display:inline-flex; gap:6px; align-items:center; }
+    .q00ql3-search input { padding:4px 6px; font-family: 'Courier New', monospace; font-size:13px; border:1px solid #000; background:#fff; width:220px; }
+    .q00ql3-search button { padding:4px 8px; border:1px solid #000; background:#fff; cursor:pointer; font-weight:700; font-size:12px; }
+    .q00ql3-search button:active { background:#000; color:#fff; }
+
+    /* Compact toolbar/buttons for accounting window */
+    .ie-toolbar { padding:4px 6px; gap:6px; }
+    .ie-toolbar .ie-toolbar-left { padding-left:4px; }
+    .toolbar-btn { border:1px solid #000; background:#fff; padding:2px 6px; font-size:12px; height:20px; }
+    .toolbar-btn:active { background:#000; color:#fff; }
+    .ie-icon-img { width:16px; height:16px; image-rendering:pixelated; display:block; object-fit:contain; }
 
 .ie-toolbar .ie-toolbar-right { display:flex; align-items:center; gap:8px; }
 #browser-url { width:260px; padding:4px; font-size:12px; border:1px solid #999; }
@@ -591,29 +565,28 @@ input {
 }
 
 .window .control-btn {
-    width: 16px;
-    height: 16px;
-    background-color: #c0c0c0;
-    border: 1px solid #000;
+    width: 14px;
+    height: 14px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
     margin-left: 2px;
     text-align: center;
-    line-height: 14px;
-    font-family: "Fixedsys", monospace;
+    line-height: 12px;
+    font-size: 10px;
+    cursor: pointer;
 }
 
 .window .window-content {
     padding: 10px;
     flex-grow: 1;
-    background-color: #fff;
-    border: 1px solid #000;
-    margin: 3px;
-    overflow-y: auto;
+    background-color: #ffffff;
+    border: none;
 }
 
 .browser-toolbar {
-    background-color: #c0c0c0;
+    background-color: #ffffff;
     padding: 3px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #000000;
 }
 
 #browser-url {
@@ -622,17 +595,16 @@ input {
 }
 
 .toolbar-btn {
-    border: 1px solid #000;
-    background-color: #e0e0e0;
+    border: 1px solid #000000;
+    background-color: #ffffff;
     padding: 2px 6px;
     margin-right: 6px;
     cursor: pointer;
-    font-weight: bold;
 }
 
 .toolbar-btn[disabled], .toolbar-btn.disabled {
-    background-color: #f0f0f0;
-    color: #888;
+    background-color: #cccccc;
+    color: #888888;
     cursor: default;
 }
 
@@ -673,7 +645,7 @@ input {
 .modal-actions { display:flex; gap:8px; margin-top:8px; }
 .modal-content input { width: 100%; box-sizing: border-box; padding:6px; }
 
-/* Internet Explorer Win95-style toolbar */
+.ie-toolbar { display:flex; gap:6px; align-items:center; padding:6px; background:linear-gradient(#e8e8e8,#cfcfcf); border-bottom:1px solid #808080; }
 .ie-toolbar { display:flex; gap:6px; align-items:center; padding:6px; background:linear-gradient(#e8e8e8,#cfcfcf); border-bottom:1px solid #808080; }
 .ie-toolbar-left { display:flex; gap:4px; }
 .ie-btn { width:56px; height:48px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:2px outset #fff; background:#dcdcdc; font-size:12px; }
@@ -736,4 +708,277 @@ input {
 
 .hidden {
     display: none;
+}
+
+/* Calculator styles */
+
+.calculator-content {
+    background-color: #c0c0c0;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Calculator window geometry so it doesn't clip its contents */
+.calculator-content { box-sizing: border-box; width: 100%; max-width: 460px; }
+#calculator-window {
+    width: 460px;
+    height: 520px; /* increase to avoid cutting off buttons */
+    min-width: 360px;
+    min-height: 420px;
+}
+.window .window-content { overflow: auto; }
+.calculator-display { box-sizing: border-box; }
+.calculator-buttons { box-sizing: border-box; }
+
+.calculator-display {
+    width: 100%;
+    max-width: 320px; /* wider display to match classic calculator */
+    height: 56px;
+    background-color: #000;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 28px;
+    text-align: right;
+    padding: 8px 12px;
+    border: 2px inset #808080;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 56px; /* ensure square-ish buttons */
+    gap: 8px;
+    max-width: 320px;
+    width: 100%;
+}
+
+.calc-btn {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#e0e0e0, #c0c0c0);
+    border: 2px outset #ffffff;
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calc-btn:active {
+    border: 2px inset #ffffff;
+}
+
+.calc-op {
+    background: linear-gradient(#f0f0f0, #d0d0d0);
+}
+
+.calc-equals {
+    background: linear-gradient(#0080ff, #004080);
+    color: white;
+}
+
+.calc-clear {
+    background: linear-gradient(#ff8080, #c04040);
+    color: white;
+}
+
+/* Accounting window tweaks */
+.accounting-window .window-content {
+    padding: 8px;
+    background: #fff;
+    color: #000;
+    font-size: 13px;
+}
+
+.accounting-window #accounting-tasks { background: #fff; color: #000; }
+
+.accounting-do {
+    border: 1px solid #000;
+    background: #f0f0f0;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+.accounting-do:active { background: #c0c0c0; }
+
+/* Paint styles */
+.paint-content {
+    background-color: #c0c0c0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.paint-toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background: linear-gradient(#e0e0e0, #c0c0c0);
+    border: 2px inset #808080;
+}
+
+.paint-tool {
+    width: 32px;
+    height: 32px;
+    border: 2px outset #ffffff;
+    background: linear-gradient(#e0e0e0, #c0c0c0);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.paint-tool:active {
+    border: 2px inset #ffffff;
+}
+
+#paint-canvas {
+    border: 2px inset #808080;
+    background: white;
+    cursor: crosshair;
+}
+
+/* Solitaire styles */
+.solitaire-content {
+    background-color: #008000;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.solitaire-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    background: linear-gradient(#e0e0e0, #c0c0c0);
+    padding: 5px;
+    border: 2px inset #808080;
+}
+
+#solitaire-new {
+    padding: 5px 10px;
+    border: 2px outset #ffffff;
+    background: linear-gradient(#e0e0e0, #c0c0c0);
+    cursor: pointer;
+    font-family: 'MS Sans Serif', sans-serif;
+    font-size: 12px;
+}
+
+#solitaire-score {
+    font-family: 'MS Sans Serif', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#solitaire-board {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.solitaire-foundations {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.foundation {
+    width: 80px;
+    height: 100px;
+    background: linear-gradient(#008000, #004000);
+    border: 2px outset #ffffff;
+    border-radius: 5px;
+    position: relative;
+}
+
+.solitaire-tableau {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.tableau-column {
+    width: 80px;
+    min-height: 100px;
+    background: linear-gradient(#008000, #004000);
+    border: 2px outset #ffffff;
+    border-radius: 5px;
+    position: relative;
+}
+
+.solitaire-stock {
+    display: flex;
+    gap: 10px;
+    align-self: flex-start;
+}
+
+#stock-pile, #waste-pile {
+    width: 80px;
+    height: 100px;
+    background: linear-gradient(#008000, #004000);
+    border: 2px outset #ffffff;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+.card {
+    width: 70px;
+    height: 95px;
+    background: white;
+    border: 1px solid #000;
+    border-radius: 3px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    user-select: none;
+}
+
+.card.red { color: red; }
+.card.black { color: black; }
+
+.card-face-up {
+    background: linear-gradient(white, #f0f0f0);
+}
+
+.card-face-down {
+    background: linear-gradient(#008000, #004000);
+    border: 2px outset #ffffff;
+}
+
+.card-value {
+    font-weight: bold;
+    align-self: flex-start;
+}
+
+.card-suit {
+    align-self: flex-end;
+    font-size: 16px;
+}
+
+/* Global text enlargement: make site-wide text larger while keeping layout stable.
+   This override sets a larger base font size and forces child elements to inherit
+   it so we don't need to change every px-sized rule individually. If you want
+   different scaling, adjust the html font-size value below. */
+html {
+    font-size: 18px !important;
+}
+/* Force all elements to inherit the base size so px declarations are overridden */
+body, body * {
+    font-size: inherit !important;
 }
