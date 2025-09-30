@@ -1158,6 +1158,54 @@ lore['memory_fragment_08'] = `
     from chronos
     `;
 
+// Small placeholder entries referenced by loreAliases in commands.js
+lore['desktop_diary'] = `
+Jordan's Desktop Diary
+----------------------
+3/12 - Reconcile petty cash
+3/13 - Call Silas about backup
+3/15 - Run payroll
+`;
+
+lore['shopping_list'] = `
+Shopping List
+------------
+- Coffee
+- Printer paper
+- Backup tapes (lol)
+`;
+
+lore['installation_receipt'] = `
+Installation Receipt
+--------------------
+Product: ChronOS Core v3.4
+Installed by: IT Ops
+Date: 03/01/2024
+`;
+
+lore['resume_draft'] = `
+Resume Draft
+------------
+Jordan Park
+Skills: data entry, ledgers, suspiciously good at hiding things
+`;
+
+lore['old_mail_draft'] = `
+Old Mail Draft
+--------------
+To: HR
+Subject: Re: Benefits
+Body: Please disregard previous message.
+`;
+
+lore['password_hints'] = `
+Password Hints
+--------------
+1) First pet's name
+2) Favorite sky color (two words)
+3) Childhood locker number
+`;
+
 lore['file_d_chronos_history'] = `
     PROJECT CHRONOS - HISTORICAL OVERVIEW
     Founded 2015
