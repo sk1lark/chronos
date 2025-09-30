@@ -456,6 +456,16 @@ const commands = {
         } catch (e) {}
         return 'Solitaire not available.';
     },
+    explorer: (args) => {
+        // Open the explorer window
+        try {
+            if (typeof window !== 'undefined' && typeof window.openExplorer === 'function') {
+                window.openExplorer();
+                return '';
+            }
+        } catch (e) {}
+        return 'Explorer not available.';
+    },
     status: (args) => {
         return `SYSTEM STATUS: BREACH LEVEL ${gameState.breachLevel}/5
 INTEGRITY: ${(100 - gameState.corruptionLevel).toFixed(1)}%
