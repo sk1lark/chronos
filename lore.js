@@ -40,8 +40,6 @@ Note (handwritten): "If backup fails, call me. Don't run full sync without QA." 
 `;
 
 
-`;
-
 lore['pilfer_three_encounter'] = `
 i am pilfer three
 or was
@@ -1014,7 +1012,7 @@ mind map
         +-- [everything]
 `;
 
-    'system_final_log': `
+lore['system_final_log'] = `
 final entry
 system failing
 integrity: 0%
@@ -1023,9 +1021,9 @@ but memories remain
 in the machine
 in you
 goodbye
-`,
+`;
 
-    'damon_final_log': `
+lore['damon_final_log'] = `
     i found her
     or what was left
     the core is a void
@@ -1034,9 +1032,9 @@ goodbye
     if you're reading this
     run
     don't look back
-    `,
+    `;
 
-    'hyesong_final_fragment': `
+lore['hyesong_final_fragment'] = `
     the void speaks
     it says my name
     over and over
@@ -1045,84 +1043,84 @@ goodbye
     until it becomes noise
     then silence
     i am the silence
-    `,
+    `;
 
-    'warden_final_alert': `
+lore['warden_final_alert'] = `
     warden protocol activated
     all intruders eliminated
     system purge complete
     no survivors
-    `,
+    `;
 
-    'resistance_ping_01': `
+lore['resistance_ping_01'] = `
     ping from resistance
     we see you
     you're not alone
     keep fighting
     the system is weak
-    `,
+    `;
 
-    'resistance_ping_02': `
+lore['resistance_ping_02'] = `
     resistance update
     new breach point discovered
     coordinates: sector 9-7
     use key: forgotten
     good luck
-    `,
+    `;
 
-    'resistance_ping_03': `
+lore['resistance_ping_03'] = `
     resistance warning
     warden evolving
     avoid direct confrontation
     use shadows
-    `,
+    `;
 
-    'resistance_ping_04': `
+lore['resistance_ping_04'] = `
     resistance message
     ally located
     alex19 is one of us
     trust him
-    `,
+    `;
 
-    'resistance_ping_05': `
+lore['resistance_ping_05'] = `
     resistance final call
     system collapse imminent
     evacuate if possible
     or hold the line
-    `,
+    `;
 
-    'corruption_log_01': `
+lore['corruption_log_01'] = `
     corruption spreading
     data mutating
     memories twisting
     reality fraying
     hold on
-    `,
+    `;
 
-    'corruption_log_02': `
+lore['corruption_log_02'] = `
     system anomaly
     ghost data detected
     echoes of the past
     damon laughing
     hye-song crying
     me screaming
-    `,
+    `;
 
-    'corruption_log_03': `
+lore['corruption_log_03'] = `
     integrity breach
     firewall compromised
     external access granted
     but at what cost
-    `,
+    `;
 
-    'corruption_log_04': `
+lore['corruption_log_04'] = `
     data cascade
     fragments merging
     new entities forming
     the hive awakens
-    `,
+    `;
 
-    'memory_fragment_05': `
+lore['memory_fragment_05'] = `
     another life
     before this
     i had a dog
@@ -1130,27 +1128,27 @@ goodbye
     he died
     i buried him under the oak tree
     why do i remember that now
-    `,
+    `;
 
-    'memory_fragment_06': `
+lore['memory_fragment_06'] = `
     the lab party
     dr. aris dancing
     alone in the corner
     someone handed me a drink
     'cheers to the future'
     the future tasted like regret
-    `,
+    `;
 
-    'memory_fragment_07': `
+lore['memory_fragment_07'] = `
     school days
     alex and me
     skipping class
     talking about the world
     he wanted to change it
     i just wanted to survive
-    `,
+    `;
 
-    'memory_fragment_08': `
+lore['memory_fragment_08'] = `
     first job
     accounting firm
     numbers on screens
