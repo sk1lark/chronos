@@ -138,12 +138,12 @@ body {
        scrollable output area inside #output so the black terminal fills the
        chrome instead of leaving a large white gap. */
     #terminal {
-        background: #000;
-        color: #fff;
+        background: #fff;
+        color: #000;
         padding: 6px;
         font-family: 'Courier New', Courier, monospace;
         font-size: 12px;
-        border: 2px solid #fff; /* white border for 1-bit System 7 look */
+        border: 2px solid #000; /* black border for 1-bit System 7 look */
         display: flex;
         flex-direction: column;
         flex: 1 1 auto; /* fill remaining vertical space in .terminal-window */
@@ -159,10 +159,10 @@ body {
         width: 12px;
     }
     #output::-webkit-scrollbar-track {
-        background: #000;
+        background: #fff;
     }
     #output::-webkit-scrollbar-thumb {
-        background: #fff; /* white scrollbar for visibility */
+        background: #000; /* black scrollbar for visibility */
     }
     #output::-webkit-scrollbar-thumb:hover {
         background: #ccc;
@@ -173,13 +173,13 @@ body {
         align-items: center;
         gap: 6px;
         margin-top: 6px;
-        color: #fff;
+        color: #000;
         min-width: 0; /* allow children to shrink properly in flex layout */
     }
 
     .live-input-line .live-input { 
         white-space: pre; 
-        color: #fff; 
+        color: #000; 
         display: inline-block;
         flex: 0 0 auto; /* size to content so caret appears directly after text */
         min-width: 0; /* allow it to shrink in constrained layouts */
@@ -187,12 +187,12 @@ body {
         overflow-x: auto; /* allow long input to scroll horizontally */
     }
 
-    .live-input-line .caret { color: #fff; margin-left: 4px; }
+    .live-input-line .caret { color: #000; margin-left: 0px; }
     /* Each appended line in the terminal is a separate block to emulate real terminals */
-    .terminal-line { white-space: pre-wrap; font-family: 'Courier New', Courier, monospace; color: #fff; margin: 0; line-height: 1.2; }
-    .terminal-line .prompt { color: #fff; font-weight:700; }
+    .terminal-line { white-space: pre-wrap; font-family: 'Courier New', Courier, monospace; color: #000; margin: 0; line-height: 1.2; }
+    .terminal-line .prompt { color: #000; font-weight:700; }
     #terminal::-webkit-scrollbar { width:12px; }
-    #terminal::-webkit-scrollbar-track { background:#000; }
+    #terminal::-webkit-scrollbar-track { background:#fff; }
     #terminal::-webkit-scrollbar-thumb { background:#000; }
 
     /* subtle highlight animation when new output appears */
@@ -201,8 +201,8 @@ body {
     }
 
     @keyframes newOutputFlash {
-        0% { background: rgba(255,255,255,0.06); transform: translateY(-2px); }
-        40% { background: rgba(255,255,255,0.03); transform: translateY(0); }
+        0% { background: rgba(0,0,0,0.06); transform: translateY(-2px); }
+        40% { background: rgba(0,0,0,0.03); transform: translateY(0); }
         100% { background: transparent; transform: none; }
     }
 
@@ -713,12 +713,14 @@ body {
 /* Calculator styles */
 
 .calculator-content {
-    background-color: #c0c0c0;
-    padding: 12px;
+    /* 1-bit System 7 style: clean white surface with sharp black border */
+    background-color: #fff;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    border: 2px solid #000;
 }
 
 /* Calculator window geometry so it doesn't clip its contents */
@@ -737,13 +739,14 @@ body {
     width: 100%;
     max-width: 320px; /* wider display to match classic calculator */
     height: 56px;
-    background-color: #000;
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
-    font-size: 28px;
+    background-color: #000; /* dark display like old LED/LCD */
+    color: #fff; /* white-on-black for high contrast */
+    font-family: Chicago, 'Courier New', monospace;
+    font-size: 26px;
     text-align: right;
     padding: 8px 12px;
-    border: 2px inset #808080;
+    border: 2px solid #000; /* crisp black outline */
+    box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #000; /* subtle 1-bit shading */
     margin-bottom: 12px;
     overflow: hidden;
 }
@@ -760,33 +763,34 @@ body {
 .calc-btn {
     width: 100%;
     height: 100%;
-    background: linear-gradient(#e0e0e0, #c0c0c0);
-    border: 2px outset #ffffff;
-    font-family: 'Courier New', monospace;
-    font-size: 20px;
+    background: #fff; /* flat white button */
+    color: #000;
+    border: 1px solid #000; /* crisp 1-bit border */
+    font-family: Chicago, 'Courier New', monospace;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 1px 1px 0 #000, -1px -1px 0 #fff inset; /* simple 1-bit raised effect */
 }
 
 .calc-btn:active {
-    border: 2px inset #ffffff;
+    /* Inset effect when pressed */
+    box-shadow: inset 1px 1px 0 #000;
 }
 
 .calc-op {
-    background: linear-gradient(#f0f0f0, #d0d0d0);
+    background: #fff;
 }
 
 .calc-equals {
-    background: linear-gradient(#0080ff, #004080);
-    color: white;
+    background: #000; color: #fff; border: 1px solid #000;
 }
 
 .calc-clear {
-    background: linear-gradient(#ff8080, #c04040);
-    color: white;
+    background: #fff; color: #000; border: 1px solid #000;
 }
 
 /* Accounting window tweaks */
@@ -981,4 +985,75 @@ html {
 /* Force all elements to inherit the base size so px declarations are overridden */
 body, body * {
     font-size: inherit !important;
+}
+
+.aim-option {
+        display: block;
+        margin: 5px 0;
+        padding: 5px;
+        background: #e6e6e6;
+        border: 1px solid #000;
+        cursor: pointer;
+    }
+    .aim-option:hover {
+        background: #d0d0d0;
+    }
+
+/* Pause Menu */
+.pause-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0px #000;
+    padding: 20px;
+    z-index: 10000;
+    font-family: 'Chicago', sans-serif;
+    text-align: center;
+    min-width: 200px;
+}
+
+/* Full-screen backdrop that darkens and blurs the page when paused */
+.pause-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    z-index: 9998;
+}
+
+/* When the game is paused, visually dim underlying UI by applying a low-opacity overlay
+   and preventing pointer events via the backdrop. The pause menu itself sits above the backdrop. */
+.pause-menu {
+    z-index: 9999; /* ensure it sits above the backdrop */
+}
+
+.pause-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.pause-title small {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.pause-continue {
+    background: #fff;
+    border: 1px solid #000;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.pause-continue:hover {
+    background: #e6e6e6;
 }

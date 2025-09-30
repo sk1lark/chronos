@@ -39,20 +39,77 @@ gameState.accounting = {
     progress: 0
 };
 
-// System corruption timer
-setInterval(() => {
-    gameState.timeInSystem++;
-    gameState.corruptionLevel += 0.1;
-    gameState.systemIntegrity = Math.max(0, 100 - gameState.corruptionLevel);
+// Expose initial gameState early so UI modules can read it as soon as commands.js loads.
+try { if (typeof window !== 'undefined') window.gameState = gameState; } catch (e) {}
 
-    // Random events
-    if (Math.random() < 0.05) { // 5% chance per tick
-        triggerRandomEvent();
-    }
+// Lightweight pause registry: allows other modules to register intervals and audio
+// so the host (terminal) can pause/resume them when the pause menu is opened.
+if (typeof window !== 'undefined' && !window._pauseRegistry) {
+    window._pauseRegistry = (function(){
+        const registry = {
+            intervals: [],
+            timeouts: [],
+            audios: [],
+            registerInterval(fn, delay) {
+                const id = setInterval(fn, delay);
+                this.intervals.push({ fn, delay, id });
+                return id;
+            },
+            registerTimeout(fn, delay) {
+                const id = setTimeout(fn, delay);
+                this.timeouts.push({ fn, delay, id });
+                return id;
+            },
+            registerAudio(a) {
+                try { this.audios.push(a); } catch (e) {}
+            },
+            pauseAll() {
+                try {
+                    this.intervals.forEach(i => clearInterval(i.id));
+                    this.timeouts.forEach(t => clearTimeout(t.id));
+                    this.audios.forEach(a => { try { if (a && typeof a.pause === 'function') a.pause(); } catch(e){} });
+                    this._paused = true;
+                } catch (e) {}
+            },
+            resumeAll() {
+                try {
+                    if (!this._paused) return;
+                    this.intervals.forEach(i => { i.id = setInterval(i.fn, i.delay); });
+                    this.timeouts.forEach(t => { t.id = setTimeout(t.fn, t.delay); });
+                    this.audios.forEach(a => { try { if (a && typeof a.play === 'function') a.play().catch(()=>{}); } catch(e){} });
+                    this._paused = false;
+                } catch (e) {}
+            }
+        };
+        return registry;
+    })();
+}
 
-    // Update status bar
-    updateStatusBar();
-}, 10000); // Every 10 seconds
+// System corruption timer (registered so it can be paused by the pause menu)
+if (typeof window !== 'undefined' && window._pauseRegistry) {
+    window._pauseRegistry.registerInterval(() => {
+        gameState.timeInSystem++;
+        gameState.corruptionLevel += 0.1;
+        gameState.systemIntegrity = Math.max(0, 100 - gameState.corruptionLevel);
+
+        // Random events
+        if (Math.random() < 0.05) { // 5% chance per tick
+            triggerRandomEvent();
+        }
+
+        // Update status bar
+        updateStatusBar();
+    }, 10000);
+} else {
+    // fallback
+    setInterval(() => {
+        gameState.timeInSystem++;
+        gameState.corruptionLevel += 0.1;
+        gameState.systemIntegrity = Math.max(0, 100 - gameState.corruptionLevel);
+        if (Math.random() < 0.05) triggerRandomEvent();
+        updateStatusBar();
+    }, 10000);
+}
 
 function triggerRandomEvent() {
     const events = [
@@ -185,8 +242,8 @@ const commands = {
 
         // UI-driven types (these show windows instead of printing text)
         if (entry.type === 'aim') {
-            if (typeof window !== 'undefined' && typeof window.showAimMessage === 'function') {
-                window.showAimMessage(entry.sender, entry.message);
+            if (typeof window !== 'undefined' && typeof window.showAimChat === 'function') {
+                window.showAimChat('aim_notification');
             }
             return '';
         }
@@ -664,6 +721,8 @@ commands.accounting = (args) => {
             // increase risk and notify the player via dialogue
             gameState.wardenHostility = Math.min(10, gameState.wardenHostility + 2);
             try { if (typeof window !== 'undefined' && typeof window.triggerDialogue === 'function') window.triggerDialogue('accounting_interrupt'); } catch (e) {}
+            try { if (typeof window !== 'undefined') window.showAlert('AIM notification: New message from alex19.'); } catch (e) {}
+            try { if (typeof window !== 'undefined' && typeof window.showAimChat === 'function') window.showAimChat('start'); } catch (e) {}
             return 'All accounting tasks completed. A background process interrupts with an urgent system message.';
         }
         return '';
@@ -711,5 +770,12 @@ commands.echo.description = "Sends echo through the system.";
 commands.story.description = "Shows current narrative state.";
 commands.hint.description = "Provides a random helpful hint.";
 
-// Expose gameState and commands for other scripts to access
-try { window.gameState = gameState; window.commands = commands; } catch (e) {}
+// Expose gameState and commands for other scripts to access and notify listeners
+try {
+    window.gameState = gameState; window.commands = commands;
+    // Notify any listeners that rely on gameState being available (UI modules may listen)
+    if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+        try { window.dispatchEvent(new Event('chronos-gameState-ready')); } catch (e) { /* some older browsers */ }
+    }
+    console.debug && console.debug('[chronos] gameState exposed');
+} catch (e) {}

@@ -76,7 +76,10 @@
                 <div class="control-btn">×</div>
             </div>
         </div>
-        <div class="window-content" id="aim-content"></div>
+        <div class="window-content">
+            <div id="aim-messages" style="height: 200px; overflow-y: auto; margin-bottom: 10px;"></div>
+            <div id="aim-options"></div>
+        </div>
     </div>
 
     <div id="browser-window" class="window hidden">
@@ -354,9 +357,17 @@
     <audio id="alarm-sound" loop>
         <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmMeAzyLyvLNfCkGI3PC7+CRQQ0PVa3m67hNFW9kzqOHm4uaU5vFZ8v1Qs2PYGlITXyVJ1tZRsq6K/jYGlLOWYGbja1OXpC3OsU6K4rM8rRdGUZ1T2KJ3sb5jGJwgRJMRuCmFKc=" type="audio/wav">
     </audio>
+
+    <!-- Pause Menu -->
+    <div id="pause-backdrop" class="pause-backdrop hidden"></div>
+    <div id="pause-menu" class="pause-menu hidden" role="dialog" aria-modal="true" aria-label="Pause Menu">
+        <div class="pause-title">chronos<br><small>(a game by hayden park)</small></div>
+        <button id="pause-continue" class="pause-continue">continue</button>
+    </div>
     </div>
     <script src="lore.js"></script>
     <script src="dialogue.js"></script>
+    <script src="aim_chats.js"></script>
     <script src="commands.js"></script>
     <script src="terminal.js"></script>
     <script>

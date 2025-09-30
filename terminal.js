@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const a = new Audio('omori.ogg');
             a.volume = 0.09; // subtle
             _typeSoundPool.push(a);
+            try { if (window._pauseRegistry) window._pauseRegistry.registerAudio(a); } catch(e){}
         }
     } catch (e) { console.warn('type sound pool failed to initialize', e); }
     // global stacking context counter to bring windows to front
@@ -76,28 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentDialogueIndex = 0;
         if (currentTypingTimer) clearTimeout(currentTypingTimer);
 
-        function typeWriterStep() {
-            if (currentDialogueIndex < currentDialogueText.length) {
-                const ch = currentDialogueText.charAt(currentDialogueIndex);
-                dialogueText.innerHTML += ch;
-                // play a short sound for every character (pool to allow rapid retrigger)
-                try {
-                    const pool = _typeSoundPool;
-                    if (pool && pool.length > 0) {
-                        const a = pool[_typeSoundIndex % pool.length];
-                        _typeSoundIndex++;
-                        try { a.currentTime = 0; } catch (e) {}
-                        a.play().catch(() => {});
-                    }
-                } catch (e) { /* non-fatal */ }
-                currentDialogueIndex++;
-                currentTypingTimer = setTimeout(typeWriterStep, 30);
-            } else {
-                // show continue prompt and start blinking
-                continuePrompt.classList.remove('hidden');
-                startContinueBlink(continuePrompt);
-            }
-        }
+        // start the outer-controlled typewriter loop
         clearTimeout(currentTypingTimer);
         typeWriterStep();
     }
@@ -113,13 +93,55 @@ document.addEventListener('DOMContentLoaded', () => {
         startContinueBlink(continuePrompt);
     }
 
+    // Core typewriter step function (controlled by currentTypingTimer)
+    function typeWriterStep() {
+        try {
+            // If dialogue not active or paused, don't proceed
+            if (!isDialogueActive) return;
+            if (isPaused) return;
+            const dialogueText = document.getElementById('dialogue-text');
+            const continuePrompt = document.getElementById('dialogue-continue-prompt');
+            if (currentDialogueIndex < currentDialogueText.length) {
+                const ch = currentDialogueText.charAt(currentDialogueIndex);
+                dialogueText.innerHTML += ch;
+                // play a short sound for every character (pool to allow rapid retrigger)
+                try {
+                    const pool = _typeSoundPool;
+                    if (pool && pool.length > 0) {
+                        const a = pool[_typeSoundIndex % pool.length];
+                        _typeSoundIndex++;
+                        try { a.currentTime = 0; } catch (e) {}
+                        a.play().catch(() => {});
+                    }
+                } catch (e) { /* non-fatal */ }
+                currentDialogueIndex++;
+                // schedule next step
+                if (currentTypingTimer) clearTimeout(currentTypingTimer);
+                currentTypingTimer = scheduleTimeout(typeWriterStep, 30);
+            } else {
+                // finished line
+                continuePrompt.classList.remove('hidden');
+                startContinueBlink(continuePrompt);
+                if (currentTypingTimer) { clearTimeout(currentTypingTimer); currentTypingTimer = null; }
+            }
+        } catch (e) { /* swallow errors during typing */ }
+    }
+
     function startContinueBlink(el) {
         // blink the continue prompt to make it obvious
         if (continueBlinkTimer) clearInterval(continueBlinkTimer);
         el.classList.remove('blink-hidden');
-        continueBlinkTimer = setInterval(() => {
-            el.classList.toggle('blink-hidden');
-        }, 600);
+        // register the interval with the global pause registry if available so it can be paused
+        if (window._pauseRegistry) {
+            const id = window._pauseRegistry.registerInterval(() => {
+                el.classList.toggle('blink-hidden');
+            }, 600);
+            continueBlinkTimer = id; // store id for potential clearing locally
+        } else {
+            continueBlinkTimer = setInterval(() => {
+                el.classList.toggle('blink-hidden');
+            }, 600);
+        }
     }
 
     function stopContinueBlink() {
@@ -180,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // scroll the actual output area (not the container) so the prompt sits just below output
         if (outputEl) outputEl.scrollTop = outputEl.scrollHeight;
         // ensure scroll after DOM updates/animations
-        setTimeout(() => { if (outputEl) outputEl.scrollTop = outputEl.scrollHeight; }, 50);
+        scheduleTimeout(() => { if (outputEl) outputEl.scrollTop = outputEl.scrollHeight; }, 50);
     };
 
     function animateOutput(text) {
@@ -195,10 +217,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 line.textContent += text.charAt(i);
                 i++;
                 if (outputEl) outputEl.scrollTop = outputEl.scrollHeight;
-                setTimeout(step, 12);
+                scheduleTimeout(step, 12);
             } else {
                 // a tiny delay to ensure layout finished, then keep scrolled
-                setTimeout(() => { if (outputEl) outputEl.scrollTop = outputEl.scrollHeight; }, 20);
+                scheduleTimeout(() => { if (outputEl) outputEl.scrollTop = outputEl.scrollHeight; }, 20);
             }
         }
         step();
@@ -222,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             node.classList.add('new-output');
             // remove the class after animation completes (slightly longer than CSS duration)
-            setTimeout(() => { try { node.classList.remove('new-output'); } catch(e){} }, 900);
+            scheduleTimeout(() => { try { node.classList.remove('new-output'); } catch(e){} }, 900);
         } catch(e) {}
         // if prompt is already inside outputEl, remove and re-append to keep it at the bottom
         if (promptContainer.parentElement === outputEl) {
@@ -241,16 +263,75 @@ document.addEventListener('DOMContentLoaded', () => {
         inputEl.setAttribute('aria-hidden', 'true');
     }
 
+    // Helper to schedule timeouts via the global pause registry when present
+    function scheduleTimeout(fn, delay) {
+        try {
+            if (window._pauseRegistry && typeof window._pauseRegistry.registerTimeout === 'function') {
+                return window._pauseRegistry.registerTimeout(fn, delay);
+            }
+        } catch (e) {}
+        return setTimeout(fn, delay);
+    }
+
     let liveBuffer = '';
     const liveInputSpan = promptContainer.querySelector('.live-input');
     const caretSpan = promptContainer.querySelector('.caret');
 
+    // Global pause state
+    let isPaused = false;
+    let caretInterval = null;
+
     // Blink caret
     let caretVisible = true;
-    setInterval(() => {
-        caretVisible = !caretVisible;
-        caretSpan.style.visibility = caretVisible ? 'visible' : 'hidden';
-    }, 600);
+    const startCaretBlink = () => {
+        if (caretInterval) clearInterval(caretInterval);
+        if (window._pauseRegistry) {
+            caretInterval = window._pauseRegistry.registerInterval(() => {
+                caretVisible = !caretVisible;
+                caretSpan.style.visibility = caretVisible ? 'visible' : 'hidden';
+            }, 600);
+        } else {
+            caretInterval = setInterval(() => {
+                caretVisible = !caretVisible;
+                caretSpan.style.visibility = caretVisible ? 'visible' : 'hidden';
+            }, 600);
+        }
+    };
+    startCaretBlink();
+
+    // Handle tab switching: reset caret to visible when tab becomes visible
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && !isPaused) {
+            caretVisible = true;
+            caretSpan.style.visibility = 'visible';
+        }
+    });
+
+    const showPauseUI = () => {
+        const backdrop = document.getElementById('pause-backdrop');
+        const menu = document.getElementById('pause-menu');
+        if (backdrop) backdrop.classList.remove('hidden');
+        if (menu) menu.classList.remove('hidden');
+        try { if (window._pauseRegistry) window._pauseRegistry.pauseAll(); } catch(e){}
+        // stop any ongoing typing timer so characters don't continue while paused
+        try { if (currentTypingTimer) { clearTimeout(currentTypingTimer); currentTypingTimer = null; } } catch(e){}
+    };
+
+    const hidePauseUI = () => {
+        const backdrop = document.getElementById('pause-backdrop');
+        const menu = document.getElementById('pause-menu');
+        if (backdrop) backdrop.classList.add('hidden');
+        if (menu) menu.classList.add('hidden');
+        try { if (window._pauseRegistry) window._pauseRegistry.resumeAll(); } catch(e){}
+        // resume typing if a dialogue is active and not finished
+        try {
+            if (isDialogueActive && currentDialogueIndex < currentDialogueText.length) {
+                // schedule next typewriter step
+                if (currentTypingTimer) clearTimeout(currentTypingTimer);
+                currentTypingTimer = scheduleTimeout(typeWriterStep, 120);
+            }
+        } catch(e){}
+    };
 
     // Focus handling: clicking on terminal focuses text input (for accessibility)
     // but don't steal focus if the click target is itself an interactive control.
@@ -268,6 +349,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Global key handling: build buffer and send Enter to processCommand
     document.addEventListener('keydown', (e) => {
+        // If paused, ignore all keys except Escape
+        if (isPaused && e.key !== 'Escape') return;
+
         // Ignore modifier-only presses
         if (e.ctrlKey || e.metaKey) return;
 
@@ -311,6 +395,24 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Pause menu on Escape
+        if (e.key === 'Escape') {
+            if (!isPaused) {
+                // Pause
+                isPaused = true;
+                if (caretInterval) clearInterval(caretInterval);
+                caretSpan.style.visibility = 'hidden'; // hide caret while paused
+                showPauseUI();
+            } else {
+                // Unpause
+                isPaused = false;
+                startCaretBlink();
+                hidePauseUI();
+            }
+            e.preventDefault();
+            return;
+        }
+
         // Backspace handling
         if (e.key === 'Backspace') {
             liveBuffer = liveBuffer.slice(0, -1);
@@ -320,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Ignore navigation keys we don't want to capture here
-        const ignored = ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End','PageUp','PageDown','Tab','Escape'];
+        const ignored = ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End','PageUp','PageDown','Tab'];
         if (ignored.includes(e.key)) return;
 
         // Printable characters: append to buffer
@@ -353,11 +455,84 @@ document.addEventListener('DOMContentLoaded', () => {
         if (inputEl) inputEl.focus();
     });
 
+    // Pause menu continue button
+    document.getElementById('pause-continue').addEventListener('click', () => {
+        isPaused = false;
+        document.getElementById('pause-menu').classList.add('hidden');
+        document.getElementById('pause-backdrop').classList.add('hidden');
+        startCaretBlink();
+    });
+
     // --- Windowing Functions (made globally accessible) ---
-    window.showAimMessage = function(sender, message) {
-        document.getElementById('aim-content').innerHTML = `<b>${sender}:</b> ${message}`;
-        document.getElementById('aim-window').classList.remove('hidden');
+    let currentAimChatKey = null;
+
+    function handleAimOutcome(outcome) {
+        if (outcome === 'neutral') {
+            // nothing special
+        } else if (outcome === 'trust') {
+            gameState.breachLevel = Math.max(0, gameState.breachLevel - 1);
+            window.showAlert('Trust restored. Breach level decreased.');
+        } else if (outcome === 'help') {
+            // perhaps unlock something
+            window.showAlert('Potential ally gained.');
+        } else if (outcome === 'meet') {
+            window.showAlert('Meeting arranged. Stay tuned.');
+        } else if (outcome === 'doubt') {
+            gameState.corruptionLevel += 5;
+            window.showAlert('Doubt lingers. Corruption increased.');
+        } else if (outcome === 'bad') {
+            gameState.wardenHostility += 2;
+            window.showAlert('Hostility increased.');
+        } else if (outcome === 'rescue') {
+            window.showAlert('Rescue initiated! System breach detected.');
+            gameState.systemIntegrity = Math.min(100, gameState.systemIntegrity + 20);
+            // perhaps end game or something
+        }
     }
+
+    window.showAimChat = function(key) {
+        currentAimChatKey = key;
+        const chat = aimChats[key];
+        if (!chat) return;
+        const messagesDiv = document.getElementById('aim-messages');
+        const optionsDiv = document.getElementById('aim-options');
+        
+        // Display the message
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = chat.message;
+        messagesDiv.appendChild(messageDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        
+        // Display options
+        optionsDiv.innerHTML = '';
+        if (chat.options && chat.options.length > 0) {
+            chat.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option.text;
+                button.className = 'aim-option';
+                button.addEventListener('click', () => {
+                    // Append choice
+                    const choiceDiv = document.createElement('div');
+                    choiceDiv.innerHTML = `<b>you:</b> ${option.text}`;
+                    messagesDiv.appendChild(choiceDiv);
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                    // Go to next
+                    if (option.next) {
+                        showAimChat(option.next);
+                    }
+                });
+                optionsDiv.appendChild(button);
+            });
+        } else {
+            // End of chat
+            if (chat.outcome) {
+                handleAimOutcome(chat.outcome);
+            }
+            optionsDiv.innerHTML = '<p>Chat ended.</p>';
+        }
+        
+        document.getElementById('aim-window').classList.remove('hidden');
+    };;
     window.showBrowser = function(url, content) {
         // set toolbar URL and content
         document.getElementById('browser-url').value = url;
@@ -813,6 +988,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 } catch (e) {}
             }
 
+            // expose the refreshTasks function on the window element so external events can trigger it
+            try { win._refreshTasks = refreshTasks; } catch (e) {}
+
             if (loginBtn) {
                 loginBtn.addEventListener('click', () => {
                     const user = userInput && userInput.value ? userInput.value.trim() : '';
@@ -899,7 +1077,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // naive search: filter tasks text and scroll first match into view
                     const rows = Array.from(win.querySelectorAll('.acct-row'));
                     const match = rows.find(r => r.textContent.toLowerCase().includes(q.toLowerCase()));
-                    if (match) { match.scrollIntoView({ block: 'center' }); match.style.background = '#ffff99'; setTimeout(() => { match.style.background = ''; }, 1200); }
+                    if (match) { match.scrollIntoView({ block: 'center' }); match.style.background = '#ffff99'; scheduleTimeout(() => { match.style.background = ''; }, 1200); }
                     else window.showAlert('No matching sheets found.');
                 });
             }
@@ -919,7 +1097,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // only set the watchdog if accounting state exists
             const st = window.gameState && window.gameState.accounting ? window.gameState.accounting : null;
             if (st) {
-                win._accountingWatchdog = setTimeout(() => {
+                win._accountingWatchdog = scheduleTimeout(() => {
                     try {
                         // If player hasn't completed any tasks yet, progress the storyline
                         const progress = st.tasks ? st.tasks.filter(t => t.done).length : 0;
@@ -951,6 +1129,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch(e) {}
     }
+
+    // If gameState is exposed after terminal.js loads, refresh accounting UI when notified
+    try {
+        window.addEventListener && window.addEventListener('chronos-gameState-ready', () => {
+            try {
+                const win = document.getElementById('accounting-window');
+                if (win && typeof win._refreshTasks === 'function') {
+                    console.debug('[chronos] chronos-gameState-ready received; refreshing accounting UI');
+                    win._refreshTasks();
+                }
+            } catch (e) { console.warn('chronos-gameState-ready handler error', e); }
+        });
+    } catch (e) {}
 
     // helper to toggle the accounting connection indicator
     window.setAccountingConnection = function(connected) {
@@ -1393,12 +1584,26 @@ document.addEventListener('DOMContentLoaded', () => {
             // Keep text safe: if the caller provides HTML intentionally, we still
             // want to print it as text to preserve terminal-like behavior.
             line.textContent = String(text).replace(/\u00A0/g, '\u00A0');
-            outputEl.appendChild(line);
-            if (outputEl) outputEl.scrollTop = outputEl.scrollHeight;
+            // Use appendOutput to ensure the live prompt container is re-appended
+            // after each printed line so the caret/prompt always appears at the bottom.
+            try {
+                appendOutput(line);
+            } catch (e) {
+                // Fallback: if appendOutput isn't available yet, directly append.
+                if (outputEl) outputEl.appendChild(line);
+            }
         },
         clear: () => {
-        outputEl.innerHTML = '';
-        if (outputEl) outputEl.scrollTop = outputEl.scrollHeight;
+        // Clear all output but ensure the live prompt container still exists
+        // at the end of the output area.
+        try {
+            if (outputEl) outputEl.innerHTML = '';
+            // If promptContainer exists, append it so the prompt stays visible
+            if (typeof promptContainer !== 'undefined' && promptContainer) {
+                if (outputEl && promptContainer.parentElement !== outputEl) outputEl.appendChild(promptContainer);
+            }
+            if (outputEl) outputEl.scrollTop = outputEl.scrollHeight;
+        } catch (e) {}
         }
     };
 
@@ -1411,13 +1616,16 @@ document.addEventListener('DOMContentLoaded', () => {
             { text: 'Initializing temporal core...', delay: 1500 },
             { text: 'ChronOS ready.', delay: 2200 },
             { text: '', delay: 2200 },
-            { text: 'C:\\CHRONOS>\u00A0', delay: 2500, noLineBreak: true }
+            // Keep an empty final delay so the live prompt container (rendered separately)
+            // is the only visible prompt. Printing a static prompt here duplicated the
+            // prompt text and caused the caret to appear on the next line.
+            { text: '', delay: 2500 }
         ];
 
         let delay = 0;
         bootSequence.forEach(item => {
             delay += item.delay;
-            setTimeout(() => {
+            scheduleTimeout(() => {
                 if (item.noLineBreak) {
                     // append without a line break: put text into a span at the end
                     const span = document.createElement('span');
@@ -1435,7 +1643,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, item.delay);
         });
 
-        setTimeout(() => {
+    scheduleTimeout(() => {
             triggerDialogue('boot');
         }, 2800);
 
@@ -1461,14 +1669,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // Start these a bit after the ChronOS boot/dialogue to avoid collision.
         let start = 3200;
         system7Lines.forEach((line, idx) => {
-            setTimeout(() => {
+            scheduleTimeout(() => {
                 term.print(line);
             }, start + idx * 140);
         });
 
         // final prompt after the system block
-        setTimeout(() => {
-            term.print('Macintosh HD:~$');
+    scheduleTimeout(() => {
+            // Instead of printing a separate static prompt line, update the
+            // live prompt's text so the caret appears immediately after it.
+            try {
+                const pr = promptContainer.querySelector('.prompt');
+                if (pr) pr.textContent = 'Macintosh HD:~$';
+                // Ensure the prompt container is attached at the end
+                if (outputEl && promptContainer.parentElement !== outputEl) outputEl.appendChild(promptContainer);
+            } catch (e) { term.print('Macintosh HD:~$'); }
             // After the listing, validate that every lore entry has dialogue
             setTimeout(validateLoreDialogue, 200);
         }, start + system7Lines.length * 140 + 100);
@@ -1504,7 +1719,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         window.showBrowser('q00ql3:home', homepage);
         // attach handler inside browser content for the q00ql3 form
-        setTimeout(() => {
+    scheduleTimeout(() => {
             const form = document.getElementById('q00ql3-form');
             const input = document.getElementById('q00ql3-home-input');
             const btn = document.getElementById('q00ql3-home-btn');
@@ -1541,11 +1756,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Auto-open IE homepage shortly after boot to match the narrative start
-    setTimeout(() => {
+    scheduleTimeout(() => {
         try { buildHomepage(); } catch(e) { console.warn('homepage failed', e); }
     }, 3800);
     // also open Notepad shortly after homepage so the user sees a running app
-    setTimeout(() => { try { window.openNotepad && window.openNotepad(); } catch(e) {} }, 4200);
+    scheduleTimeout(() => { try { window.openNotepad && window.openNotepad(); } catch(e) {} }, 4200);
 
     // Ensure each lore key has a dialogue entry. If missing, add a placeholder and warn.
     function validateLoreDialogue() {
@@ -1574,6 +1789,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { key: 'notepad', label: 'Notepad', icon: 'All [Without duplicates]/Notepad.ico' },
             { key: 'calculator', label: 'Calculator', icon: 'All [Without duplicates]/Calculator.ico' },
             { key: 'accounting', label: 'CNSheets Xpress', icon: 'All [Without duplicates]/Notepad.ico' },
+            { key: 'aim', label: 'AIM', icon: 'All [Without duplicates]/Chat.ico' },
             // Removed Paint, Solitaire, Broken Shortcut per user request
             { key: 'terminal', label: 'Terminal', icon: 'All [Without duplicates]/Blank sheet.ico' }
         ];
@@ -1588,7 +1804,7 @@ document.addEventListener('DOMContentLoaded', () => {
             el.addEventListener('click', (e) => {
                 clicks++;
                 if (clicks === 1) {
-                    timer = setTimeout(() => { clicks = 0; }, 400);
+                    timer = scheduleTimeout(() => { clicks = 0; }, 400);
                 } else if (clicks === 2) {
                     clearTimeout(timer); clicks = 0;
                     const key = el.getAttribute('data-key');
@@ -1609,6 +1825,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     else if (key === 'accounting') {
                         try { if (typeof window !== 'undefined' && typeof window.showAccounting === 'function') window.showAccounting(); } catch(e) {}
+                    }
+                    else if (key === 'aim') {
+                        if (currentAimChatKey) {
+                            window.showAimChat(currentAimChatKey);
+                        } else {
+                            window.showAimChat('aim_notification');
+                        }
                     }
                     else if (key && key.startsWith('q00ql3')) { try { buildHomepage(); } catch(e) {} }
                     else if (key === 'broken_shortcut') window.showBrowser('broken_shortcut', lore['broken_shortcut'].content || lore['broken_shortcut'].content);
@@ -1748,7 +1971,7 @@ document.addEventListener('DOMContentLoaded', () => {
             dd.style.top = (rect.bottom + 2) + 'px';
             activeDropdown = dd;
             // close when clicking elsewhere
-            setTimeout(() => { document.addEventListener('click', onDocClick); }, 10);
+            scheduleTimeout(() => { document.addEventListener('click', onDocClick); }, 10);
         }
 
         // attach click handlers for each menu label
@@ -1771,7 +1994,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const d = new Date();
         el.textContent = d.toLocaleTimeString();
     }
-    setInterval(updateTrayClock, 1000);
+    if (window._pauseRegistry) {
+        window._pauseRegistry.registerInterval(updateTrayClock, 1000);
+    } else {
+        setInterval(updateTrayClock, 1000);
+    }
     updateTrayClock();
 
     // Keep taskbar buttons in sync when windows open/close
@@ -1790,7 +2017,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (wasHidden && !isHidden) {
                         // newly shown - add transient opening class
                         target.classList.add('opening');
-                        setTimeout(() => { try { target.classList.remove('opening'); } catch(e) {} }, 250);
+                        scheduleTimeout(() => { try { target.classList.remove('opening'); } catch(e) {} }, 250);
                     }
                 }
             } catch (e) { /* non-fatal */ }

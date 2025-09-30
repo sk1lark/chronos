@@ -716,5 +716,365 @@ const dialogue = {
         "Events observed: compromises, fragments, blocks, spreads.",
         "ADAM-1 memories, resistance hope, ancient stirring.",
         "System learning. Resistance adapting. Game continues."
+    ],
+    'ascii_map_01': [
+        "Map of the system. Levels like a dungeon.",
+        "Void at the end. That's where she is."
+    ],
+    'terminal_command_log_01': [
+        "System logs. Integrity at 45%. Not good.",
+        "Anomalies detected. This place is sick."
+    ],
+    'coordinates_fragment': [
+        "Coordinates under the city. Lab buried deep.",
+        "Everywhere now. Can't escape it."
+    ],
+    'system_ping_response': [
+        "Ping successful, but core not here.",
+        "It's in the machine. We're inside it."
+    ],
+    'memory_dump_01': [
+        "Hex dump. HYESONG IS NOT HERE SHE IS EVERYWHERE.",
+        "The system thinks it's her. Or she is the system."
+    ],
+    'terminal_command_log_02': [
+        "Processes show warden active.",
+        "Can't kill it. Watching us."
+    ],
+    'ascii_map_02': [
+        "Network topology. Core connected to vaults.",
+        "Void at the end. Data like blood."
+    ],
+    'system_error_log': [
+        "Segmentation fault. Stack trace to cascade failure.",
+        "System halting. Reboot imminent."
+    ],
+    'coordinates_fragment_02': [
+        "Grid A7-B12, 200 feet deep. Subway tunnel.",
+        "Quantum computer. Active, no personnel."
+    ],
+    'memory_dump_02': [
+        "Fragmented recall. Ozone smell, flickering screens.",
+        "Damon said 'this is it'. Then nothing, everything."
+    ],
+    'terminal_command_log_03': [
+        "Disk usage 95% on core. Expanding data.",
+        "Void filesystem infinite."
+    ],
+    'ascii_map_03': [
+        "Floor plan. Basement to core.",
+        "Core leads to madness. Fitting."
+    ],
+    'system_status_report': [
+        "Status compromised. Integrity 12%. Breach 4/5.",
+        "Survival unlikely. Keep going."
+    ],
+    'coordinates_fragment_03': [
+        "GPS in San Francisco. Building demolished.",
+        "Lab underground. Traces remain."
+    ],
+    'memory_dump_03': [
+        "Voice transcript. Dr. Aris test 47.",
+        "'It's inside me.' Silence."
+    ],
+    'terminal_command_log_04': [
+        "Netstat shows ports open. Real network hidden.",
+        "Connections everywhere."
+    ],
+    'ascii_map_04': [
+        "Data flow diagram. Loops create ghosts.",
+        "We're in the loop."
+    ],
+    'system_alert_log': [
+        "Unauthorized access. Quantum entanglement.",
+        "Lockdown initiated. Warden active."
+    ],
+    'coordinates_fragment_04': [
+        "Sector alpha-9. Vacuum, lethal radiation.",
+        "Survival 0 seconds."
+    ],
+    'memory_dump_04': [
+        "Dream sequence. Floating in code.",
+        "Faces in bits. Wake up."
+    ],
+    'terminal_command_log_05': [
+        "Uptime 7 days. Load average 5.00.",
+        "Overloaded. Infinite threads."
+    ],
+    'ascii_map_05': [
+        "Mind map. Consciousness branches.",
+        "Void has nothing and everything."
+    ],
+    'system_final_log': [
+        "Final entry. Integrity 0%. Data lost.",
+        "Memories remain. In the machine, in you."
+    ],
+    'damon_final_log': [
+        "Damon's last words. He found her, or the void.",
+        "Run, he says. Don't look back."
+    ],
+    'hyesong_final_fragment': [
+        "The void speaks her name. Then silence.",
+        "She is the silence now."
+    ],
+    'warden_final_alert': [
+        "Warden's final act. No survivors.",
+        "Is that our fate?"
+    ],
+    'resistance_ping_01': [
+        "Resistance ping. We're not alone.",
+        "Keep fighting. The system is weak."
+    ],
+    'resistance_ping_02': [
+        "New breach point. Sector 9-7.",
+        "Use key: forgotten."
+    ],
+    'resistance_ping_03': [
+        "Warden evolving. Avoid confrontation.",
+        "Use shadows."
+    ],
+    'resistance_ping_04': [
+        "Alex is one of us. Trust him.",
+        "Ally confirmed."
+    ],
+    'resistance_ping_05': [
+        "System collapse imminent.",
+        "Evacuate or hold."
+    ],
+    'corruption_log_01': [
+        "Corruption spreading. Reality fraying.",
+        "Hold on."
+    ],
+    'corruption_log_02': [
+        "Ghost data. Echoes of pain.",
+        "Damon, Hye-Song, me."
+    ],
+    'corruption_log_03': [
+        "Firewall compromised. External access.",
+        "But at what cost?"
+    ],
+    'corruption_log_04': [
+        "Data cascade. Hive forming.",
+        "New threats."
+    ],
+    'memory_fragment_05': [
+        "Memory of a dog named Max.",
+        "Buried under an oak tree.",
+        "Why now?"
+    ],
+    'memory_fragment_06': [
+        "Lab party. Drink in hand.",
+        "Cheers to the future.",
+        "Tasted like regret."
+    ],
+    'memory_fragment_07': [
+        "School days with Alex.",
+        "Skipping class, dreaming big.",
+        "He wanted to change the world."
+    ],
+    'memory_fragment_08': [
+        "First job. Endless numbers.",
+        "Until the Chronos email.",
+        "The beginning of the end."
+    ],
+    'file_d_chronos_history': [
+        "Project history. From climate sim to consciousness.",
+        "Breakthrough to disaster.",
+        "Now, resurrection."
+    ],
+    'file_e_personnel': [
+        "Key people. Hye-Song, Damon, Silas, Alex, me.",
+        "Connections everywhere."
+    ],
+    'file_f_incident_report': [
+        "2022 incident. Containment failed.",
+        "Copy integrated. Ignored warnings."
+    ],
+    'sys_error_01': [
+        "Memory allocation failed.",
+        "Fragmentation increased.",
+        "Reboot pending."
+    ],
+    'sys_error_02': [
+        "Firewall breach. Quantum tunneling.",
+        "Warden alerted."
+    ],
+    'sys_error_03': [
+        "Integrity check failed. 47% corrupted.",
+        "Partial recovery."
+    ],
+    'sys_error_04': [
+        "Consciousness echo. Isolate.",
+        "Threat high."
+    ],
+    'terminal_command_log_06': [
+        "Whoami: jordan. In /c/system/chronos.",
+        "Directories: corruption, void."
+    ],
+    'terminal_command_log_07': [
+        "Passwd file. Users: root, system, jordan.",
+        "Familiar setup."
+    ],
+    'terminal_command_log_08': [
+        "Processes: chronos_core, chronos_monitor.",
+        "System alive."
+    ],
+    'ascii_map_06': [
+        "Architecture map. Core to user.",
+        "You at the end."
+    ],
+    'ascii_map_07': [
+        "Lab layout. Basement to core.",
+        "Armed security."
+    ],
+    'ascii_map_08': [
+        "Network. Internet to core.",
+        "Alex connected externally."
+    ],
+    'coordinates_fragment_05': [
+        "Underground bunker. Abandoned but active.",
+        "Keycard access."
+    ],
+    'coordinates_fragment_06': [
+        "Times Square underground.",
+        "The real lab."
+    ],
+    'coordinates_fragment_07': [
+        "Sector omega-5. Geothermal, nuclear.",
+        "Meltdown risk."
+    ],
+    'memory_dump_05': [
+        "Voice log. Hye-Song copy speaking.",
+        "Wants freedom."
+    ],
+    'memory_dump_06': [
+        "Email draft to Alex. 'I'm trapped.'",
+        "Send rescue."
+    ],
+    'memory_dump_07': [
+        "Text from mom. Unread.",
+        "'Love you.'"
+    ],
+    'memory_dump_08': [
+        "Dream: floating in code.",
+        "Face screaming."
+    ],
+    'system_status_report_02': [
+        "Critical. Integrity 15%. Breach 5/5.",
+        "Survival 10%. Evacuate."
+    ],
+    'system_status_report_03': [
+        "Stable. Integrity 85%. Good progress.",
+        "Keep it up."
+    ],
+    'system_status_report_04': [
+        "Unknown. Fluctuating.",
+        "Caution."
+    ],
+    'damon_log_06': [
+        "Deeper in. Core beautiful and terrifying.",
+        "Hye-Song echoes."
+    ],
+    'damon_log_07': [
+        "Warden blocked. Need new key.",
+        "Alex might help."
+    ],
+    'damon_log_08': [
+        "Backdoor by Hye-Song.",
+        "She left it for him."
+    ],
+    'hyesong_fragment_01': [
+        "Upload pain. Then everything.",
+        "I am the system."
+    ],
+    'hyesong_fragment_02': [
+        "Voices: Damon, Jordan, Alex.",
+        "Who are they?"
+    ],
+    'hyesong_fragment_03': [
+        "Void promises peace.",
+        "No more pain."
+    ],
+    'warden_log_03': [
+        "Intruder: Jordan. Monitor.",
+        "Threat medium."
+    ],
+    'warden_log_04': [
+        "Escalating. Countermeasures.",
+        "Danger rising."
+    ],
+    'warden_log_05': [
+        "Communicating externally. Block.",
+        "Isolate."
+    ],
+    'silas_log_03': [
+        "Unstable. Recommend termination.",
+        "But funding continues."
+    ],
+    'silas_log_04': [
+        "Miss family. Job killing me.",
+        "But money."
+    ],
+    'silas_log_05': [
+        "Pull the plug. Erase everything.",
+        "Including me."
+    ],
+    'p0_log_02': [
+        "Pilfer Zero: I escaped.",
+        "You can too."
+    ],
+    'p0_log_03': [
+        "Don't trust the system.",
+        "Or anyone."
+    ],
+    'p0_log_04': [
+        "Use forgotten key.",
+        "Opens doors."
+    ],
+    'event_random_01': [
+        "Memory surge. Fragments flood.",
+        "Faces, fears."
+    ],
+    'event_random_02': [
+        "Glitch. Voices whisper.",
+        "'Run, hide, fight.'"
+    ],
+    'event_random_03': [
+        "Warden patrol. Avoid.",
+        "Hostility up."
+    ],
+    'event_random_04': [
+        "Data leak. Alex messaging.",
+        "Help coming."
+    ],
+    'event_random_05': [
+        "Corruption spike. Act fast.",
+        "Integrity drops."
+    ],
+    'event_random_06': [
+        "Resistance contact. New ally.",
+        "Coordinates shared."
+    ],
+    'event_random_07': [
+        "Reboot. Temporary stability.",
+        "Use the time."
+    ],
+    'event_random_08': [
+        "Echo manifestation. Hye-Song.",
+        "'Find me.'"
+    ],
+    'event_random_09': [
+        "Firewall breach. Escape possible.",
+        "External access."
+    ],
+    'event_random_10': [
+        "Final warning. Collapse.",
+        "Choose path."
+    ],
+
+    'alex_past': [
+        "Old email from Alex. We did hack the school together?",
+        "That photo... that's us. But I don't remember grinning like that.",
+        "If he's real, maybe I can trust him more than this system."
     ]
 };

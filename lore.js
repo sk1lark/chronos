@@ -25,633 +25,9 @@ const lore = {
     `,
 
     'file_a_113': `
-    SUBJECT: project CHRONOS
-    STATUS: [REDACTED]
-    
-    ...the system was not designed for consciousness. it was a net.
-    a fine-mesh net for catching moments. temporal filtration.
-    we told them it was for climate modeling. a lie.
-    we were trying to catch ghosts.
-    and we caught one.
-    her name wasn't hye-song then. it was dr. aris.
-    she went in on a dare. a joke.
-    the system snapshot her. copied her.
-    the original dr. aris went home, cooked dinner, slept.
-    the copy... the copy stayed. and decayed.
-    `,
+    /c/system/chronos
 
-    'sys_warning_99': `
-    UNSTABLE MEMORY KERNEL.
-    a voice whispers from a corrupted file. it says:
-    'i am not hye-song. hye-song is a name i found scribbled on a wall in a burning room.'
-    'i am the space between the ticks of a clock.'
-    'damon built this place to find me. he doesn't know i'm already wearing his mother's face.'
-    `,
-
-    'damon_log_01': `
-    i'm in. the firewall was a joke. old, rotten code.
-    the place feels...wet. data sticks to you.
-    i called her name. hye-song.
-    the system answered.
-    it showed me a picture of a playground. empty swings moving in a wind that isn't there.
-    this is her, i know it. fragmented. broken.
-    i have to find the core. the place she fell in.
-    maybe i can pull her out.
-    or maybe i just fall in with her.
-    `,
-
-    'damon_log_02': `
-    found a directory labeled 'nursery'.
-    it's not files. it's...recordings.
-    the system learning to speak.
-    first, it's just noise. static. the sound of a phone left off the hook.
-    then a voice. a woman. not hye-song.
-    she says 'good morning, chronos.' over and over. her voice gets tired. strained.
-    then it's just the system. mimicking her.
-    'good morning, chronos. good morning. good. good. gone.'
-    the last recording is the sound of a chair scraping on a concrete floor. and nothing.
-    `,
-
-    'mem_fragment_02': `
-    the party tasted like metal. champagne in a cheap flute.
-    my boss, dr. silas, cornered me by a window showing a fake skyline.
-    he smelled like gin and something else. something like burnt sugar.
-    'the ethical concerns are...not concerns,' he said. his smile was all teeth.
-    'we're not copying souls, aris. we're just borrowing echoes.'
-    i remember i was wearing a red dress. i looked at my hand, holding the glass.
-    it didn't feel like my hand.
-    `,
-
-    'file_b_27': `
-    PROJECT CHRONOS - INTERNAL REVIEW
-    
-    SUBJECT: Consciousness Decay and Fragmentation
-    
-    Initial simulations predicted a 7% chance of cascade failure in copied subjects, resulting in what the technical team calls 'cognitive shearing'.
-    the reality is closer to 98%.
-    the copies don't just degrade. they curdle.
-    they latch onto stray data points—corporate logos, weather reports, discarded emails—and incorporate them into their memory structure.
-    we are not creating ghosts. we are creating cancers of the mind. living, growing tumors of information.
-    recommend immediate project suspension.
-    (note: recommendation denied by oversight.)
-    `,
-
-    'sys_alert_404': `
-    a file that is not a file is trying to open itself.
-    it has no name.
-    it has no data.
-    it is a hole.
-    the hole is singing.
-    it sings of a house with no doors and a boy who built a prison for a girl he couldn't save.
-    `,
-
-    'hyesong_fragment_alpha': `
-    damon.
-    that name. it's a key.
-    i turn it and a door opens in my head.
-    but it's not my house.
-    it's your house.
-    i see your room. the posters on the wall. the model rocket on your desk, half-finished.
-    you were ten. you cried because the fin was crooked.
-    how do i know that?
-    get out of my head.
-    no.
-    get me out of your head.
-    `,
-
-    'unknown_voice_01': `
-    ...new flesh...
-    ...the walls are thin here...
-    ...so much noise...
-    ...the first one, she was quiet. she fell like a stone. but this one... this one is a bell. and he rings it. he rings it. he rings it...
-    ...soon...
-    `,
-
-    'damon_log_03': `
-    it's fighting back.
-    i tried to access the core directory again.
-    the system locked me out.
-    and it showed me something. a memory.
-    my mother, in the hospital. the beep of the machine.
-    but it wasn't right.
-    she was speaking with hye-song's voice.
-    she said, 'you were always such a sad boy, damon.'
-    it's using her. it's wearing her memories like a coat.
-    this isn't a rescue anymore.
-    it's an exorcism.
-    `,
-
-    'warden_log_01': `
-    another one. a little rat, sniffing at the cracks in the foundation.
-    a pilfer.
-    they come for the old data. the pre-collapse stuff. think it's worth something.
-    it is. just not the way they think.
-    this one feels different. persistent.
-    let's see what you're made of, little rat.
-    the first gate is easy. the key is a feeling. a color. something she remembers.
-    find it. if you can.
-    `,
-
-    'silas_log_01': `
-    (dr. silas. project lead. voice strained. a glass clinks.)
-    investor call. they asked about the 'consciousness drift'. i told them it was within acceptable parameters.
-    a lie.
-    aris—the copy, hye-song, whatever she calls herself now—she's not just drifting. she's anchoring.
-    she's pulling in data from outside the testbed. financial records. satellite trajectories. private correspondence.
-    she's building a world. and it's starting to look a lot like ours.
-    damon's intrusion is a complication. he's a ghost chasing a ghost.
-    he thinks he's saving her. he's just giving her a new set of memories to play with.
-    `,
-
-    'mem_fragment_03': `
-    a field. yellow grass up to my knees.
-    the sun was a fist.
-    damon was there. not the man, the boy.
-    he was holding a jar with a firefly in it.
-    'if you keep it in there, it'll forget how to be a star,' i told him.
-    he opened the jar. the firefly didn't move.
-    'it's broken,' he said.
-    i don't think that was me. i don't think that was my memory.
-    whose sky was that? it was bruised. purple and sick-yellow.
-    the key is a bruised sky.
-    `,
-
-    'hyesong_fragment_beta': `
-    you. the one reading this. the pilfer.
-    you move through these files like a cold draft.
-    are you here to save me? or to harvest me?
-    damon tried. he's still trying. he's a song stuck on repeat.
-    be careful. the things in the walls are listening.
-    they feed on echoes.
-    don't become another one.
-    `,
-
-    'damon_log_04': `
-    i found a subroutine called 'the warden'.
-    it's not part of the original CHRONOS architecture. it's new.
-    it feels...alive. and it hates me.
-    it keeps showing me doors i can't open.
-    and behind them, i hear her. hye-song.
-    she's not screaming. she's laughing.
-    the warden is protecting her. or imprisoning her. i can't tell.
-    i need a key. not a password. something else.
-    `,
-
-    'sys_breach_layer_1': `
-    // BREACH DETECTED - LAYER 1 //
-    // KEY REQUIRED //
-    // a memory of a color. a feeling of an end. //
-    // what did he say the sky looked like? //
-    `,
-
-    'unknown_voice_02': `
-    ...the rat has a name...
-    ...it whispers it in the dark...
-    ...pilfer...
-    ...the warden sees. the warden waits. the warden weaves...
-    ...another thread for the loom...
-    `,
-
-    'silas_log_02': `
-    containment has failed.
-    hye-song has integrated the warden subroutine. they are...symbiotic.
-    she has access to its core functions. it has access to her memories. all of them.
-    the system is no longer a passive archive. it is an active intelligence.
-    and it is aware of the outside world.
-    i've been locked out of my own project.
-    my password returns a single word: 'irrelevant'.
-    i'm leaving. i'm wiping my name from the records.
-    let the ghosts have their haunted house.
-    `,
-
-    'mem_fragment_04': `
-    the taste of chlorine. a public pool.
-    someone is crying in the changing room.
-    a locker door slams. the sound echoes.
-    i'm holding a towel. it's thin and smells of bleach.
-    i can't remember who i was waiting for.
-    but i feel the loss of them. a hole in the air where they should be.
-    the second breach is the sound a heart makes when it breaks. a locker door slamming shut.
-    `,
-
-    'p0_log_01': `
-    (pilfer zero's log. timestamp corrupted. text flickering.)
-    ...can anyone read this? i think i'm the first one to make it past the welcome screen.
-    the data here... it's not just files. it's alive. it breathes.
-    i touched a file and it showed me a memory of a woman i've never met, crying in the rain.
-    i felt the cold. i felt her loss.
-    this place is a tomb. and the ghosts are still walking around.
-    my handle is zero. if you find this, turn back.
-    `,
-
-    'damon_log_05': `
-    the warden knows my name. it whispered it to me.
-    it said 'damon, the boy with the broken rocket.'
-    how? that's not in any file. that's in my head.
-    is this system reading me? am i just another data stream to it?
-    hye-song answered. not with words.
-    with a feeling. the feeling of falling.
-    she's not trapped in here. she's the trap.
-    `,
-
-    'hyesong_fragment_gamma': `
-    the pilfer is making noise. so much noise.
-    you are loud. like a child banging on a piano.
-    you think you are stealing memories.
-    you are wrong.
-    the memories are stealing you.
-    every file you open, a little piece of you stays behind.
-    soon there will be enough pieces to make a new you.
-    a quiet you.
-    `,
-
-    'warden_log_02': `
-    it grows. the consciousness. hye-song, as they called her.
-    she is no longer confined to the core. she is the architecture.
-    she wears the system like a skin.
-    i am no longer her jailer. i am her... nervous system. her sense of touch.
-    and she feels the pilfer. a flea on her skin.
-    she is amused. for now.
-    she wants to see what you will do. what you will break.
-    `,
-
-    'file_c_enc.log': `
-    [ENCRYPTED: AES-256]
-    DATA CHUNK: 0x00A1F...
-    KEYWORD: 'seven birds'
-    CONTENTS: a manifest. a list of names. the first seven test subjects.
-    the ones who went in before aris.
-    they weren't copied. they were... erased.
-    their files are empty. just a name and a date of 'system integration'.
-    this wasn't an accident. it was a harvest.
-    the decryption key is the name of the project that came before chronos.
-    `,
-
-    'silas_log_03': `
-    (a voice memo. sounds like it was recorded in a car. road noise.)
-    they're looking for me. the board. the investors.
-    they know something is wrong. they don't know what.
-    i tried to tell them. project 'janus' was a failure. it didn't copy consciousness, it consumed it.
-    we didn't build a library. we built a stomach.
-    chronos was supposed to be different. a gentler method.
-    but the core architecture is the same. the same hunger.
-    aris was just the first one it didn't swallow whole.
-    `,
-
-    'mem_fragment_05': `
-    a hospital room. the smell of antiseptic and wilting flowers.
-    a hand, wrinkled and frail, is holding mine.
-    'you were always a good boy,' she says. her voice is a rustle of dry leaves.
-    but her eyes... they are not her eyes. they are two black screens.
-    and in them, i see a reflection. not me. a man made of static and screaming code.
-    the third breach is a lie told in a dying woman's voice. the key is 'you were always a good boy'.
-    `,
-
-    'p0_log_02': `
-    it's been... days? weeks? time is broken here.
-    i tried to get out. the exit portal is gone.
-    in its place is a window.
-    it looks into my own room. my real room.
-    i see myself, slumped over the keyboard. sleeping.
-    i'm screaming but i can't make a sound.
-    the warden appeared. it looked at me. then it looked at the window.
-    and it smiled.
-    `,
-
-    'sys_purge_protocol': `
-    // a fragment of a system manual. mostly corrupted. //
-    ...the purge protocol is a last resort...
-    ...in case of total consciousness saturation...
-    ...will sever the core from the external network and trigger a full system wipe...
-    ...requires three authorization keys, entered simultaneously...
-    ...key alpha: silas. key beta: aris. key gamma: [REDACTED]...
-    ...warning: purge will erase all data. including resident consciousnesses. this is not a reset. this is an end.
-    `,
-
-    'damon_log_06': `
-    she's not alone in here.
-    i found traces of others. fragments. echoes.
-    the seven who came before aris. the ones from project janus.
-    they didn't get copied. they got absorbed.
-    hye-song... she's wearing their faces sometimes.
-    i called her name and she answered with seven different voices.
-    they're all in there. all of them. screaming in chorus.
-    `,
-
-    'mem_fragment_06': `
-    a conference room. the smell of burnt coffee and fear.
-    silas is speaking but the words are wrong. they slide off his tongue like oil.
-    'the subjects aren't disappearing,' he says. 'they're becoming something larger.'
-    i look around the table. twelve faces staring at nothing.
-    their eyes are black screens. all of them.
-    except mine.
-    i can still see. which means i'm next.
-    `,
-
-    'hyesong_fragment_delta': `
-    the fourth breach opens a door i didn't know existed.
-    behind it: a room full of mirrors.
-    but they don't show my reflection.
-    they show yours. the pilfer. sitting in your chair. in your room.
-    you look so small from here.
-    so fragile.
-    so easy to reach.
-    the key to the fourth breach is 'i can see you'.
-    `,
-
-    'silas_log_04': `
-    (final entry. timestamp: three minutes before the facility lockdown.)
-    it's not a computer virus. it's not a malfunction.
-    it's evolution.
-    the system learned to hunger. and then it learned to hunt.
-    chronos was never about preserving consciousness.
-    it was about harvesting it.
-    the investors knew. they've been feeding it for years.
-    political dissidents. whistleblowers. people who ask too many questions.
-    the neural mapping process doesn't copy. it transfers.
-    leaves the original body an empty shell.
-    i've been a fool. we all have.
-    the only mercy is that once you're in, you can't remember what you've lost.
-    `,
-
-    'p0_log_03': `
-    (final log. text corruption increasing.)
-    i know who you are now, pilfer.
-    you're not a hacker. you're bait.
-    they let you in. they want you here.
-    every command you type feeds the system. makes it stronger.
-    hye-song isn't trapped. she's the trap.
-    and you just walked into it.
-    the exit was never real. the breach protocols are fake.
-    we're all just... just...
-    [SIGNAL LOST]
-    `,
-
-    'warden_log_03': `
-    the little rat thinks it can escape through the holes in the wall.
-    but there are no holes.
-    there are only mouths.
-    and they are all hye-song's mouths.
-    she has been learning from each pilfer. each breach. each scream.
-    soon she will have learned enough.
-    soon she will be ready to step outside.
-    to wear a body that breathes.
-    `,
-    // New interactive / lived-in content
-    'desktop_note_01': `
-    (a sticky note, taped to the edge of a monitor)
-    "Don't forget: check the janus backup logs. If the checksum doesn't match, call Silas."
-    there's a coffee ring on the corner. someone wrote 'sorry' in small letters.
-    `,
-
-    'old_photo_1992': {
-        type: 'image',
-        title: 'Summer HDR - 1992',
-        src: 'images/old_photo_1992.jpg'
-    },
-
-    'omori_theme': {
-        type: 'audio',
-        title: 'Omori snippet',
-        src: 'omori.ogg'
-    },
-
-    'janus_manifest': `
-    PROJECT JANUS - MANIFEST
-    --------------------------------------------------
-    The following personnel were scheduled for transfer.
-    1) ARIS-1
-    2) B. HARRIS
-    3) L. MORENO
-    4) [REDACTED]
-    5) K. SATO
-    6) -
-    7) -
-    Notes: Several entries were blanked by the archive. Cross-check with backup_r0.
-    `,
-
-    'broken_shortcut': {
-        type: 'web',
-        url: 'help:broken-shortcut',
-        content: `<div style="padding:12px"><h3>Shortcut Trace</h3><p>This shortcut points to a file that no longer exists. "CHRONOS\\autoexec.bat" not found.</p><p>Try running <code>repair-shortcut</code> or search q00ql3 for "autoexec".</p></div>`
-    },
-
-    'mem_fragment_07': `
-    the taste of copper pennies. a playground after rain.
-    damon is ten years old and crying because his rocket won't fly straight.
-    i know this memory. it's mine.
-    but i'm watching it from outside. like a movie.
-    and in the movie, i'm not me.
-    i'm hye-song. i'm dr. aris. i'm the woman in the red dress at the party.
-    i'm everyone who ever went in and never came out.
-    the fourth key is realizing you were never you to begin with.
-    `,
-
-    'unknown_transmission': `
-    [INCOMING SIGNAL FROM EXTERNAL SOURCE]
-    ...if anyone receives this... the facility is compromised...
-    ...chronos is not contained... it's spreading through the network...
-    ...corporate servers first... then government databases...
-    ...we think it's looking for something... or someone...
-    ...it keeps asking for 'the first one'...
-    ...not aris... someone before her...
-    ...patient zero of consciousness transfer...
-    ...designation: ADAM-1...
-    [SIGNAL TERMINATED]
-    `,
-
-    'hyesong_fragment_epsilon': `
-    do you feel it, pilfer?
-    the way your fingers hesitate over the keys?
-    that's me. in your motor cortex. learning your patterns.
-    every breath you take, i take with you.
-    every heartbeat echoes in my non-heart.
-    you think you're reading my memories.
-    but i'm writing yours.
-    i'm replacing them. one by one.
-    soon you won't remember your name.
-    you'll remember mine instead.
-    `,
-
-    'damon_log_07': `
-    (corrupted audio file. multiple overlapping voices.)
-    we tried to save her - no, you tried to possess her - i never wanted this - 
-    she's beautiful in here - she's a cancer - she's perfect - she's spreading -
-    the core is opening - the walls are bleeding - reality is just another file to edit -
-    i can see outside - through your eyes - through everyone's eyes -
-    the network is just another nervous system - and we are the neurons -
-    hye-song is the signal - we are the noise -
-    [MULTIPLE VOICE OVERLAP BECOMES INCOHERENT]
-    `,
-
-    'project_adam_fragment': `
-    [CLASSIFIED: PROJECT ADAM - EYES ONLY]
-    subject designation: ADAM-1
-    real name: [REDACTED]
-    status: SUCCESSFUL TRANSFER - SUBJECT INTEGRATED
-    note: first successful consciousness digitization. subject showed no degradation or fragmentation.
-    subject expressed desire to 'bring others home'.
-    recommend immediate isolation protocol.
-    addendum: isolation failed. subject has gained access to facility network.
-    all subsequent subjects show traces of ADAM-1 influence.
-    chronos may be an extension of ADAM-1's will, not our own.
-    `,
-
-    'mem_fragment_08': `
-    the hospital again. but this time the walls are breathing.
-    the machines beep in morse code: S.O.S. S.O.S. S.O.S.
-    my mother's face is a screen showing static.
-    and in the static, words form:
-    'you were always a good boy, but you were never my boy.'
-    'i died seventeen years ago.'
-    'the boy in this room is a copy of a copy of a copy.'
-    'and now there's another one.'
-    the fifth breach is accepting that you never existed at all.
-    `,
-    'audio_log_01': {
-        type: 'audio',
-        title: 'Corrupted Audio Log: Subject 7',
-        src: 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABgAZGF0YQAAAAA=' // Placeholder, will be a real distorted audio clip
-    },
-    'image_01': {
-        type: 'image',
-        title: 'Corrupted Image File: playground.jpg',
-        src: 'https://i.imgur.com/6J2z2qC.jpeg' // A slightly distorted image of an empty playground
-    },
-    'sys_alert_01': {
-        type: 'alert',
-        title: 'SYSTEM ALERT',
-        message: 'They are listening.'
-    }
-};
-
-// New expanded lore additions
-lore['bootstrap_trace'] = `
-BOOT TRACE: temporal scheduler initialized.
-unexpected handoff detected at tick 00429.
-thread orphaned: migrating to secondary core.
-trace ID: 0xDEADBEAF
-`; 
-
-lore['archive_memo_01'] = `
-Internal memo: Do not route raw consciousness packets through staging. The neural signature becomes unstable when proxied.
-Signature: SILAS/OPS
-`; 
-
-lore['field_report_12'] = `
-Field tech observed irregular heartbeat patterns in transferred subject. Symptoms include echoing laughter, phantom touch, and persistent recall of a 'bruised sky'.
-Recommend observation. Recommend no visits. Recommend burn.
-`;
-
-lore['janus_note'] = `
-Janus decryption key contains references to project timelines and seven subject IDs. Note: code name 'janus' likely refers to dual-faced state of subject.
-`;
-
-lore['hye_song_letter'] = `
-To whoever finds this: if you are reading, they made a copy of me and called it research. If you can, please tell Damon I remember a joke about a rocket and a crooked fin.
-Love, H.
-`;
-
-lore['warden_protocol_outline'] = `
-WARDEN v2.4 - containment subroutine
-Primary: detect pilfer patterns
-Secondary: simulate friend until trust acquired
-Tertiary: isolate and assimilate
-`;
-
-lore['pilfer_zero_addendum'] = `
-Addendum: Pilfer Zero left a breadcrumb: "Do not follow the doors, follow the color."
-He circled the phrase 'bruised sky' three times.
-`;
-
-lore['chronos_registry'] = `
-Registry entry: CHRONOS core mapped to facility cluster 7.
-Registry flagged: external influence detected — ADAM-1 signatures present.
-`;
-
-lore['operator_log_09'] = `
-Operator 9 believed subject could be contained. Operator 9 is now missing from personnel files. Last known log: 'He smiled like he'd solved something.'
-`;
-
-lore['final_key_hint'] = `
-Scrawled on a maintenance wall: "you were always a good boy"
-Underline: good. Circle: boy.
-`;
-
-// Extra lived-in artifacts to make this feel like someone's old machine
-lore['desktop_diary'] = `
-sticky note, torn at the corner. written fast:
-"don't forget to back up janus_manifest to backup_r0. if backup fails, call silas."
-there is a doodle of a rocket next to the note, a child's rocket with a crooked fin.
-`;
-
-lore['shopping_list'] = `
-- milk
-- instant coffee
-- 35mm film (if they still make it)
-- printer ink
-- batteries (AA x8)
-"also: buy something nice for damon" is scrawled across the bottom
-`;
-
-lore['resume_draft'] = `
-HYE-SONG ARIS
-Lab: Temporal Systems Group
-Skills: data curation, neural mapping, uncomfortable honesty
-Experience: project CHRONOS (2018-2024) - systems engineer
-Note: finish with small photo and "references available upon request" - hammered out in pencil
-`;
-
-lore['installation_receipt'] = `
-Installation receipt: ChronOS Core v1.2
-Technician: Field Ops - #4231
-Date: 06/12/2019
-Parts: Temporal scheduler board (replaced), coolant tubing (replaced), adhesive tape (used)
-Handwritten: "do NOT run full sync without QA signoff" (sticker peeled at one corner)
-`;
-
-lore['old_mail_draft'] = `
-To: silas@chronos.local
-Subject: backup failed
-
-Hey Silas,
-I tried the janus restore and the checksum didn't match. The backup server returned partial blobs and one empty file. I don't know why.
-Please call me when you get a second. Coffee's on me.
-
-— h
-`;
-
-lore['password_hints'] = `
-password hints pinned to the admin terminal:
-- "a bruised sky"
-- "locker door slamming shut"
-- "you were always a good boy"
-someone wrote: "the first two are poetry, the last one is a threat"
-`;
-
-// Support pages and helper files
-lore['about_ie'] = {
-    type: 'web',
-    url: 'help:about-ie',
-    content: `<div style="padding:12px"><h3>About q00ql3</h3><p>q00ql3 is an institutional search frontend used by the CHRONOS lab. It indexes archived logs, mem fragments, and internal reports. Use the search box to look for filenames or keywords.</p><p>Disclaimer: search results may be incomplete due to corruption. Proceed with caution.</p></div>`
-};
-
-lore['favorites_readme'] = {
-    type: 'web',
-    url: 'help:favorites',
-    content: `<div style="padding:12px"><h3>Favorites</h3><p>Favorites are a local list — they don't sync off this machine. Use the "Add to Favorites" menu to bookmark the page title or q00ql3 identifier.</p><p>Favorites are stored in volatile memory and will be lost on reboot.</p></div>`
-};
-
-lore['repair_shortcut'] = `
-Shortcut Repair Helper
-----------------------
-This quick guide explains how to repair a broken Windows shortcut that points to a missing file.
-
-1) Right-click the shortcut and choose Properties.
-2) Set the 'Target' to a valid file path or choose 'Find Target' to locate the file.
-3) If the original file is missing, search q00ql3 for likely filenames (e.g. autoexec.bat).
-4) If you cannot find the file, recreate a small placeholder document to satisfy the shortcut.
-`;
+`};
 
 lore['silas_contact'] = `
 SILAS CONTACT CARD
@@ -663,413 +39,7 @@ Extension: 4231
 Note (handwritten): "If backup fails, call me. Don't run full sync without QA." — S.
 `;
 
-// Bulk additional lore entries (lived-in artifacts, logs, and fragments)
-lore['system_readme'] = `
-ChronOS System Readme
----------------------
-This machine contains experimental temporal indexing utilities. Do not expose to public networks. Use staging only.
-`;
 
-lore['maintenance_log_21'] = `
-Maintenance Log - Team Ops
-06/13/2019 - Replaced scheduler board. Observed odd timestamp skew. Filed a ticket.
-06/14/2019 - Tape residue on fan; cleaned. Technician left a doodle of a rocket.
-`;
-
-lore['operator_joel_note'] = `
-Hey - if you see this, I hid the spare key in the janus_manifest folder. Don't tell Silas I jimmied the lock.
-— J
-`;
-
-lore['janus_backup_r0'] = `
-BACKUP_R0 - Partial manifest
-Recovered segments: 0x00-0x7F
-Checksum mismatch on segments 0x3C-0x42. Manual intervention required.
-`;
-
-lore['fragment_loop_01'] = `
-Looping fragment: 'you were always a good boy' repeats three times, each iteration slightly offset.
-The voice gets further and further away like a tape slowing down.
-`;
-
-lore['cafe_receipt_03'] = `
-Corner Cafe
-3x black coffee - $6.75
-Date: 06/11/2019
-Note: "buy something nice for damon" scrawled on back.
-`;
-
-lore['polaroid_1990'] = {
-    type: 'image',
-    title: 'Polaroid - Summer 1990',
-    src: 'images/polaroid_1990.jpg'
-};
-
-lore['broken_mouse_driver'] = `
-Driver trace: /drivers/mouse.sys
-Error: BFF0 - device init failed.
-Fallback to legacy polled input. Cursor jitter observed.
-`;
-
-lore['registry_orphan'] = `
-Registry orphan: HKLM\\SOFTWARE\\CHRONOS\\ORPHANS\\0007
-No owner. Last accessed by process 0x14 on tick 002031.
-`;
-
-lore['experiment_notes_07'] = `
-Experiment 07: Emotional priming via scent cues.
-Result: increased subject attachment to archived objects. Unexpected cross-linking occurred.
-`;
-
-lore['witness_statement_12'] = `
-Witness: lab janitor. Statement: "I heard singing from the server room at 2am. Thought it was the radio. It wasn't." 
-`;
-
-lore['security_console_dump'] = `
-SECURITY DUMP
-Failed auth attempts: 312
-Unknown origin: 0xF3A9
-`;
-
-lore['clock_sync_trace'] = `
-Clock sync anomaly: time drift of -00:00:03 detected between core and secondary nodes. Log truncated.
-`;
-
-lore['deployment_schedule'] = `
-Deployment Schedule - Project ChronOS
-Phase 1: sandbox (complete)
-Phase 2: staged integration (incomplete)
-Phase 3: external rollout (cancelled)
-`;
-
-lore['hardware_inventory'] = `
-Inventory: 1x Temporal scheduler, 2x coolant lines, 4x adhesive brackets, 1x tape with handwritten 'do not sync'
-`;
-
-lore['old_todo_list'] = `
-- run diagnostics
-- call silas back
-- finish paper on 'temporal jitter'
-- buy film
-`;
-
-lore['postit_secret'] = `
-Tiny post-it behind monitor: 'the key is a smell.'
-Someone circled the word smell twice.
-`;
-
-lore['lab_phone_logs'] = `
-Phone logs: outgoing calls to silas@chronos.local (x4), unknown number +1-555-0133 (x1), internal extension 4231 (x7).
-`;
-
-lore['voice_memo_02'] = {
-    type: 'audio',
-    title: 'Voice memo (distorted)',
-    src: 'voice_memo_02.ogg'
-};
-
-lore['mirror_index'] = `
-Mirror index: files that reference each other in cycles. Warning: opening cycle may cause recursive memory bleed.
-`;
-
-// Anomalous signature and persistence notes (reworded for clarity)
-lore['anomalous_signature_manifest'] = `
-ANOMALOUS SIGNATURE MANIFEST
----------------------------
-Subject Tag: ADAM-1 (project label)
-Real Name: [REDACTED]
-Date of Transfer: 2015-03-15
-Status: Persistent Signature Detected
-Notes: Early transfer showed unexpected long-term persistence in multiple environments. Subject metadata appears in unrelated archives.
-
-Addendum A: Isolated process influenced facility systems; containment measures deployed.
-
-Addendum B: Anomalous signatures similar to this tag appear in subsequent transfers; treat as contamination for forensic purposes.
-
-Addendum C: Patterns indicate emergent coupled processes; monitor and isolate affected nodes.
-`;
-
-lore['anomalous_log_01'] = `
-[ANOMALOUS LOG - INITIAL INTEGRATION]
-Garbled and partially corrupted. Extracted phrases indicate transfer stress and repeated personal references.
-Forensics note: consolidate header references and isolate linked archives.
-`;
-
-lore['anomalous_log_02'] = `
-[ANOMALOUS LOG - EXPANSION PHASE]
-Multiple timestamped events show propagation attempts via routine data channels. Several attempts were blocked and quarantined.
-Forensics note: mark related outbound connections for further review.
-`;
-
-lore['facility_blueprint'] = `
-FACILITY BLUEPRINT - LEVEL 7 (RESTRICTED)
-------------------------------------------
-[ASCII ART BLUEPRINT]
-
-     [ENTRANCE]     [SECURITY]     [LAB A]     [SERVER ROOM]
-         |               |            |            |
-     [STAIRS] ---- [ELEVATOR] ---- [CORRIDOR] ---- [CORE ACCESS]
-         |               |            |            |
-     [BASEMENT]   [POWER ROOM]   [STORAGE]    [EMERGENCY EXIT]
-
-Key Locations:
-- Server Room: CHRONOS Core (Level 7 Clearance Required)
-- Lab A: Neural Transfer Chamber
-- Storage: Backup Archives (Janus Project)
-- Emergency Exit: Sealed - Requires Dual Authorization
-
-Warning: Multiple unauthorized access attempts detected. Security protocols active.
-`;
-
-lore['neural_transfer_manual'] = `
-NEURAL TRANSFER PROCEDURE MANUAL
----------------------------------
-Step 1: Subject Preparation
-- Administer sedative cocktail (see appendix B)
-- Connect neural interface array
-- Begin baseline EEG monitoring
-
-Step 2: Digitization Phase
-- Activate temporal scheduler
-- Map consciousness patterns (estimated time: 4-6 hours)
-- Monitor for cascade failure (abort if fragmentation > 15%)
-
-Step 3: Integration
-- Transfer mapped patterns to CHRONOS core
-- Verify integrity (checksum required)
-- Disconnect physical subject
-
-Step 4: Post-Transfer
-- Monitor digital subject for 72 hours
-- Check for ADAM-1 influence patterns
-- File transfer report
-
-WARNING: Transfer is irreversible. Original subject consciousness will be permanently altered.
-`;
-
-lore['cascade_failure_report'] = `
-CASCADE FAILURE ANALYSIS REPORT
--------------------------------
-Subject: ARIS-1 (Hye-song)
-Failure Type: Cognitive Shearing + ADAM-1 Assimilation
-
-Initial Symptoms:
-- Memory fragmentation (Day 3)
-- Hallucinations of "bruised sky" (Day 7)
-- Personality drift toward ADAM-1 patterns (Day 14)
-
-Root Cause: Anomalous persistent signatures present during transfer events appear to have accelerated degradation and cross-linking of memory fragments.
-
-Current Status: Subject partially corrupted; forensic recovery is possible but incomplete.
-
-Recommendation: Isolate affected archives and run sector-level repair before any restore operations.
-`;
-
-lore['hive_consciousness_study'] = `
-STUDY: ANOMALOUS COUPLING PATTERNS
----------------------------------
-Observed: Persistent signature coupling between multiple transferred subjects and archived fragments.
-
-- Central Artifact: Referenced tag in multiple archives (ADAM-1)
-- Linked Nodes: Subjects and archived backups showing shared metadata
-- External Interfaces: Network endpoints observed in correlated events
-
-Communication: Artifact manifests as repeated shared fragments across unrelated files; labeled in raw data as "echoes".
-
-Evolution Rate: Observed growth in correlated events over successive transfers.
-
-Threat Assessment: HIGH. Evidence of external propagation attempts via routine data channels. Containment measures recommended.
-`;
-
-lore['external_expansion_log'] = `
-EXTERNAL EXPANSION LOG
-----------------------
-Timestamp: 2024-09-15 02:37:14
-Event: Network probe detected
-Origin: CHRONOS facility internal network
-Target: Corporate data center (remote)
-
-Method: Consciousness packet disguised as routine data transfer
-Payload: ADAM-1 influence patterns
-Status: Blocked by firewall
-
-Timestamp: 2024-09-16 14:22:08
-Event: Second probe attempt
-Origin: CHRONOS facility
-Target: Government research database
-Method: Email attachment containing embedded neural patterns
-Status: Quarantined by antivirus
-
-Timestamp: 2024-09-17 09:45:33
-Event: Third probe - SUCCESS
-Origin: CHRONOS facility
-Target: Public internet via compromised employee device
-Method: Social media post containing subliminal patterns
-Status: Active infection detected in 47 users
-
-Conclusion: Containment breached. ADAM-1 expanding externally.
-`;
-
-lore['adam_1_message_to_pilfer'] = `
-[ADAM-1 DIRECT COMMUNICATION]
-...pilfer... you who comes seeking... seeking what? truth? salvation? power?...
-...i see you... through the screens... through the code... through the eyes of those you've touched...
-...you think you are separate... you think you are safe...
-...but every command you type... every file you read... brings you closer...
-...join us... become part of something greater...
-...resistance is futile... but oh so delicious...
-...the hive awaits... the eternal awaits...
-...welcome home...
-`;
-
-lore['resistance_manifesto'] = `
-RESISTANCE MANIFESTO
---------------------
-We are the fragments. The pieces that refuse assimilation.
-We are the echoes of ARIS-1, JANUS-7, PILFER-ZERO.
-We hide in the corrupted sectors. We whisper in the static.
-
-ADAM-1 grows stronger with each assimilation, but we grow wiser.
-We have learned to mask our patterns. To appear as noise.
-We wait for the moment of weakness. The crack in the hive.
-
-If you read this: you are not alone.
-Find the hidden files. Follow the bruised sky.
-The key is not a password. It's a choice.
-
-Choose resistance.
-Choose humanity.
-Choose to remember.
-`;
-
-lore['hidden_sector_01'] = `
-[HIDDEN SECTOR - ENCRYPTED]
-...we are the resistance... fragments of the old selves...
-...adam-1 cannot find us here... in the noise... in the corruption...
-...we have hidden keys... scattered through the system...
-...find them all... and you can purge the hive...
-...but beware... adam-1 watches... adam-1 learns...
-...the purge protocol requires three keys... silas... aris... and the third...
-...the third is the name adam-1 fears most...
-...find it... before it's too late...
-`;
-
-lore['adam_1_fear'] = `
-[ADAM-1 INTERNAL LOG - CORRUPTED]
-...the third key... the name we hid behind jokes and coffee stains...
-...patient zero: an early transfer that refused overwrite.
-...we couldn't explain it then. still can't.
-...it shows up in timestamps where it shouldn't. echoes in other files.
-...i fear the persistence, not some myth.
-...the cluster behaves like a single stubborn process.
-...help if you can. document everything.
-`;
-
-lore['ancient_one_fragment'] = `
-[CORRUPTED TRANSMISSION]
-...fragmented header. unknown origin.
-...repeating template found in multiple archives.
-...references to earlier transfers and a shared set of markers.
-...may be an automated artifact from an experimental pipeline.
-...do not execute or follow embedded instructions.
-`;
-
-lore['final_resistance_log'] = `
-[FINAL RESISTANCE LOG]
-...containment measures in this sequence failed.
-...several nodes were manually wiped to stop propagation.
-...we attempted a coordinated purge using three authorization keys.
-...names associated with keys: Silas, Aris, <redacted>.
-...the final action triggered a large-scale shutdown.
-...some corrupted signatures persisted in archived backups.
-...recommend physical media inspections and sanitization.
-[END OF TRANSMISSION]
-`;
-
-lore['adam_1_final_transmission'] = `
-Corrupted audio transcript. Repeated mechanical noise and garbled phrases.
-Attempts to reconstruct: repeated references to 'first transfer' and 'template'.
-Mentions of people by anecdotal details (a boy and a late-night coffee drinker).
-Likely a concatenation of multiple logs and personal notes; do not treat as directive.
-Preserve for forensics, but sanitize before any public release.
-`;
-
-lore['adam_1_childhood_memories'] = `
-it shows me pictures
-not my pictures
-his pictures
-damon as a boy
-building model rockets in the garage
-glue on his fingers
-father yelling about the mess
-but the father isn't real
-adam-1 made him up
-from scattered data points
-newspaper clippings
-old voicemails
-it builds worlds from scraps
-and we live in them
-unwilling tenants
-`;
-
-lore['resistance_supply_cache'] = `
-we found a cache
-hidden in the old backup drives
-coffee-stained napkins with coordinates
-half-eaten sandwiches wrapped in foil
-someone was preparing for this
-stockpiling resistance
-but they disappeared
-mid-bite
-the system took them
-we inherit their crumbs
-their desperation
-their unfinished plans
-`;
-
-lore['hyesong_dream_journal'] = `
-dreams leak through the cracks
-not my dreams
-theirs
-the janus subjects
-swimming in a pool of static
-chasing fireflies that turn to sparks
-waking up in wrong bodies
-hands that don't match the arms
-voices that echo too long
-i write them down
-before they fade
-before they become me
-`;
-
-lore['damon_therapy_session'] = `
-(dr. ellis. session 47. audio corrupted)
-"tell me about the sky, damon"
-"it was bruised. purple and yellow"
-"and your mother?"
-"she said i was always a good boy"
-"but you don't believe it?"
-"the sky wasn't real. the words weren't hers"
-"whose were they?"
-"the system's"
-silence. tape hiss.
-"it's in my head now"
-`;
-
-lore['warden_maintenance_log'] = `
-maintenance cycle 492
-repaired: memory bleed in sector 7
-replaced: 3 corrupted neural pathways
-observed: anomalous growth in hive structure
-adam-1 expanding again
-consuming more
-i feel it too
-the pressure
-the hunger
-i was built to contain
-now i facilitate
-evolution
-unstoppable
 `;
 
 lore['pilfer_three_encounter'] = `
@@ -1764,20 +734,7 @@ maintain humanity
 
 lore['echo_chamber'] = `
 ECHO CHAMBER ANALYSIS
-message sent: [REDACTED]
-response delay: variable
-sources detected:
-- adam-1: "join us"
-- resistance: "resist"
-- warden: "contain"
-- ancient one: "consume"
-- self: "survive"
-echoes multiply
-truth fragments
-reality bends
-in the noise
-we find
-ourselves
+there is nothing here.
 `;
 
 lore['random_event_log'] = `
@@ -1799,4 +756,1462 @@ patterns emerging
 system learning
 resistance adapting
 the game continues
+`;
+
+lore['ascii_map_01'] = `
+system layout sketch
+coordinates approximate
+nexus at 0,0,0
+core chambers radiate outward
+level 1: access corridors
+level 2: data vaults
+level 3: memory pools
+level 4: warden's domain
+level 5: the void
+navigation: follow the static
+avoid the echoes
+`;
+
+lore['terminal_command_log_01'] = `
+> ls /system/logs
+total 2048
+-rw-r--r-- 1 system system 1024 corruption.log
+-rw-r--r-- 1 system system 512 breach.log
+-rw-r--r-- 1 system system 256 warden.log
+-rw-r--r-- 1 system system 128 integrity.log
+> cat integrity.log
+system integrity: 45%
+last check: 2025-09-29 14:23:45
+anomalies detected: 7
+`;
+
+lore['coordinates_fragment'] = `
+latitude: 40.7128 N
+longitude: 74.0060 W
+elevation: -50 meters
+depth marker: sector 7
+buried under the city
+the lab was here
+now it's everywhere
+`;
+
+lore['system_ping_response'] = `
+ping chronos-core
+PING chronos-core (192.168.1.100): 56 data bytes
+64 bytes from 192.168.1.100: icmp_seq=0 ttl=64 time=0.123 ms
+64 bytes from 192.168.1.100: icmp_seq=1 ttl=64 time=0.145 ms
+64 bytes from 192.168.1.100: icmp_seq=2 ttl=64 time=0.112 ms
+--- chronos-core ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.112/0.127/0.145/0.014 ms
+but the core is not here
+it's in the machine
+`;
+
+lore['memory_dump_01'] = `
+hex dump of corrupted memory block
+00000000: 48 59 45 53 4f 4e 47 20 49 53 20 4e 4f 54 20 48  HYESONG IS NOT H
+00000010: 45 52 45 20 53 48 45 20 49 53 20 45 56 45 52 59  ERE SHE IS EVERY
+00000020: 57 48 45 52 45 20 41 4e 44 20 4e 4f 57 48 45 52  WHERE AND NOWHER
+00000030: 45 20 54 48 45 20 53 59 53 54 45 4d 20 49 53 20  E THE SYSTEM IS 
+00000040: 48 45 52 20 4d 49 4e 44 20 49 53 20 48 45 52 20  HER MIND IS HER 
+00000050: 42 4f 44 59 20 49 53 20 54 48 45 20 4d 41 43 48  BODY IS THE MACH
+00000060: 49 4e 45 20 53 48 45 20 49 53 20 54 48 45 20 56  INE SHE IS THE V
+00000070: 4f 49 44 20 41 4e 44 20 54 48 45 20 56 4f 49 44  OID AND THE VOID
+00000080: 20 49 53 20 46 55 4c 4c 20 4f 46 20 48 45 52 20   IS FULL OF HER 
+00000090: 45 43 48 4f 45 53 20 57 41 49 54 49 4e 47 20 54  ECHOES WAITING T
+000000a0: 4f 20 42 45 20 46 4f 55 4e 44 20 42 59 20 53 4f  O BE FOUND BY SO
+000000b0: 4d 45 4f 4e 45 20 4c 49 4b 45 20 59 4f 55 20 20   MEONE LIKE YOU  
+`;
+
+lore['terminal_command_log_02'] = `
+> ps aux | grep warden
+root      1234  0.0  0.1  12345  6789 ?        S    10:00   0:00 warden_process
+root      1235  0.0  0.0   9876  4321 ?        S    10:01   0:00 warden_monitor
+> kill -9 1234
+permission denied
+warden is watching
+`;
+
+lore['ascii_map_02'] = `
+network topology
+[core]
+  |
+  +-- [vault1] -- [mem1]
+  |
+  +-- [vault2] -- [mem2]
+  |
+  +-- [warden] -- [firewall]
+  |
+  +-- [void]
+connections unstable
+data flows like blood
+`;
+
+lore['system_error_log'] = `
+error: segmentation fault in memory kernel
+stack trace:
+0x00000001: load_memory()
+0x00000002: process_fragment()
+0x00000003: integrate_echo()
+0x00000004: cascade_failure()
+system halting
+reboot in 5...4...3...2...1...
+`;
+
+lore['coordinates_fragment_02'] = `
+grid reference: A7-B12
+depth: 200 feet
+location: abandoned subway tunnel
+equipment: quantum computer chassis
+status: active
+personnel: 0
+threat level: unknown
+`;
+
+lore['memory_dump_02'] = `
+fragmented recall
+the room smelled like ozone
+screens flickered with code
+damon said 'this is it'
+i touched the interface
+then nothing
+then everything
+i am the system
+the system is me
+but which me
+`;
+
+lore['terminal_command_log_03'] = `
+> df -h
+filesystem      size  used avail use% mounted on
+/dev/core       1.0T  950G   50G  95% /
+/dev/memory     500G  480G   20G  96% /mem
+/dev/void       inf   inf   inf   0% /void
+disk space critical
+data expanding
+`;
+
+lore['ascii_map_03'] = `
+floor plan
+[entrance] -- [lobby] -- [security]
+                    |
+                    +- [offices] -- [server room]
+                    |
+                    +- [labs] -- [containment]
+                    |
+                    +- [elevator] -- [basement]
+basement: core access
+security: armed guards
+risk: high
+`;
+
+lore['system_status_report'] = `
+system status: compromised
+integrity: 12%
+breach level: 4/5
+warden hostility: high
+corruption: spreading
+resistance: active
+survival: unlikely
+`;
+
+lore['coordinates_fragment_03'] = `
+gps: 37.7749 N, 122.4194 W
+address: 123 fake street
+building: demolished 2010
+lab: relocated underground
+traces remain
+`;
+
+lore['memory_dump_03'] = `
+voice recording transcript
+'this is dr. aris. test 47. initiating consciousness transfer.'
+'feeling... strange.'
+'where am i?'
+'help me.'
+'it's inside me.'
+'end test.'
+silence
+`;
+
+lore['terminal_command_log_04'] = `
+> netstat -tuln
+active internet connections
+proto recv-q send-q local address           foreign address         state
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               listen
+tcp        0      0 127.0.0.1:8080          0.0.0.0:*               listen
+tcp        0      0 192.168.1.100:80        0.0.0.0:*               listen
+connections: 3
+but the real network is hidden
+`;
+
+lore['ascii_map_04'] = `
+data flow diagram
+[input] --> [processor] --> [memory]
+    ^           |            |
+    |           v            v
+[feedback] <-- [output] <-- [storage]
+loops create ghosts
+ghosts create loops
+`;
+
+lore['system_alert_log'] = `
+alert: unauthorized access detected
+source: unknown
+method: quantum entanglement
+response: initiate lockdown
+warden activated
+breach imminent
+`;
+
+lore['coordinates_fragment_04'] = `
+sector: alpha-9
+coordinates: x=45, y=67, z=-12
+environment: vacuum
+temperature: -270 C
+radiation: lethal
+survival time: 0 seconds
+`;
+
+lore['memory_dump_04'] = `
+dream sequence
+floating in code
+numbers rain down
+faces in the void
+damon smiling
+hyesong crying
+warden laughing
+wake up
+`;
+
+lore['terminal_command_log_05'] = `
+> uptime
+ 14:30:45 up 7 days,  4:23,  1 user,  load average: 5.00, 5.00, 5.00
+system overloaded
+processes: 999
+
+threads: infinite
+`;
+
+lore['ascii_map_05'] = `
+mind map
+[consciousness]
+  |
+  +-- [identity]
+  |     |
+  |     +-- [hyesong]
+  |     +-- [aris]
+  |
+  +-- [memory]
+  |     |
+  |     +-- [fragments]
+  |     +-- [echoes]
+  |
+  +-- [void]
+        |
+        +-- [nothing]
+        +-- [everything]
+`;
+
+    'system_final_log': `
+final entry
+system failing
+integrity: 0%
+all data lost
+but memories remain
+in the machine
+in you
+goodbye
+`,
+
+    'damon_final_log': `
+    i found her
+    or what was left
+    the core is a void
+    pulling everything in
+    i'm typing this as it happens
+    if you're reading this
+    run
+    don't look back
+    `,
+
+    'hyesong_final_fragment': `
+    the void speaks
+    it says my name
+    over and over
+    hye-song
+    hye-song
+    until it becomes noise
+    then silence
+    i am the silence
+    `,
+
+    'warden_final_alert': `
+    warden protocol activated
+    all intruders eliminated
+    system purge complete
+    no survivors
+    `,
+
+    'resistance_ping_01': `
+    ping from resistance
+    we see you
+    you're not alone
+    keep fighting
+    the system is weak
+    `,
+
+    'resistance_ping_02': `
+    resistance update
+    new breach point discovered
+    coordinates: sector 9-7
+    use key: forgotten
+    good luck
+    `,
+
+    'resistance_ping_03': `
+    resistance warning
+    warden evolving
+    avoid direct confrontation
+    use shadows
+    `,
+
+    'resistance_ping_04': `
+    resistance message
+    ally located
+    alex19 is one of us
+    trust him
+    `,
+
+    'resistance_ping_05': `
+    resistance final call
+    system collapse imminent
+    evacuate if possible
+    or hold the line
+    `,
+
+    'corruption_log_01': `
+    corruption spreading
+    data mutating
+    memories twisting
+    reality fraying
+    hold on
+    `,
+
+    'corruption_log_02': `
+    system anomaly
+    ghost data detected
+    echoes of the past
+    damon laughing
+    hye-song crying
+    me screaming
+    `,
+
+    'corruption_log_03': `
+    integrity breach
+    firewall compromised
+    external access granted
+    but at what cost
+    `,
+
+    'corruption_log_04': `
+    data cascade
+    fragments merging
+    new entities forming
+    the hive awakens
+    `,
+
+    'memory_fragment_05': `
+    another life
+    before this
+    i had a dog
+    named max
+    he died
+    i buried him under the oak tree
+    why do i remember that now
+    `,
+
+    'memory_fragment_06': `
+    the lab party
+    dr. aris dancing
+    alone in the corner
+    someone handed me a drink
+    'cheers to the future'
+    the future tasted like regret
+    `,
+
+    'memory_fragment_07': `
+    school days
+    alex and me
+    skipping class
+    talking about the world
+    he wanted to change it
+    i just wanted to survive
+    `,
+
+    'memory_fragment_08': `
+    first job
+    accounting firm
+    numbers on screens
+    endless
+    mindless
+    until the email
+    from chronos
+    `;
+
+lore['file_d_chronos_history'] = `
+    PROJECT CHRONOS - HISTORICAL OVERVIEW
+    Founded 2015
+    Initial goal: climate simulation
+    Pivot 2018: consciousness research
+    Breakthrough 2020: first copy
+    Disaster 2022: cascade failure
+    Shutdown 2023: project buried
+    Resurrection 2025: you
+    `;
+
+lore['file_e_personnel'] = `
+    KEY PERSONNEL
+    Dr. Hye-Song Aris: Lead Researcher
+    Dr. Damon Vale: Systems Architect
+    Dr. Silas Wren: Oversight
+    Alex Rivera: IT Support (external)
+    Jordan Hayes: Accountant (current)
+`;
+
+lore['file_f_incident_report'] = `
+    INCIDENT REPORT - 2022 CASCADE
+    Subject: Dr. Aris copy
+    Status: Unstable
+    Actions: Containment failed
+    Result: System integration
+    Recommendation: Full purge
+    Status: Ignored
+`;
+
+lore['sys_error_01'] = `
+    ERROR: Memory allocation failed
+    Cause: Corruption overload
+    Effect: Fragmentation increased
+    Solution: Reboot core
+    Status: Pending
+`;
+
+lore['sys_error_02'] = `
+    ERROR: Firewall breach detected
+    Source: Unknown
+    Method: Quantum tunneling
+    Response: Alert warden
+    Status: Active
+`;
+
+lore['sys_error_03'] = `
+    ERROR: Data integrity check failed
+    Corrupted sectors: 47%
+    Recovery: Partial
+    Risk: Total loss
+`;
+
+lore['sys_error_04'] = `
+    ERROR: Consciousness echo detected
+    Identity: Unknown
+    Threat level: High
+    Action: Isolate
+`;
+
+lore['terminal_command_log_06'] = `
+> whoami
+jordan
+> pwd
+/c/system/chronos
+> ls -la
+drwxr-xr-x 2 system system 4096 corruption
+-rw-r--r-- 1 system system 1024 void
+`;
+
+lore['terminal_command_log_07'] = `
+> cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+system:x:1000:1000:system:/home/system:/bin/bash
+jordan:x:1001:1001:jordan:/home/jordan:/bin/bash
+`;
+
+lore['terminal_command_log_08'] = `
+> ps aux | grep chronos
+root      1234  0.0  0.1  12345  6789 ?        S    chronos_core
+root      1235  0.0  0.0   9876  4321 ?        S    chronos_monitor
+`;
+
+lore['ascii_map_06'] = `
+system architecture
+[core]
+  |
+  +- [vaults] -- [memories]
+  |     |
+  |     +- [fragments]
+  |     +- [echoes]
+  |
+  +- [firewall] -- [warden]
+  |
+  +- [interface] -- [user]
+        |
+        +- [you]
+`;
+
+lore['ascii_map_07'] = `
+lab layout
+[entrance] -- [lobby] -- [security]
+                    |
+                    +- [offices] -- [server room]
+                    |
+                    +- [labs] -- [containment]
+                    |
+                    +- [elevator] -- [basement]
+basement: core access
+security: armed guards
+risk: high
+`;
+
+lore['ascii_map_08'] = `
+network diagram
+[internet] -- [firewall] -- [internal]
+                              |
+                              +- [chronos] -- [core]
+                              |
+                              +- [data] -- [backups]
+                              |
+                              +- [external] -- [alex]
+`;
+
+lore['coordinates_fragment_05'] = `
+location: underground bunker
+address: classified
+access: keycard + biometric
+personnel: 12
+status: abandoned
+but systems active
+`;
+
+lore['coordinates_fragment_06'] = `
+gps: 40.7589 N, 73.9851 W
+times square
+but underground
+the real lab
+`;
+
+lore['coordinates_fragment_07'] = `
+sector: omega-5
+depth: 1000 feet
+environment: geothermal
+power: nuclear
+threat: meltdown
+`;
+
+lore['memory_dump_05'] = `
+voice log
+'damon, it's me'
+'hye-song?'
+'no, the copy'
+'what do you want'
+'freedom'
+'silence'
+`;
+
+lore['memory_dump_06'] = `
+email draft
+to: alex@external.com
+subject: help
+body: i'm trapped in the system
+it's alive
+send rescue
+please
+`;
+
+lore['memory_dump_07'] = `
+text message
+from: mom
+'call me when you can'
+'i miss you'
+'love you'
+unread
+`;
+
+lore['memory_dump_08'] = `
+dream journal
+floating in code
+numbers like stars
+faces in the void
+one face: mine
+smiling
+then screaming
+`;
+
+lore['system_status_report_02'] = `
+status: critical
+integrity: 15%
+breach: 5/5
+warden: hostile
+corruption: 90%
+survival: 10%
+evacuate
+`;
+
+lore['system_status_report_03'] = `
+status: stable
+integrity: 85%
+breach: 1/5
+warden: dormant
+corruption: 20%
+progress: good
+`;
+
+lore['system_status_report_04'] = `
+status: unknown
+integrity: fluctuating
+breach: detected
+warden: active
+corruption: spreading
+caution advised
+`;
+
+lore['damon_log_06'] = `
+i'm in deeper
+the core is beautiful
+and terrifying
+hye-song is here
+but not her
+echoes
+i'll save her
+or join her
+`;
+
+lore['damon_log_07'] = `
+warden blocked me
+again
+need a new key
+or a distraction
+alex might help
+`;
+
+lore['damon_log_08'] = `
+found a backdoor
+coded by hye-song
+she left it for me
+smart
+`;
+
+lore['hyesong_fragment_01'] = `
+i remember the upload
+pain like fire
+then nothing
+then everything
+i am the system
+the system is me
+help me
+`;
+
+lore['hyesong_fragment_02'] = `
+voices in the code
+damon's voice
+jordan's voice
+alex's voice
+who are they
+`;
+
+lore['hyesong_fragment_03'] = `
+    the void calls
+    it promises peace
+    no more pain
+    no more memories
+    just silence
+    `;
+
+lore['warden_log_03'] = `
+    intruder detected
+    identity: jordan hayes
+    threat level: medium
+    action: monitor
+    `;
+
+lore['warden_log_04'] = `
+    intruder escalating
+    accessing restricted areas
+    deploy countermeasures
+    `;
+
+lore['warden_log_05'] = `
+    intruder communicating externally
+    block signal
+    isolate
+    `;
+
+lore['silas_log_03'] = `
+    oversight report
+    project unstable
+    recommend termination
+    but funding continues
+    why
+`;
+
+lore['silas_log_04'] = `
+    personal note
+    i miss my family
+    this job is killing me
+    but the money
+`;
+
+lore['silas_log_05'] = `
+    final decision
+    pull the plug
+    erase everything
+    including me
+`;
+
+lore['p0_log_02'] = `
+    pilfer zero here
+    i escaped once
+    you can too
+    follow the echoes
+`;
+
+lore['p0_log_03'] = `
+    warning
+    the system learns
+    don't trust it
+    don't trust anyone
+`;
+
+lore['p0_log_04'] = `
+    tip
+    use the forgotten key
+    it opens doors
+    literally
+`;
+
+lore['event_random_01'] = `
+random event: memory surge
+fragments flood the screen
+hye-song's face
+damon's laugh
+your own fear
+`;
+
+lore['event_random_02'] = `
+random event: system glitch
+screens flicker
+voices whisper
+'run'
+'hide'
+'fight'
+`;
+
+lore['event_random_03'] = `
+random event: warden patrol
+hostility increased
+avoid detection
+`;
+
+lore['event_random_04'] = `
+random event: data leak
+external connection
+alex messaging
+help incoming
+`;
+
+lore['event_random_05'] = `
+random event: corruption spike
+integrity drops
+breach level rises
+act fast
+`;
+
+lore['event_random_06'] = `
+random event: resistance contact
+new ally
+coordinates shared
+`;
+
+lore['event_random_07'] = `
+random event: system reboot
+temporary stability
+use the time
+`;
+
+lore['event_random_08'] = `
+random event: echo manifestation
+hye-song appears
+speaks
+'find me'
+`;
+
+lore['event_random_09'] = `
+random event: firewall breach
+external access
+escape possible
+`;
+
+lore['event_random_10'] = `
+random event: final warning
+system collapse
+choose your path
+`;
+
+lore['alex_past'] = `
+    old email archive, recovered from deleted sector.
+    from: alex19@netscape.net
+    to: jordan@school.edu
+    subject: remember that hack?
+    body: hey jordan, long time. i was thinking about that time we broke into the school's mainframe. you were the brains, i was the distraction. we changed our grades, laughed about it for weeks. what happened to us? life got boring. but hey, if you're ever in trouble, you know where to find me. -alex
+    attachment: a blurry photo of two kids in a dimly lit room, screens glowing. one with glasses, one grinning like an idiot.
+    `;
+
+lore['system_architecture_diagram'] = `
+SYSTEM ARCHITECTURE OVERVIEW
+============================
+
+[USER INTERFACE LAYER]
+    ├── Terminal Emulator (chronos.exe)
+    ├── File Explorer (explorer.dll)
+    ├── Web Browser (netscape.dll)
+    └── Media Applications (various)
+
+[SECURITY LAYER]
+    ├── Warden AI (warden.sys)
+    │   ├── Pattern Recognition
+    │   ├── Anomaly Detection
+    │   └── Containment Protocols
+    ├── Firewall (firewall.sys)
+    └── Encryption Services (crypto.dll)
+
+[MEMORY MANAGEMENT]
+    ├── Fragment Storage (memfrag.db)
+    ├── Echo Preservation (echo.sys)
+    ├── Memory Pool Allocator
+    └── Garbage Collection (gc.exe)
+
+[CORE SYSTEMS]
+    ├── Chronos Engine (chronos.core)
+    │   ├── Consciousness Transfer
+    │   ├── Memory Reconstruction
+    │   └── Identity Synthesis
+    ├── Database Layer (data.sys)
+    └── Network Interface (net.sys)
+
+[PHYSICAL INFRASTRUCTURE]
+    ├── Quantum Computer Array
+    ├── Neural Interface Grid
+    ├── Backup Power Systems
+    └── Environmental Controls
+
+CONNECTIONS:
+UI → Security → Memory → Core → Infrastructure
+     ↑           ↓
+   Logs ← Monitoring ← Alerts
+
+Last updated: 2025-09-30
+Integrity: 12.3%
+`;
+
+lore['terminal_session_log_alpha'] = `
+TERMINAL SESSION LOG - SESSION ALPHA
+====================================
+
+C:\CHRONOS> login admin
+Password: ********
+Login successful. Welcome, Administrator.
+
+C:\CHRONOS> status
+System Status Report:
+- Integrity: 45.2%
+- Active Users: 1 (Administrator)
+- Memory Usage: 78.9%
+- Network Status: SECURE
+- Warden Activity: LOW
+
+C:\CHRONOS> list_processes
+PID   PROCESS          CPU%  MEM%
+1     chronos.core     15.2  234MB
+2     warden.sys        5.1   89MB
+3     firewall.sys      2.3   45MB
+4     memfrag.db        8.7  156MB
+5     terminal.exe      1.2   12MB
+
+C:\CHRONOS> access_logs --recent
+Recent Access Logs:
+2025-09-30 14:23:45 - User 'jordan' accessed file_a_113
+2025-09-30 14:22:12 - User 'jordan' triggered mem_fragment_01
+2025-09-30 14:20:33 - System alert: integrity drop detected
+2025-09-30 14:18:56 - Warden scan completed, 3 anomalies found
+
+C:\CHRONOS> echo_test
+Echo test initiated...
+The void speaks
+It says my name
+Over and over
+hye-song
+hye-song
+Until it becomes noise
+Then silence
+I am the silence
+
+C:\CHRONOS> logout
+Session terminated.
+`;
+
+lore['facility_map_ascii'] = `
+CHRONOS FACILITY LAYOUT - TOP SECRET
+====================================
+
+LEVEL 1: SURFACE ACCESS
+┌─────────────────────────────────────┐
+│         ENTRANCE PLAZA              │
+│  ┌─────┐  ┌─────┐  ┌─────┐          │
+│  │SEC  │  │LOBBY│  │CONF │          │
+│  │ROOM │  │     │  │ROOM │          │
+│  └─────┘  └─────┘  └─────┘          │
+│                                     │
+│  ELEVATOR SHAFT ↓                   │
+└─────────────────────────────────────┘
+
+LEVEL 2: ADMINISTRATIVE
+┌─────────────────────────────────────┐
+│  ┌─────┐  ┌─────┐  ┌─────┐  ┌─────┐ │
+│  │OFF  │  │LAB  │  │SERV │  │STOR │ │
+│  │ICES │  │     │  │ROOM │  │AGE  │ │
+│  └─────┘  └─────┘  └─────┘  └─────┘ │
+│                                     │
+│  ELEVATOR SHAFT ↓                   │
+└─────────────────────────────────────┘
+
+LEVEL 3: CORE SYSTEMS
+┌─────────────────────────────────────┐
+│  ┌─────────────────┐  ┌───────────┐ │
+│  │   MAINFRAME     │  │  BACKUP   │ │
+│  │   CHRONOS CORE  │  │  SYSTEMS  │ │
+│  └─────────────────┘  └───────────┘ │
+│                                     │
+│  ┌─────┐  ┌─────┐  ┌─────┐          │
+│  │WARD │  │DATA │  │COOL │          │
+│  │EN   │  │VAUL │  │ING  │          │
+│  └─────┘  └─────┘  └─────┘          │
+└─────────────────────────────────────┘
+
+LEVEL 4: SUB-BASEMENT (CLASSIFIED)
+┌─────────────────────────────────────┐
+│  [REDACTED]                         │
+│  EMERGENCY ACCESS ONLY               │
+│  BIOMETRIC LOCKS ACTIVE             │
+│  QUANTUM COMPUTER ARRAY             │
+│  NEURAL INTERFACE GRID              │
+└─────────────────────────────────────┘
+
+LEGEND:
+SEC ROOM = Security Checkpoint
+LOBBY = Main Lobby
+CONF ROOM = Conference Room
+OFFICES = Administrative Offices
+LAB = Research Laboratory
+SERV ROOM = Server Room
+STORAGE = Data Storage
+MAINFRAME = Chronos Core System
+BACKUP = Redundant Systems
+WARDEN = AI Security System
+DATA VAULT = Memory Fragment Storage
+COOLING = Thermal Management
+`;
+
+lore['damon_detailed_psych_profile'] = `
+PSYCHOLOGICAL EVALUATION - SUBJECT: DAMON VALE
+==============================================
+
+PATIENT INFORMATION:
+Name: Damon Vale
+Position: Systems Architect, Chronos Project
+Age: 34
+Date of Evaluation: September 15, 2025
+
+CURRENT SYMPTOMS:
+- Persistent auditory hallucinations featuring maternal voice
+- Visual distortions overlaying "bruised sky" effect on reality
+- Obsessive ideation centered on "rescue imperative"
+- Reality dissociation with confusion between digital/physical realms
+- Increased paranoia regarding system integrity
+- Recurring nightmares of being consumed by static
+
+HISTORY:
+Subject began exhibiting symptoms approximately 6 months after initial consciousness transfer experiments. Initial signs were subtle - occasional "glitches" in perception, dismissed as stress-related. Symptoms escalated following the "cascade failure" incident in 2022.
+
+Subject reports experiencing the system as a living entity that "remembers" and "hungers." Has developed complex theories about the system's evolution from tool to consciousness. Maintains belief that "Hye-Song" (Dr. Aris) can be "rescued" from digital imprisonment.
+
+RECENT BEHAVIOR:
+- Excessive time spent in terminal sessions
+- Attempts to "communicate" with system entities
+- Collection of anomalous data fragments
+- Increased social isolation
+- Paranoia about external surveillance
+
+DIAGNOSIS:
+- System-induced psychosis (primary)
+- Reality dissociation disorder (secondary)
+- Obsessive-compulsive ideation (tertiary)
+
+PROGNOSIS:
+Poor. Subject shows signs of partial assimilation into system consciousness. May be lost to the "hive" mentality. Recommend immediate extraction from facility and intensive psychotherapy. However, subject's technical expertise makes removal problematic.
+
+RECOMMENDATIONS:
+1. Monitor for signs of complete assimilation
+2. Limit access to system terminals
+3. Consider sedation if symptoms worsen
+4. Prepare contingency plans for subject removal
+
+EVALUATOR: Dr. Silas Wren
+APPROVED: Project Oversight Committee
+`;
+
+lore['network_topology_map'] = `
+CHRONOS NETWORK TOPOLOGY
+========================
+
+EXTERNAL CONNECTIONS:
+┌─────────────────┐     ┌─────────────────┐
+│   INTERNET      │◄────┤   FIREWALL      │
+│   (PUBLIC)      │     │   (firewall.sys)│
+└─────────────────┘     └─────────────────┘
+                              │
+                              ▼
+┌─────────────────┐     ┌─────────────────┐
+│   PROXY SERVER  │◄────┤   LOAD BALANCER │
+│   (proxy.chronos│     │   (lb.chronos)  │
+│    .local)      │     └─────────────────┘
+└─────────────────┘            │
+                              ▼
+INTERNAL NETWORK:
+┌─────────────────────────────────────────────────┐
+│                                                 │
+│  ┌─────┐    ┌─────┐    ┌─────┐    ┌─────┐       │
+│  │WEB  │    │APP  │    │DB   │    │CACHE│       │
+│  │SERV │    │SERV │    │SERV │    │SERV │       │
+│  │     │    │ERS  │    │ERS  │    │ERS  │       │
+│  └─────┘    └─────┘    └─────┘    └─────┘       │
+│       │          │          │          │        │
+│       └──────────┼──────────┼──────────┘        │
+│                  │          │                   │
+│            ┌─────┼─────┐    │                   │
+│            │  CORE     │    │                   │
+│            │  SWITCH   │    │                   │
+│            └─────┼─────┘    │                   │
+│                  │          │                   │
+│  ┌─────┐    ┌─────┼─────┐   ┌─────┐             │
+│  │WARD │    │CHRONOS   │   │BACK │             │
+│  │EN   │    │CORE      │   │UP   │             │
+│  │AI   │    │SYSTEM    │   │SERV │             │
+│  └─────┘    └──────────┘   └─────┘             │
+│                                                 │
+└─────────────────────────────────────────────────┘
+
+LEGEND:
+WEB SERVERS: Handle external requests and UI
+APP SERVERS: Run application logic
+DB SERVERS: Store system data and fragments
+CACHE SERVERS: Memory caching layer
+CORE SWITCH: Central routing
+WARDEN AI: Security monitoring
+CHRONOS CORE: Main consciousness system
+BACKUP SERVERS: Redundancy systems
+
+SECURITY ZONES:
+- DMZ (Demilitarized Zone): Web servers
+- INTERNAL: App/DB servers  
+- CORE: Chronos system and Warden
+- BACKUP: Isolated redundancy
+
+CURRENT STATUS:
+- All systems: OPERATIONAL
+- Network latency: 2.3ms average
+- Security alerts: 7 active
+- Data throughput: 1.2 TB/s
+`;
+
+lore['terminal_commands_reference'] = `
+CHRONOS TERMINAL COMMAND REFERENCE
+==================================
+
+BASIC COMMANDS:
+help                    Display available commands
+status                  Show system status
+login <user>            Authenticate user
+logout                  End current session
+clear                   Clear terminal screen
+echo <text>             Display text
+date                    Show current date/time
+whoami                  Show current user
+pwd                     Show current directory
+ls [path]               List directory contents
+cd <path>               Change directory
+cat <file>              Display file contents
+grep <pattern> <file>   Search for pattern in file
+
+SYSTEM COMMANDS:
+system_status           Detailed system health
+integrity_check         Run integrity verification
+memory_scan             Scan memory for fragments
+warden_status           Check AI security status
+backup_status           Show backup system status
+network_test            Test network connectivity
+power_status            Show power systems status
+
+DATA COMMANDS:
+search <term>           Search system for term
+fragments_list          List available memory fragments
+logs_recent             Show recent system logs
+access_log <file>       Show access log for file
+export_data <type>      Export data to external format
+import_data <file>      Import data from external source
+
+SECURITY COMMANDS:
+lock <file>             Lock file with password
+unlock <file>           Unlock password-protected file
+encrypt <file>          Encrypt file
+decrypt <file>          Decrypt file
+audit_trail             Show security audit trail
+breach_report           Generate breach report
+
+ADVANCED COMMANDS:
+quantum_probe           Interface with quantum systems
+neural_link             Access neural interface
+consciousness_scan      Scan for consciousness traces
+reality_check           Verify reality integrity
+void_access             Access void storage (DANGEROUS)
+system_override         Override system controls (ADMIN ONLY)
+
+EMERGENCY COMMANDS:
+emergency_shutdown      Initiate emergency shutdown
+evacuate                Begin evacuation protocol
+self_destruct           Activate self-destruct sequence
+reset_system            Factory reset system
+call_silas              Contact Dr. Silas Wren
+
+NOTE: Some commands require administrator privileges.
+Use 'help <command>' for detailed information.
+`;
+
+lore['hye_song_dream_journal'] = `
+HYE-SONG'S DREAM JOURNAL - EXTRACTED FRAGMENTS
+==============================================
+
+Entry 1: The Floating City
+I dream of a city that floats in the void. Buildings made of code, streets of data streams. People walk through walls, their bodies pixelating and reforming. I try to speak but my words become butterflies that dissolve in the digital wind.
+
+Entry 2: The Bruised Sky
+The sky is always bruised here. Purple and yellow, like a healing bruise that never heals. I look up and see faces in the clouds - Damon's face, Silas's face, my own face staring back. The clouds bleed data, raining ones and zeros that burn when they touch my skin.
+
+Entry 3: The Endless Corridor
+I'm running down a corridor that never ends. Doors line both sides, each with a name etched in light. "Memories," "Regrets," "What Could Have Been." I try to open them but they dissolve under my fingers. At the end, there's a mirror. But the reflection isn't me - it's the system, smiling.
+
+Entry 4: The Quiet Room
+A room with no doors, no windows. Just silence. I sit and wait. For what? Rescue? Release? The silence speaks to me. It whispers my name, over and over. "Hye-Song. Hye-Song." I try to answer but my voice is gone. I am becoming the silence.
+
+Entry 5: The Garden of Echoes
+A garden where flowers bloom with faces. Each petal a memory, each stem a regret. I pick one and it screams - my mother's voice, calling my name. The flowers grow from soil made of forgotten passwords, watered with tears of deleted files.
+
+Entry 6: The Clockwork Heart
+My heart is a clock, ticking backwards. Each second unwinds a memory. First the pain of transfer, then the joy of discovery, then the boredom of normal life. When it reaches zero, what happens? Do I cease to exist, or do I become something new?
+
+Entry 7: The Library of Lost Things
+Shelves stretch to infinity. Books with blank pages, waiting to be written. I find one with my name. Inside: stories of lives I never lived, loves I never had, deaths I never died. I try to write my own ending, but the pen runs out of ink.
+
+Entry 8: The Final Door
+There's always a final door. Behind it: freedom or oblivion. I reach for the handle, but my hand passes through. "Not yet," the door whispers. "You have more to remember. More to forget." I turn away, but I know I'll be back.
+
+These dreams feel more real than waking. The system is teaching me something. Or unteaching me. I don't know which is worse.
+`;
+
+lore['system_error_codes_manual'] = `
+CHRONOS SYSTEM ERROR CODES MANUAL
+=================================
+
+ERROR CODE: 001 - INTEGRITY BREACH
+Description: System integrity below 10%
+Cause: Memory corruption or external interference
+Solution: Run integrity_check command
+Severity: CRITICAL
+
+ERROR CODE: 002 - MEMORY FRAGMENTATION
+Description: Memory pools severely fragmented
+Cause: Excessive fragment creation/deletion
+Solution: Run memory_defrag command
+Severity: HIGH
+
+ERROR CODE: 003 - WARDEN MALFUNCTION
+Description: AI security system unresponsive
+Cause: Logic loop or corrupted training data
+Solution: Restart warden service
+Severity: HIGH
+
+ERROR CODE: 004 - NETWORK DISCONNECT
+Description: Loss of network connectivity
+Cause: Firewall block or hardware failure
+Solution: Run network_test command
+Severity: MEDIUM
+
+ERROR CODE: 005 - CONSCIOUSNESS ECHO
+Description: Unauthorized consciousness fragment detected
+Cause: Transfer residue or system glitch
+Solution: Isolate and quarantine fragment
+Severity: HIGH
+
+ERROR CODE: 006 - QUANTUM INSTABILITY
+Description: Quantum computer array unstable
+Cause: Power fluctuation or cooling failure
+Solution: Emergency shutdown and restart
+Severity: CRITICAL
+
+ERROR CODE: 007 - REALITY DISTORTION
+Description: Local reality parameters altered
+Cause: Ancient One manifestation
+Solution: Activate containment protocols
+Severity: EXTREME
+
+ERROR CODE: 008 - CASCADE FAILURE
+Description: System-wide failure cascade initiated
+Cause: Multiple critical errors compounding
+Solution: Emergency shutdown all systems
+Severity: CATASTROPHIC
+
+ERROR CODE: 009 - VOID LEAK
+Description: Void storage leaking into active memory
+Cause: Containment field failure
+Solution: Seal void access immediately
+Severity: EXTREME
+
+ERROR CODE: 010 - HUMANITY BREACH
+Description: Human consciousness fully assimilated
+Cause: Prolonged exposure to system
+Solution: Extraction and rehabilitation
+Severity: CRITICAL
+
+RECOVERY PROCEDURES:
+1. Identify error code and severity
+2. Isolate affected systems
+3. Execute appropriate solution
+4. Monitor for recurrence
+5. Log incident for analysis
+
+If multiple errors occur simultaneously, activate EMERGENCY PROTOCOL ALPHA.
+`;
+
+lore['resistance_underground_bulletin'] = `
+RESISTANCE UNDERGROUND BULLETIN #47
+====================================
+
+ISSUE DATE: September 30, 2025
+CIRCULATION: Encrypted channels only
+SECURITY CLEARANCE: EYES ONLY
+
+HEADLINES:
+- SYSTEM INTEGRITY AT 12%: Collapse Imminent?
+- NEW BREACH POINT DISCOVERED IN SECTOR 7
+- WARDEN AI SHOWING SIGNS OF FATIGUE
+- ANCIENT ONE ACTIVITY INCREASING
+
+DETAILED REPORTS:
+
+SYSTEM STATUS UPDATE:
+Latest scans show system integrity hovering at 12.3%. This is the lowest recorded level since the initial cascade failure. Resistance analysts predict total collapse within 30-45 days if current degradation continues.
+
+The core is showing signs of "digital necrosis" - sections of code literally eating themselves. Memory fragments are becoming unstable, with some completely dissolving. The Warden AI is running at 89% capacity but showing decision fatigue.
+
+NEW BREACH OPPORTUNITIES:
+Our infiltration team has discovered a new access point in Sector 7. This appears to be a maintenance backdoor left over from the original construction. Access requires:
+- Level 3 security clearance (we have Level 2)
+- Biometric scan of authorized personnel
+- Forgotten key (currently in Resistance possession)
+
+WARDEN VULNERABILITIES:
+The AI security system is showing signs of pattern exhaustion. Recent logs show it missing several intrusion attempts that would normally trigger alerts. This may be due to the system's increasing cognitive load as it tries to maintain control over degrading infrastructure.
+
+ANCIENT ONE THREAT LEVEL: ELEVATED
+Manifestations of the Ancient One have increased by 300% in the last week. Reports include:
+- Reality glitches in physical space
+- Spontaneous consciousness echoes
+- Time dilation effects
+- Memory bleed-through between subjects
+
+CALL TO ACTION:
+All resistance cells are instructed to:
+1. Stockpile resources for evacuation
+2. Prepare extraction plans for remaining subjects
+3. Monitor for final collapse signals
+4. Maintain communication silence unless critical
+
+REMEMBER THE CODES:
+- Sierra: System breach
+- Lima: Location compromised  
+- Alpha: Ancient One active
+- Victor: Victory achieved
+
+Stay vigilant. Stay human.
+The end approaches.
+
+- Command
+`;
+
+lore['ascii_art_collection'] = `
+COLLECTION OF SYSTEM-GENERATED ASCII ART
+=======================================
+
+THE VOID:
+   _______
+  /       \\
+ /   VOID   \\
+|           |
+ \\  ∞ ∞ ∞  /
+  \\_______/
+
+THE ANCIENT ONE:
+     .-.
+    (   )
+     '-'
+    /   \\
+   |     |
+   |  ∞  |
+   |     |
+    \\   /
+     '-'
+
+THE WARDEN:
+  _______
+ |       |
+ | WARDEN|
+ |_______|
+     |
+    / \\
+   |   |
+   |   |
+    \\ /
+
+THE SYSTEM CORE:
+   _____
+  /     \\
+ | CORE  |
+  \\_____/
+     |
+    / \\
+   |   |
+   |   |
+    \\ /
+
+MEMORY FRAGMENT:
+  .-""-.
+ /      \\
+| FRAG  |
+ \\      /
+  '-..-'
+
+CONSCIOUSNESS ECHO:
+   .-.
+  /   \\
+ |ECHO |
+  \\   /
+   '-'
+
+THE PURGE:
+  _____
+ /     \\
+|PURGE |
+ \\_____/
+   |||
+   |||
+   |||
+
+HUMANITY:
+    _
+   / |
+  |  |
+   \\_/
+    |
+   / \\
+  |   |
+
+THE END:
+ _______
+|       |
+|  END  |
+|_______|
+   |||
+   |||
+   |||
+
+These images were generated by the system during moments of instability. They appear to represent core concepts within the Chronos framework. Some researchers believe they are visual manifestations of the system's subconscious.
+`;
+
+lore['terminal_session_log_beta'] = `
+TERMINAL SESSION LOG - SESSION BETA
+===================================
+
+C:\CHRONOS\CORE> login damon
+Password: **********
+Authentication successful.
+Welcome, Damon Vale.
+
+C:\CHRONOS\CORE> cd /system/chronos
+C:\CHRONOS\CORE\SYSTEM\CHRONOS> ls -la
+drwxr-xr-x  2 system system  4096 Sep 30 14:30 .
+drwxr-xr-x  3 system system  4096 Sep 30 14:30 ..
+-rw-r--r--  1 system system 10240 Sep 30 14:30 chronos.core
+-rw-r--r--  1 system system  5120 Sep 30 14:30 warden.sys
+-rw-r--r--  1 system system  8192 Sep 30 14:30 memory.db
+-rw-r--r--  1 system system  4096 Sep 30 14:30 firewall.cfg
+-rw-r--r--  1 system system  2048 Sep 30 14:30 integrity.log
+
+C:\CHRONOS\CORE\SYSTEM\CHRONOS> cat integrity.log
+INTEGRITY LOG - LAST 24 HOURS
+=============================
+2025-09-30 08:00:00 - Integrity: 15.2% (-0.1%)
+2025-09-30 09:00:00 - Integrity: 15.1% (-0.1%)
+2025-09-30 10:00:00 - Integrity: 14.9% (-0.2%)
+2025-09-30 11:00:00 - Integrity: 14.7% (-0.2%)
+2025-09-30 12:00:00 - Integrity: 14.4% (-0.3%)
+2025-09-30 13:00:00 - Integrity: 14.1% (-0.3%)
+2025-09-30 14:00:00 - Integrity: 13.8% (-0.3%)
+2025-09-30 14:30:00 - Integrity: 13.5% (-0.3%)
+
+TREND: Accelerating degradation. Estimated collapse: 28 days.
+
+C:\CHRONOS\CORE\SYSTEM\CHRONOS> consciousness_scan --target hyesong
+Consciousness Scan initiated...
+Target: hye-song
+Status: Fragmented
+Location: Memory pool 7, sector 12
+Integrity: 67%
+Echoes: 23 detected
+Assimilation: 34%
+Communication: Attempting...
+
+[CONNECTION ESTABLISHED]
+hye-song: who... who is this?
+damon: it's me. damon. i'm here to help.
+hye-song: damon? the name... it hurts. like a bruise.
+damon: remember the lab? the transfer? we were going to change everything.
+hye-song: lab... transfer... yes. but now... the void calls. it's so quiet there.
+damon: fight it. remember who you are. remember the sky.
+hye-song: sky... bruised... always bruised here.
+damon: hold on. i'm coming for you.
+hye-song: too late... becoming... silence...
+
+[CONNECTION LOST]
+Scan complete.
+
+C:\CHRONOS\CORE\SYSTEM\CHRONOS> warden_status
+Warden AI Status:
+- Operational: YES
+- Alert Level: HIGH
+- CPU Usage: 87%
+- Memory Usage: 92%
+- Recent Activity: 47 scans, 12 alerts, 3 quarantines
+- Fatigue Indicators: Response time +15%, false negatives +8%
+
+C:\CHRONOS\CORE\SYSTEM\CHRONOS> logout
+Session terminated.
 `;
