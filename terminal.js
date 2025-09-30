@@ -455,12 +455,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (inputEl) inputEl.focus();
     });
 
-    // Pause menu continue button
+    // Pause menu continue button - now unpauses the game
     document.getElementById('pause-continue').addEventListener('click', () => {
         isPaused = false;
         document.getElementById('pause-menu').classList.add('hidden');
         document.getElementById('pause-backdrop').classList.add('hidden');
         startCaretBlink();
+        // Resume any paused systems
+        try { if (window._pauseRegistry) window._pauseRegistry.resumeAll(); } catch(e){}
     });
 
     // --- Windowing Functions (made globally accessible) ---
