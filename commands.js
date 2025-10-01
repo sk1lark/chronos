@@ -536,6 +536,38 @@ Status: ${integrity < 25 ? 'CRITICAL' : integrity < 50 ? 'WARNING' : 'STABLE'}`;
         analysis += `Resistance Markers: ${Math.random() > 0.7 ? 'PRESENT' : 'ABSENT'}\n`;
         return analysis;
     },
+    save: (args) => {
+        try {
+            if (typeof window !== 'undefined' && window.localStorage) {
+                window.localStorage.setItem('chronos_gameState', JSON.stringify(gameState));
+                return 'Game saved to local storage.';
+            }
+        } catch (e) { return 'Save failed.'; }
+        return 'Save not available.';
+    },
+    load: (args) => {
+        try {
+            if (typeof window !== 'undefined' && window.localStorage) {
+                const data = window.localStorage.getItem('chronos_gameState');
+                if (!data) return 'No saved game found.';
+                const parsed = JSON.parse(data);
+                Object.assign(gameState, parsed);
+                try { if (typeof window !== 'undefined' && typeof window.updateFromGameState === 'function') window.updateFromGameState(); } catch(e){}
+                return 'Game loaded from local storage.';
+            }
+        } catch (e) { return 'Load failed.'; }
+        return 'Load not available.';
+    },
+    sync: (args) => {
+        // Attempt to sync to remote - risky: may increase warden hostility
+        const risk = Math.random();
+        if (risk < 0.35) {
+            gameState.wardenHostility = Math.min(10, gameState.wardenHostility + 2);
+            return 'Sync attempt detected by remote monitors. Warden hostility increased.';
+        }
+        try { if (typeof window !== 'undefined' && typeof window.showAlert === 'function') window.showAlert('Sync completed successfully.'); } catch(e){}
+        return 'Sync completed successfully.';
+    },
     connect: (args) => {
         const target = (args[0] || '').toLowerCase();
         if (!target) return 'Usage: connect <target> - Attempt external connection';

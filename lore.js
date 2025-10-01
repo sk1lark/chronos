@@ -1178,9 +1178,19 @@ Shopping List
 lore['installation_receipt'] = `
 Installation Receipt
 --------------------
-Product: ChronOS Core v3.4
-Installed by: IT Ops
-Date: 03/01/2024
+Product: ChronOS Core v3.4.1
+Installed by: Central Systems - IT Ops
+Installer ID: IT-4231-SILAS
+Machine SN: CHR-2024-09-1137
+Installed on: 2024-03-01T09:14:22Z
+Packages:
+ - core/system (v3.4.1)
+ - warden/monitor (v2.11)
+ - backups/agent (v1.8)
+
+Notes:
+- Verified checksums: OK
+- Post-install: schedule integrity scan (see system_scan_log)
 `;
 
 lore['resume_draft'] = `
@@ -1204,6 +1214,13 @@ Password Hints
 1) First pet's name
 2) Favorite sky color (two words)
 3) Childhood locker number
+`;
+
+// System scan log (background processes append to this)
+lore['system_scan_log'] = `
+System Scan Log
+---------------
+Initial scan created. No anomalies found in core packages.
 `;
 
 lore['file_d_chronos_history'] = `

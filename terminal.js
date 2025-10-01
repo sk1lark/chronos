@@ -2030,4 +2030,45 @@ document.addEventListener('DOMContentLoaded', () => {
     // build initial desktop and taskbar state
     buildDesktopIcons();
     refreshTaskbarButtons();
+
+    // Helper: apply in-memory gameState changes to UI elements
+    window.updateFromGameState = function() {
+        try {
+            const conn = document.getElementById('accounting-conn');
+            if (conn) {
+                conn.className = 'conn-dot ' + (gameState.accounting && gameState.accounting.unlocked ? 'connected' : 'disconnected');
+                conn.title = (gameState.accounting && gameState.accounting.unlocked) ? 'Connected' : 'Disconnected';
+            }
+            // update status bar
+            try { updateStatusBar(); } catch (e) {}
+            // refresh explorer views if open
+            try { if (document.getElementById('explorer-window') && !document.getElementById('explorer-window').classList.contains('hidden')) window.openExplorer(); } catch(e){}
+        } catch (e) { /* non-fatal */ }
+    };
+
+    // Background system scanner: appends to lore['system_scan_log'] and occasionally nudges wardenHostility
+    function startBackgroundScanner() {
+        function runScan() {
+            try {
+                const now = new Date().toISOString();
+                const note = `${now} - scan: integrity ${Math.max(0, Math.floor(gameState.systemIntegrity))}%\n`;
+                if (typeof lore !== 'undefined') {
+                    lore['system_scan_log'] = (lore['system_scan_log'] || '') + '\n' + note;
+                }
+                // small chance to find anomaly
+                if (Math.random() < 0.08) {
+                    gameState.wardenHostility = Math.min(10, gameState.wardenHostility + 1);
+                    // show a subtle alert
+                    try { if (typeof window !== 'undefined' && typeof window.showAlert === 'function') window.showAlert('System scanner detected anomaly.'); } catch(e){}
+                }
+            } catch (e) { /* swallow */ }
+        }
+        // register via pauseRegistry if present so it stops when menu paused
+        if (window._pauseRegistry && typeof window._pauseRegistry.registerInterval === 'function') {
+            window._pauseRegistry.registerInterval(runScan, 45 * 1000); // every 45s
+        } else {
+            setInterval(runScan, 45 * 1000);
+        }
+    }
+    try { startBackgroundScanner(); } catch (e) { console.warn('background scanner failed', e); }
 });
