@@ -540,20 +540,20 @@ Status: ${integrity < 25 ? 'CRITICAL' : integrity < 50 ? 'WARNING' : 'STABLE'}`;
         try {
             if (typeof window !== 'undefined' && window.localStorage) {
                 window.localStorage.setItem('chronos_gameState', JSON.stringify(gameState));
-                return 'Game saved to local storage.';
+                return 'game saved to local storage.';
             }
-        } catch (e) { return 'Save failed.'; }
-        return 'Save not available.';
+        } catch (e) { return 'save failed.'; }
+        return 'save not available.';
     },
     load: (args) => {
         try {
             if (typeof window !== 'undefined' && window.localStorage) {
                 const data = window.localStorage.getItem('chronos_gameState');
-                if (!data) return 'No saved game found.';
+                if (!data) return 'no saved game found.';
                 const parsed = JSON.parse(data);
                 Object.assign(gameState, parsed);
                 try { if (typeof window !== 'undefined' && typeof window.updateFromGameState === 'function') window.updateFromGameState(); } catch(e){}
-                return 'Game loaded from local storage.';
+                return 'game loaded from local storage.';
             }
         } catch (e) { return 'Load failed.'; }
         return 'Load not available.';
@@ -563,10 +563,10 @@ Status: ${integrity < 25 ? 'CRITICAL' : integrity < 50 ? 'WARNING' : 'STABLE'}`;
         const risk = Math.random();
         if (risk < 0.35) {
             gameState.wardenHostility = Math.min(10, gameState.wardenHostility + 2);
-            return 'Sync attempt detected by remote monitors. Warden hostility increased.';
+            return 'sync attempt detected by remote monitors. warden hostility up.';
         }
         try { if (typeof window !== 'undefined' && typeof window.showAlert === 'function') window.showAlert('Sync completed successfully.'); } catch(e){}
-        return 'Sync completed successfully.';
+        return 'sync completed successfully.';
     },
     connect: (args) => {
         const target = (args[0] || '').toLowerCase();
