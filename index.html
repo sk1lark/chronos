@@ -365,11 +365,44 @@
         <button id="pause-continue" class="pause-continue">[etc]</button>
     </div>
     </div>
+    <!-- Core game scripts -->
     <script src="lore.js"></script>
+    <script src="lore_extended.js"></script>
     <script src="dialogue.js"></script>
+    <script src="dialogue_extended.js"></script>
     <script src="aim_chats.js"></script>
+    <script src="aim_extended.js"></script>
     <script src="commands.js"></script>
+    <script src="puzzles.js"></script>
+
+    <!-- Terminal must load last -->
     <script src="terminal.js"></script>
+
+    <!-- Integration verification -->
+    <script>
+        console.log('[chronos] v2.0 expansion loading...');
+        setTimeout(() => {
+            try {
+                const stats = {
+                    lore: Object.keys(lore || {}).length,
+                    dialogue: Object.keys(dialogue || {}).length,
+                    aimChats: Object.keys(aimChats || {}).length,
+                    commands: Object.keys(commands || {}).length
+                };
+                console.log('[chronos] v2.0 loaded successfully!');
+                console.log('[chronos] Lore entries:', stats.lore);
+                console.log('[chronos] Dialogue entries:', stats.dialogue);
+                console.log('[chronos] AIM nodes:', stats.aimChats);
+                console.log('[chronos] Commands:', stats.commands);
+
+                // Check for new content
+                if (lore.tuesday_tape) console.log('[chronos] ✓ Extended lore merged');
+                if (commands.defrag) console.log('[chronos] ✓ Puzzle commands merged');
+            } catch (e) {
+                console.error('[chronos] Error loading expansion:', e);
+            }
+        }, 500);
+    </script>
     <script>
         // Prefill notepad and gently place a sticky note; executed after main scripts
         window.addEventListener('load', () => {

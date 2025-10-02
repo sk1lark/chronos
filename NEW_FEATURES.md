@@ -293,6 +293,4 @@ gameState.puzzles = {
 
 ---
 
-**Enjoy the expanded descent into the chronos system!**
-
 > "the terminal waits. now with 60+ more reasons to fall."

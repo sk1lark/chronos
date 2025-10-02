@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronos v2.0 - Integration Test</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #0f0;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1, h2 { color: #0ff; }
+        .pass { color: #0f0; }
+        .fail { color: #f00; }
+        .warn { color: #ff0; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #0f0; padding: 8px; text-align: left; }
+        th { background: #003300; }
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover { background: #0ff; }
+        .code { background: #111; padding: 10px; border-left: 3px solid #0f0; margin: 10px 0; }
+        pre { margin: 0; }
+    </style>
+</head>
+<body>
+    <h1>CHRONOS v2.0 - Integration Test Suite</h1>
+    <p>This page tests if all expansion files are properly loaded and merged.</p>
+
+    <h2>Quick Actions</h2>
+    <button onclick="runAllTests()">🧪 Run All Tests</button>
+    <button onclick="testAIM()">💬 Test AIM Manually</button>
+    <button onclick="location.href='index.html'">🎮 Launch Game</button>
+
+    <h2>Test Results</h2>
+    <div id="results"></div>
+
+    <h2>Console Output</h2>
+    <div class="code"><pre id="console-output">Waiting for tests...</pre></div>
+
+    <!-- Load all game scripts in same order as main game -->
+    <script src="lore.js"></script>
+    <script src="lore_extended.js"></script>
+    <script src="dialogue.js"></script>
+    <script src="dialogue_extended.js"></script>
+    <script src="aim_chats.js"></script>
+    <script src="aim_extended.js"></script>
+    <script src="commands.js"></script>
+    <script src="puzzles.js"></script>
+
+    <script>
+        // Capture console logs
+        const logs = [];
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+
+        console.log = function(...args) {
+            logs.push({ type: 'log', msg: args.join(' ') });
+            originalLog.apply(console, args);
+            updateConsoleOutput();
+        };
+        console.error = function(...args) {
+            logs.push({ type: 'error', msg: args.join(' ') });
+            originalError.apply(console, args);
+            updateConsoleOutput();
+        };
+        console.warn = function(...args) {
+            logs.push({ type: 'warn', msg: args.join(' ') });
+            originalWarn.apply(console, args);
+            updateConsoleOutput();
+        };
+
+        function updateConsoleOutput() {
+            const output = document.getElementById('console-output');
+            output.textContent = logs.map(l => {
+                const prefix = l.type === 'error' ? '❌' : l.type === 'warn' ? '⚠️' : '✓';
+                return `${prefix} ${l.msg}`;
+            }).join('\n');
+        }
+
+        function runAllTests() {
+            console.log('[TEST] Starting integration tests...');
+            const results = [];
+
+            // Test 1: Core objects exist
+            results.push({
+                name: 'Core Objects Loaded',
+                tests: [
+                    { desc: 'lore object exists', pass: typeof lore !== 'undefined' },
+                    { desc: 'dialogue object exists', pass: typeof dialogue !== 'undefined' },
+                    { desc: 'aimChats object exists', pass: typeof aimChats !== 'undefined' },
+                    { desc: 'commands object exists', pass: typeof commands !== 'undefined' },
+                    { desc: 'gameState object exists', pass: typeof gameState !== 'undefined' }
+                ]
+            });
+
+            // Test 2: Extended objects exist
+            results.push({
+                name: 'Extended Objects Loaded',
+                tests: [
+                    { desc: 'lore_extended exists', pass: typeof lore_extended !== 'undefined' },
+                    { desc: 'dialogue_extended exists', pass: typeof dialogue_extended !== 'undefined' },
+                    { desc: 'aimChatsExtended exists', pass: typeof aimChatsExtended !== 'undefined' },
+                    { desc: 'puzzleCommands exists', pass: typeof puzzleCommands !== 'undefined' }
+                ]
+            });
+
+            // Test 3: Content merged
+            results.push({
+                name: 'Content Properly Merged',
+                tests: [
+                    { desc: 'lore.tuesday_tape exists', pass: lore && lore.tuesday_tape !== undefined },
+                    { desc: 'lore.jordan_cat_memory exists', pass: lore && lore.jordan_cat_memory !== undefined },
+                    { desc: 'dialogue.tuesday_tape exists', pass: dialogue && dialogue.tuesday_tape !== undefined },
+                    { desc: 'commands.defrag exists', pass: commands && commands.defrag !== undefined },
+                    { desc: 'commands.cipher exists', pass: commands && commands.cipher !== undefined },
+                    { desc: 'commands.hack exists', pass: commands && commands.hack !== undefined }
+                ]
+            });
+
+            // Test 4: Counts
+            const loreCount = lore ? Object.keys(lore).length : 0;
+            const dialogueCount = dialogue ? Object.keys(dialogue).length : 0;
+            const aimCount = aimChats ? Object.keys(aimChats).length : 0;
+            const cmdCount = commands ? Object.keys(commands).length : 0;
+
+            results.push({
+                name: 'Content Counts',
+                tests: [
+                    { desc: `Lore entries: ${loreCount}`, pass: loreCount > 80 },
+                    { desc: `Dialogue entries: ${dialogueCount}`, pass: dialogueCount > 60 },
+                    { desc: `AIM nodes: ${aimCount}`, pass: aimCount > 100 },
+                    { desc: `Commands: ${cmdCount}`, pass: cmdCount > 35 }
+                ]
+            });
+
+            // Test 5: Puzzle state
+            results.push({
+                name: 'Puzzle System',
+                tests: [
+                    { desc: 'gameState.puzzles exists', pass: gameState && gameState.puzzles !== undefined },
+                    { desc: 'Puzzle commands callable', pass: typeof commands.inventory === 'function' },
+                    { desc: 'find_tool command exists', pass: typeof commands.find_tool === 'function' }
+                ]
+            });
+
+            // Test 6: Sample lore content
+            results.push({
+                name: 'Sample Lore Quality Check',
+                tests: [
+                    { desc: 'tuesday_tape is non-empty', pass: lore.tuesday_tape && lore.tuesday_tape.length > 10 },
+                    { desc: 'jordan_game_realization exists', pass: lore.jordan_game_realization !== undefined },
+                    { desc: 'hye_song_last_real_day exists', pass: lore.hye_song_last_real_day !== undefined }
+                ]
+            });
+
+            // Render results
+            renderResults(results);
+
+            // Log summary
+            const total = results.reduce((sum, r) => sum + r.tests.length, 0);
+            const passed = results.reduce((sum, r) => sum + r.tests.filter(t => t.pass).length, 0);
+            console.log(`[TEST] Complete: ${passed}/${total} tests passed`);
+
+            if (passed === total) {
+                console.log('[TEST] ✅ ALL TESTS PASSED! Integration successful.');
+            } else {
+                console.error(`[TEST] ❌ ${total - passed} tests failed. Check results above.`);
+            }
+        }
+
+        function renderResults(results) {
+            const container = document.getElementById('results');
+            let html = '';
+
+            results.forEach(section => {
+                const passed = section.tests.filter(t => t.pass).length;
+                const total = section.tests.length;
+                const allPass = passed === total;
+
+                html += `<h3 class="${allPass ? 'pass' : 'fail'}">${section.name} (${passed}/${total})</h3>`;
+                html += '<table><tr><th>Test</th><th>Result</th></tr>';
+
+                section.tests.forEach(test => {
+                    const status = test.pass ? '<span class="pass">✓ PASS</span>' : '<span class="fail">✗ FAIL</span>';
+                    html += `<tr><td>${test.desc}</td><td>${status}</td></tr>`;
+                });
+
+                html += '</table>';
+            });
+
+            container.innerHTML = html;
+        }
+
+        function testAIM() {
+            console.log('[TEST] Testing AIM chat system...');
+
+            if (typeof aimChats === 'undefined') {
+                console.error('[TEST] ❌ aimChats not loaded!');
+                return;
+            }
+
+            const startNode = aimChats.start;
+            if (!startNode) {
+                console.error('[TEST] ❌ aimChats.start not found!');
+                return;
+            }
+
+            console.log('[TEST] ✓ AIM start node exists');
+            console.log('[TEST] Message:', startNode.message);
+            console.log('[TEST] Options:', startNode.options.length);
+
+            // Test extended nodes
+            const extended = ['branch_deep_reveal_60', 'branch_deep_reveal_100', 'branch_deep_reveal_140'];
+            extended.forEach(key => {
+                if (aimChats[key]) {
+                    console.log(`[TEST] ✓ Extended node ${key} found`);
+                } else {
+                    console.warn(`[TEST] ⚠️ Extended node ${key} not found`);
+                }
+            });
+
+            console.log('[TEST] AIM system appears functional. Open main game to test fully.');
+        }
+
+        // Auto-run tests on load
+        window.addEventListener('load', () => {
+            setTimeout(runAllTests, 500);
+        });
+    </script>
+
+    <h2>Manual Test Commands</h2>
+    <p>Open browser console (F12) and try these:</p>
+    <div class="code"><pre>// Check lore
+console.log(lore.tuesday_tape);
+console.log(lore.jordan_cat_memory);
+
+// Check commands
+console.log(commands.defrag.toString());
+console.log(commands.hack.toString());
+
+// Check AIM
+console.log(aimChats.start);
+console.log(aimChats.branch_deep_reveal_60);
+
+// Test command execution
+commands.inventory([]);
+commands.find_tool(['cipher']);</pre></div>
+
+    <h2>Troubleshooting</h2>
+    <div class="code">
+        <strong>If tests fail:</strong>
+        <ol>
+            <li>Check browser console (F12) for errors</li>
+            <li>Verify all .js files exist in same directory</li>
+            <li>Clear browser cache (Ctrl+Shift+R)</li>
+            <li>Check file names match exactly (case-sensitive)</li>
+            <li>See <a href="BUGFIX_INTEGRATION.md" style="color: #0ff;">BUGFIX_INTEGRATION.md</a></li>
+        </ol>
+    </div>
+
+    <footer style="margin-top: 40px; border-top: 1px solid #0f0; padding-top: 20px; color: #666;">
+        <p>Chronos v2.0 Integration Test Suite</p>
+        <p>If all tests pass, the expansion is properly integrated!</p>
+    </footer>
+</body>
+</html>
